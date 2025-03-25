@@ -4,5 +4,140 @@
     android:background="@color/background"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="right">
 
+        <Button
+            android:id="@+id/RegistrationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/account_registration"
+            android:textColor="#1E1E1E"
+            android:gravity="end|right"
+            android:background="@android:color/transparent"
+            android:textAllCaps="false"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_light" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:orientation="vertical"
+        android:gravity="top|center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:text="Увійти"
+            android:textSize="32dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_semibold" />
+
+        <TextView
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            android:text="Введіть свою електрону пошту та пароль, щоб здійснити вхід в акаунт"
+            android:textSize="13dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <EditText
+            android:id="@+id/EmailEditText"
+            android:inputType="text"
+            android:hint="poshta@gmail.com"
+            android:textColor="#848383"
+            android:layout_marginTop="15dp"
+            android:textSize="13sp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="325dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_background_edittext"
+            android:paddingHorizontal="20dp"
+            android:elevation="3dp"
+            android:fontFamily="@font/inter_light"
+            android:gravity="start|center_vertical" />
+
+        <EditText
+            android:id="@+id/PasswordEditText"
+            android:inputType="text"
+            android:hint="Пароль"
+            android:textColor="#848383"
+            android:layout_marginTop="0dp"
+            android:textSize="13sp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="325dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_background_edittext"
+            android:paddingHorizontal="20dp"
+            android:elevation="3dp"
+            android:fontFamily="@font/inter_light"
+            android:gravity="start|center_vertical" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/LoginButton"
+            android:layout_width="325dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:text="УВІЙТИ"
+            android:gravity="center"
+            android:background="@drawable/rounded_background_button"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:stateListAnimator="@null"
+            android:fontFamily="@font/inter_semibold" />
+
+        <TextView
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="або"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <ImageButton
+            android:id="@+id/FacebookButton"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerInside"
+            android:layout_gravity="top"
+            android:src="@drawable/facebook_button"
+            android:background="@null" />
+
+        <ImageButton
+            android:id="@+id/GoogleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerInside"
+            android:layout_gravity="top"
+            android:src="@drawable/google_button"
+            android:background="@null" />
+
+        <ImageButton
+            android:id="@+id/AppleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerInside"
+            android:layout_gravity="top"
+            android:src="@drawable/apple_button"
+            android:background="@null" />
+
+    </LinearLayout>
 </LinearLayout>
