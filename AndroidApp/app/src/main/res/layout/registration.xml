@@ -13,11 +13,11 @@
         android:gravity="right">
 
         <Button
-            android:id="@+id/RegistrationButton"
+            android:id="@+id/LoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/account_registration"
+            android:text="@string/account_login"
             android:textColor="#1E1E1E"
             android:gravity="end|right"
             android:background="@android:color/transparent"
@@ -38,8 +38,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:text="Увійти"
+            android:layout_marginTop="90dp"
+            android:text="Реєстрація"
             android:textSize="32dp"
             android:textColor="#1E1E1E"
             android:fontFamily="@font/inter_semibold" />
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:gravity="center"
-            android:text="Введіть свою електрону пошту та пароль, щоб здійснити вхід в акаунт"
+            android:text="Введіть свою особисту інформацію, щоб зареєструвати новй акаунт"
             android:textSize="13dp"
             android:textColor="#1E1E1E"
             android:fontFamily="@font/inter_light" />
@@ -60,6 +60,38 @@
             android:hint="poshta@gmail.com"
             android:textColor="#848383"
             android:layout_marginTop="18dp"
+            android:textSize="13sp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="325dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_background_edittext"
+            android:paddingHorizontal="20dp"
+            android:elevation="3dp"
+            android:fontFamily="@font/inter_light"
+            android:gravity="start|center_vertical" />
+
+        <EditText
+            android:id="@+id/NameEditText"
+            android:inputType="text"
+            android:hint="Ім'я"
+            android:textColor="#848383"
+            android:layout_marginTop="0dp"
+            android:textSize="13sp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="325dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_background_edittext"
+            android:paddingHorizontal="20dp"
+            android:elevation="3dp"
+            android:fontFamily="@font/inter_light"
+            android:gravity="start|center_vertical" />
+
+        <EditText
+            android:id="@+id/SurnameEditText"
+            android:inputType="text"
+            android:hint="Прізвище"
+            android:textColor="#848383"
+            android:layout_marginTop="0dp"
             android:textSize="13sp"
             android:layout_marginBottom="10dp"
             android:layout_width="325dp"
@@ -86,12 +118,23 @@
             android:fontFamily="@font/inter_light"
             android:gravity="start|center_vertical" />
 
+        <CheckBox
+            android:id="@+id/checkbox"
+            style="@style/CheckBoxNoAnimation"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:textSize="12dp"
+            android:textColor="#848484"
+            android:text="Я погоджуюсь з умовами користування та політикою конфіденційності"
+            android:buttonTint="#848484"/>
+
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/LoginButton"
+            android:id="@+id/RegistrationButton"
             android:layout_width="325dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:text="УВІЙТИ"
+            android:text="ЗАРЕЄСТРУВАТИ"
             android:gravity="center"
             android:background="@drawable/rounded_background_button"
             android:textColor="@color/white"

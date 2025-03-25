@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CheckBoxNoAnimation" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:animateLayoutChanges">false</item>
+        <item name="android:background">@null</item>
+    </style>
+</resources>

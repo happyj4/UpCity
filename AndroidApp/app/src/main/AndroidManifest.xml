@@ -28,6 +28,12 @@
             android:theme="@style/Theme.All"
             android:exported="false">
         </activity>
+
+        <activity
+            android:name=".RegistrationActivity"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>

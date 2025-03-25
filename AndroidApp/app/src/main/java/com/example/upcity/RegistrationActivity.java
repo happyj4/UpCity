@@ -6,17 +6,17 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.registration);
 
-        Button registartion_button = findViewById(R.id.RegistrationButton);
+        Button login_button = findViewById(R.id.LoginButton);
 
-        registartion_button.setOnClickListener(view -> {
-            Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+        login_button.setOnClickListener(view -> {
+            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(0, 0);
             finish();
