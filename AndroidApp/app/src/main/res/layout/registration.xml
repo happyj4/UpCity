@@ -181,6 +181,5 @@
             android:layout_gravity="top"
             android:src="@drawable/apple_button"
             android:background="@null" />
-
     </LinearLayout>
 </LinearLayout>
