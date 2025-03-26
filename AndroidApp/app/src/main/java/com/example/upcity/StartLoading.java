@@ -34,8 +34,8 @@ public class StartLoading extends AppCompatActivity {
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
                     }
-                }, 1000);
+                }, 900);
             }
-        }, 2200);
+        }, 2000);
     }
 }

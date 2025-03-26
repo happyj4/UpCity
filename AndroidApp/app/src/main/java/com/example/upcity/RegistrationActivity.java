@@ -13,9 +13,9 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
 
-        Button login_button = findViewById(R.id.LoginButton);
+        Button LoginButton = findViewById(R.id.LoginButton);
 
-        login_button.setOnClickListener(view -> {
+        LoginButton.setOnClickListener(view -> {
             Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(0, 0);

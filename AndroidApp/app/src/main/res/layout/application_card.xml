@@ -61,7 +61,7 @@
                 android:id="@+id/ApplicationDate"
                 android:layout_width="81dp"
                 android:layout_height="24dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="7dp"
                 android:gravity="center"
                 android:text="10.10.2025"
                 android:textSize="14dp"

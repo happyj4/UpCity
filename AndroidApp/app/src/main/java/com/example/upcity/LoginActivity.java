@@ -13,10 +13,18 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        Button registartion_button = findViewById(R.id.RegistrationButton);
+        Button RegistrationButton = findViewById(R.id.RegistrationButton);
+        Button LoginButton = findViewById(R.id.LoginButton);
 
-        registartion_button.setOnClickListener(view -> {
+        RegistrationButton.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+            finish();
+        });
+
+        LoginButton.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
             startActivity(intent);
             overridePendingTransition(0, 0);
             finish();
