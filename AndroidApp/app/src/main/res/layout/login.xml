@@ -68,7 +68,8 @@
             android:paddingHorizontal="20dp"
             android:elevation="3dp"
             android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical" />
+            android:gravity="start|center_vertical"
+            android:textCursorDrawable="@null"/>
 
         <EditText
             android:id="@+id/PasswordEditText"
@@ -84,7 +85,8 @@
             android:paddingHorizontal="20dp"
             android:elevation="3dp"
             android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical" />
+            android:gravity="start|center_vertical"
+            android:textCursorDrawable="@null"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/LoginButton"

@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="87dp"
             android:text="Реєстрація"
             android:textSize="32dp"
             android:textColor="#1E1E1E"
@@ -68,7 +68,8 @@
             android:paddingHorizontal="20dp"
             android:elevation="3dp"
             android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical" />
+            android:gravity="start|center_vertical"
+            android:textCursorDrawable="@null"/>
 
         <EditText
             android:id="@+id/NameEditText"
@@ -84,7 +85,8 @@
             android:paddingHorizontal="20dp"
             android:elevation="3dp"
             android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical" />
+            android:gravity="start|center_vertical"
+            android:textCursorDrawable="@null"/>
 
         <EditText
             android:id="@+id/SurnameEditText"
@@ -100,7 +102,8 @@
             android:paddingHorizontal="20dp"
             android:elevation="3dp"
             android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical" />
+            android:gravity="start|center_vertical"
+            android:textCursorDrawable="@null"/>
 
         <EditText
             android:id="@+id/PasswordEditText"
@@ -116,7 +119,8 @@
             android:paddingHorizontal="20dp"
             android:elevation="3dp"
             android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical" />
+            android:gravity="start|center_vertical"
+            android:textCursorDrawable="@null"/>
 
         <CheckBox
             android:id="@+id/checkbox"

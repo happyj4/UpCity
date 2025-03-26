@@ -36,6 +36,6 @@ public class StartLoading extends AppCompatActivity {
                     }
                 }, 1000);
             }
-        }, 2000);
+        }, 2200);
     }
 }
