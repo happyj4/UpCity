@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="157dp"
+    android:layout_height="172dp"
+    android:orientation="vertical"
+    android:layout_marginTop="65dp"
+    android:layout_marginLeft="248dp"
+    android:gravity="center"
+    android:elevation="5dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/rounded_background_edittext">
+
+    <Button
+        android:id="@+id/EditProfileButton"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:text="Редагувати профіль"
+        android:textColor="#1E1E1E"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        android:fontFamily="@font/inter_light" />
+
+    <Button
+        android:id="@+id/MyApplicationButton"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="Мої звернення"
+        android:textColor="#1E1E1E"
+        android:background="@android:color/transparent"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        android:fontFamily="@font/inter_light" />
+
+    <Button
+        android:id="@+id/AllApplicationButton"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="Всі звернення"
+        android:textColor="#1E1E1E"
+        android:background="@android:color/transparent"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        android:fontFamily="@font/inter_light" />
+
+    <Button
+        android:id="@+id/PremiumButton"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="Преміум-підписка"
+        android:textColor="#1E1E1E"
+        android:background="@android:color/transparent"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        android:fontFamily="@font/inter_light" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#868686" />
+
+    <Button
+        android:id="@+id/ExitButton"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="Вийти"
+        android:textColor="#1E1E1E"
+        android:background="@android:color/transparent"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        android:fontFamily="@font/inter_light" />
+
+</LinearLayout>

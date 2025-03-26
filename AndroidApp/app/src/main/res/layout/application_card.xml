@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="185dp"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:layout_marginBottom="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/rounded_background_card"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="185dp"
+        android:layout_height="98dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/rounded_background_edittext"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/ApplicationId"
+            android:layout_width="315dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="7dp"
+            android:gravity="left"
+            android:text="#1-2634"
+            android:textSize="12dp"
+            android:textColor="#3A3A3A"
+            android:fontFamily="@font/inter_light" />
+
+        <TextView
+            android:id="@+id/ApplicationName"
+            android:layout_width="315dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="0dp"
+            android:gravity="left"
+            android:text="Ями на дорогах"
+            android:textSize="16dp"
+            android:textColor="#3A3A3A"
+            android:fontFamily="@font/inter_semibold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:gravity="center|left">
+
+            <ImageView
+                android:id="@+id/ApplicationStatus"
+                android:layout_width="81dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center"
+                android:src="@drawable/completed_application" />
+
+            <TextView
+                android:id="@+id/ApplicationDate"
+                android:layout_width="81dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="10.10.2025"
+                android:textSize="14dp"
+                android:textColor="#848484"
+                android:background="@drawable/rounded_background_date"
+                android:fontFamily="@font/inter_regular" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ApplicationKpId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:gravity="left"
+            android:text="КП«Щасливе місто»"
+            android:textSize="12dp"
+            android:textColor="#848484"
+            android:fontFamily="@font/inter_light" />
+    </LinearLayout>
+</LinearLayout>

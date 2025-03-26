@@ -1,0 +1,157 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="left">
+
+        <ImageButton
+            android:id="@+id/PlusButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/plusbutton"
+            android:background="@null" />
+
+        <TextView
+            android:id="@+id/NameText"
+            android:layout_width="315dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="28dp"
+            android:gravity="left"
+            android:text="Єлизавета Денисенко"
+            android:textSize="14dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_medium" />
+
+        <ImageButton
+            android:id="@+id/PhotoButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="14dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/photo"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Photo Button"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:orientation="vertical"
+        android:gravity="top|left">
+
+        <LinearLayout
+            android:layout_width="110dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="-5dp"
+            android:background="@drawable/rounded_background_edittext"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ListButton"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/list_button"
+                android:background="@null" />
+
+            <ImageButton
+                android:id="@+id/MapButton"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/map_button"
+                android:background="@null" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="22dp"
+                android:gravity="center_vertical"
+                android:text="Мої звернення"
+                android:textSize="24dp"
+                android:textColor="#1E1E1E"
+                android:fontFamily="@font/inter_semibold" />
+
+            <Button
+                android:id="@+id/OpenMyButton"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="75dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/inter_light"
+                android:gravity="center"
+                android:text="ПЕРЕГЛЯНУТИ ВСІ"
+                android:textColor="#1E1E1E"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/MyList"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginLeft="22dp"
+            android:scrollbars="none"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:text="Всі звернення"
+            android:textSize="24dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_semibold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/AllList"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="22dp"
+            android:scrollbars="none"
+            android:orientation="horizontal" />
+
+        <Button
+            android:id="@+id/OpenAllButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/inter_light"
+            android:gravity="center"
+            android:text="ПЕРЕГЛЯНУТИ ВСІ"
+            android:textColor="#1E1E1E"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+</LinearLayout>
