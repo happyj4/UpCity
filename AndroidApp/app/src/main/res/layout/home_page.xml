@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical">
 
@@ -34,17 +35,17 @@
             android:textColor="#1E1E1E"
             android:fontFamily="@font/inter_medium" />
 
-        <ImageButton
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/PhotoButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="14dp"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
             android:src="@drawable/photo"
-            android:background="@null"
             android:clickable="true"
             android:focusable="true"
-            android:contentDescription="Photo Button"/>
+            android:contentDescription="Photo Button"
+            app:shapeAppearanceOverlay="@style/CustomCircle"/>
 
     </LinearLayout>
 
