@@ -45,5 +45,11 @@
             android:exported="false">
         </activity>
 
+        <activity
+            android:name=".CreateApplicationPage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
     </application>
 </manifest>

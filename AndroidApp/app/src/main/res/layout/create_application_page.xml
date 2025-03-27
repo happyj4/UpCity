@@ -1,0 +1,257 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="left">
+
+        <ImageButton
+            android:id="@+id/PlusButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/plusbutton"
+            android:background="@null" />
+
+        <TextView
+            android:id="@+id/NameText"
+            android:layout_width="315dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="28dp"
+            android:gravity="left"
+            android:text="Єлизавета Денисенко"
+            android:textSize="14dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_medium" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/PhotoButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="14dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/photo"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Photo Button"
+            app:shapeAppearanceOverlay="@style/CustomCircle"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:orientation="vertical"
+        android:gravity="top|left">
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <ImageButton
+                android:id="@+id/ListButton"
+                android:layout_width="13dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/home_button"
+                android:background="@null"
+                android:paddingEnd="1dp"/>
+
+            <Button
+                android:id="@+id/HomeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                android:layout_marginTop="-1dp"
+                android:layout_marginLeft="5dp"
+                android:text="на головну"
+                android:textColor="#848484"
+                android:background="@android:color/transparent"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:paddingStart="0dp"
+                android:fontFamily="@font/inter_light"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:text="Створення звернення"
+            android:textSize="24dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_semibold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:text="Назва"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <EditText
+            android:id="@+id/NameEditText"
+            android:inputType="text"
+            android:hint=""
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#848383"
+            android:textSize="13sp"
+            android:layout_width="365dp"
+            android:layout_height="35dp"
+            android:background="@drawable/rounded_background_edittext"
+            android:paddingHorizontal="20dp"
+            android:elevation="3dp"
+            android:fontFamily="@font/inter_light"
+            android:gravity="start|center_vertical"
+            android:textCursorDrawable="@null"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="13dp"
+            android:gravity="center_vertical"
+            android:text="Адреса"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <EditText
+            android:id="@+id/AddressEditText"
+            android:inputType="text"
+            android:hint=""
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#848383"
+            android:textSize="13sp"
+            android:layout_width="365dp"
+            android:layout_height="35dp"
+            android:background="@drawable/rounded_background_edittext"
+            android:paddingHorizontal="20dp"
+            android:elevation="3dp"
+            android:fontFamily="@font/inter_light"
+            android:gravity="start|center_vertical"
+            android:textCursorDrawable="@null"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="13dp"
+            android:gravity="center_vertical"
+            android:text="КП"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <EditText
+            android:id="@+id/KpEditText"
+            android:inputType="text"
+            android:hint=""
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#848383"
+            android:textSize="13sp"
+            android:layout_width="365dp"
+            android:layout_height="35dp"
+            android:background="@drawable/rounded_background_edittext"
+            android:paddingHorizontal="20dp"
+            android:elevation="3dp"
+            android:fontFamily="@font/inter_light"
+            android:gravity="start|center_vertical"
+            android:textCursorDrawable="@null"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="13dp"
+            android:gravity="center_vertical"
+            android:text="Опис"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <EditText
+            android:id="@+id/DescriptionEditText"
+            android:inputType="textMultiLine"
+            android:hint=""
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#848383"
+            android:textSize="13sp"
+            android:layout_width="365dp"
+            android:layout_height="70dp"
+            android:background="@drawable/rounded_background_edittext"
+            android:paddingHorizontal="20dp"
+            android:elevation="3dp"
+            android:fontFamily="@font/inter_light"
+            android:paddingTop="10dp"
+            android:gravity="start|top"
+            android:textCursorDrawable="@null"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:text="Додати фото"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <ImageButton
+            android:id="@+id/AddPhotoButton"
+            android:layout_width="365dp"
+            android:layout_height="132dp"
+            android:layout_marginLeft="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/empty_photo_application"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/rounded_background_photo_application" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/LoginButton"
+            android:layout_width="365dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:text="СТВОРИТИ ЗВЕРНЕННЯ"
+            android:gravity="center"
+            android:background="@drawable/rounded_background_button"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:stateListAnimator="@null"
+            android:fontFamily="@font/inter_semibold" />
+
+    </LinearLayout>
+</LinearLayout>
