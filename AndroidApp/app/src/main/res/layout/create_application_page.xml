@@ -240,7 +240,7 @@
             android:background="@drawable/rounded_background_photo_application" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/LoginButton"
+            android:id="@+id/CreateApplicationButton"
             android:layout_width="365dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
@@ -252,6 +252,5 @@
             android:textSize="16sp"
             android:stateListAnimator="@null"
             android:fontFamily="@font/inter_semibold" />
-
     </LinearLayout>
 </LinearLayout>
