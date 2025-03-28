@@ -3,6 +3,7 @@ package com.example.upcity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class MessagePage extends AppCompatActivity {
         setContentView(R.layout.message_page);
 
         Button HomeButton = findViewById(R.id.HomeButton);
+        ImageButton PlusButton = findViewById(R.id.PlusButton);
         ShapeableImageView PhotoButton = findViewById(R.id.PhotoButton);
         TextView NameMessageText = findViewById(R.id.NameMessageText);
         TextView DescriptionMessageText = findViewById(R.id.DescriptionMessageText);
@@ -28,6 +30,13 @@ public class MessagePage extends AppCompatActivity {
 
         menu = new Menu();
         PhotoButton.setOnClickListener(view -> menu.showPopupMenu(view, MessagePage.this));
+
+        PlusButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MessagePage.this, CreateApplicationPage.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+            finish();
+        });
 
         HomeButton.setOnClickListener(view -> {
             Intent intent = new Intent(MessagePage.this, HomePageActivity.class);
