@@ -40,7 +40,7 @@
         </activity>
 
         <activity
-            android:name=".HomePageActivity"
+            android:name=".HomePage"
             android:theme="@style/Theme.All"
             android:exported="false">
         </activity>
@@ -53,6 +53,12 @@
 
         <activity
             android:name=".MessagePage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".AllApplicationPage"
             android:theme="@style/Theme.All"
             android:exported="false">
         </activity>

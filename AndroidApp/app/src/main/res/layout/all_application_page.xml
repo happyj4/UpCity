@@ -21,8 +21,6 @@
             android:layout_marginLeft="15dp"
             android:scaleType="centerInside"
             android:src="@drawable/plusbutton"
-            android:clickable="true"
-            android:focusable="true"
             android:background="@null" />
 
         <TextView
@@ -60,35 +58,39 @@
         android:gravity="top|left">
 
         <LinearLayout
-            android:layout_width="110dp"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="-5dp"
-            android:background="@drawable/rounded_background_edittext"
-            android:gravity="left"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp">
 
             <ImageButton
                 android:id="@+id/ListButton"
-                android:layout_width="32dp"
+                android:layout_width="13dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/list_button"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@null" />
+                android:src="@drawable/home_button"
+                android:background="@null"
+                android:paddingEnd="1dp"/>
 
-            <ImageButton
-                android:id="@+id/MapButton"
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/map_button"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@null" />
+            <Button
+                android:id="@+id/HomeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                android:layout_marginTop="-1dp"
+                android:layout_marginLeft="5dp"
+                android:text="на головну"
+                android:textColor="#848484"
+                android:background="@android:color/transparent"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:paddingStart="0dp"
+                android:fontFamily="@font/inter_light"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -103,68 +105,26 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:gravity="center_vertical"
-                android:text="Мої звернення"
-                android:textSize="24dp"
-                android:textColor="#1E1E1E"
-                android:fontFamily="@font/inter_semibold" />
-
-            <Button
-                android:id="@+id/OpenMyButton"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="75dp"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/inter_light"
-                android:gravity="center"
-                android:text="ПЕРЕГЛЯНУТИ ВСІ"
-                android:textColor="#1E1E1E"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/MyList"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_marginLeft="15dp"
-            android:scrollbars="none"
-            android:orientation="horizontal" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="30dp"
-            android:gravity="left"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:gravity="center_vertical"
                 android:text="Всі звернення"
                 android:textSize="24dp"
                 android:textColor="#1E1E1E"
                 android:fontFamily="@font/inter_semibold" />
 
-            <Button
+            <ImageView
                 android:id="@+id/OpenAllButton"
-                android:layout_width="150dp"
+                android:layout_width="16dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="75dp"
+                android:layout_marginLeft="193dp"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/inter_light"
                 android:gravity="center"
-                android:text="ПЕРЕГЛЯНУТИ ВСІ"
-                android:textColor="#1E1E1E"
-                android:textSize="10sp" />
+                android:src="@drawable/sort_button" />
 
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/AllList"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:scrollbars="none"
             android:orientation="horizontal" />

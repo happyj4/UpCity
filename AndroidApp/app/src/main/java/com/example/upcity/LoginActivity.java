@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         LoginButton.setOnClickListener(view -> {
-            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomePage.class);
             startActivity(intent);
             overridePendingTransition(0, 0);
             finish();

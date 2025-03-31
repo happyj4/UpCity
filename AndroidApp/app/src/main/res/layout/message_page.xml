@@ -64,7 +64,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingStart="20dp"
+            android:paddingStart="15dp"
             android:paddingEnd="20dp">
 
             <ImageButton

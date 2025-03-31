@@ -2,14 +2,12 @@ package com.example.upcity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.PopupWindow;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
@@ -17,31 +15,15 @@ import com.google.android.material.imageview.ShapeableImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePageActivity extends AppCompatActivity {
-    private Menu menu;
+public class AllApplicationPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
+        setContentView(R.layout.all_application_page);
+        addToolbar();
 
-        ImageButton PlusButton = findViewById(R.id.PlusButton);
-        RecyclerView MyList = findViewById(R.id.MyList);
         RecyclerView AllList = findViewById(R.id.AllList);
-        ShapeableImageView PhotoButton = findViewById(R.id.PhotoButton);
-
-        menu = new Menu();
-        PhotoButton.setOnClickListener(view -> menu.showPopupMenu(view, HomePageActivity.this));
-
-        PlusButton.setOnClickListener(view -> {
-            Intent intent = new Intent(HomePageActivity.this, CreateApplicationPage.class);
-            startActivity(intent);
-            overridePendingTransition(0, 0);
-            finish();
-        });
-
-        LinearLayoutManager layoutManagerMyList = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        MyList.setLayoutManager(layoutManagerMyList);
 
         GridLayoutManager gridLayoutManagerAllList = new GridLayoutManager(this, 2);
         AllList.setLayoutManager(gridLayoutManagerAllList);
@@ -54,12 +36,35 @@ public class HomePageActivity extends AppCompatActivity {
         ApplicationAdapter adapter = new ApplicationAdapter(applicationList, new ApplicationAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Application application) {
-                Toast.makeText(HomePageActivity.this, "Клик на: " + application.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AllApplicationPage.this, "Клик на: " + application.getName(), Toast.LENGTH_SHORT).show();
             }
         });
 
-        MyList.setAdapter(adapter);
         AllList.setAdapter(adapter);
+    }
 
+    public void addToolbar() {
+        Menu menu;
+
+        ImageButton PlusButton = findViewById(R.id.PlusButton);
+        ShapeableImageView PhotoButton = findViewById(R.id.PhotoButton);
+        Button HomeButton = findViewById(R.id.HomeButton);
+
+        menu = new Menu();
+        PhotoButton.setOnClickListener(view -> menu.showPopupMenu(view, AllApplicationPage.this));
+
+        PlusButton.setOnClickListener(view -> {
+            Intent intent = new Intent(AllApplicationPage.this, CreateApplicationPage.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+            finish();
+        });
+
+        HomeButton.setOnClickListener(view -> {
+            Intent intent = new Intent(AllApplicationPage.this, HomePage.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+            finish();
+        });
     }
 }

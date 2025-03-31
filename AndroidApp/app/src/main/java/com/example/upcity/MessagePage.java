@@ -17,16 +17,22 @@ public class MessagePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message_page);
+        addToolbar();
 
-        Button HomeButton = findViewById(R.id.HomeButton);
-        ImageButton PlusButton = findViewById(R.id.PlusButton);
-        ShapeableImageView PhotoButton = findViewById(R.id.PhotoButton);
         TextView NameMessageText = findViewById(R.id.NameMessageText);
         TextView DescriptionMessageText = findViewById(R.id.DescriptionMessageText);
 
         Intent oldintent = getIntent();
         NameMessageText.setText(oldintent.getStringExtra("name"));
         DescriptionMessageText.setText(oldintent.getStringExtra("description"));
+    }
+
+    public void addToolbar() {
+        Menu menu;
+
+        ImageButton PlusButton = findViewById(R.id.PlusButton);
+        ShapeableImageView PhotoButton = findViewById(R.id.PhotoButton);
+        Button HomeButton = findViewById(R.id.HomeButton);
 
         menu = new Menu();
         PhotoButton.setOnClickListener(view -> menu.showPopupMenu(view, MessagePage.this));
@@ -39,7 +45,7 @@ public class MessagePage extends AppCompatActivity {
         });
 
         HomeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(MessagePage.this, HomePageActivity.class);
+            Intent intent = new Intent(MessagePage.this, HomePage.class);
             startActivity(intent);
             overridePendingTransition(0, 0);
             finish();
