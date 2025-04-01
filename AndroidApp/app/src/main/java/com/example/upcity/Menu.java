@@ -47,7 +47,12 @@ public class Menu {
         });
         popupView.findViewById(R.id.PremiumButton).setOnClickListener(v -> {
             popupWindow.dismiss();
-            Toast.makeText(context, "Преміум-підписка", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, BuyPremiumPage.class);
+            context.startActivity(intent);
+
+            if (context instanceof Activity) {
+                ((Activity) context).overridePendingTransition(0, 0);
+            }
         });
 
         popupView.findViewById(R.id.ExitButton).setOnClickListener(v -> {
