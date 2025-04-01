@@ -1,6 +1,8 @@
 package com.example.upcity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,14 +28,23 @@ public class Menu {
 
         popupView.findViewById(R.id.MyApplicationButton).setOnClickListener(v -> {
             popupWindow.dismiss();
-            Toast.makeText(context, "Мої звернення", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, MyApplicationPage.class);
+            context.startActivity(intent);
+
+            if (context instanceof Activity) {
+                ((Activity) context).overridePendingTransition(0, 0);
+            }
         });
 
         popupView.findViewById(R.id.AllApplicationButton).setOnClickListener(v -> {
             popupWindow.dismiss();
-            Toast.makeText(context, "Всі звернення", Toast.LENGTH_SHORT).show();
-        });
+            Intent intent = new Intent(context, AllApplicationPage.class);
+            context.startActivity(intent);
 
+            if (context instanceof Activity) {
+                ((Activity) context).overridePendingTransition(0, 0);
+            }
+        });
         popupView.findViewById(R.id.PremiumButton).setOnClickListener(v -> {
             popupWindow.dismiss();
             Toast.makeText(context, "Преміум-підписка", Toast.LENGTH_SHORT).show();

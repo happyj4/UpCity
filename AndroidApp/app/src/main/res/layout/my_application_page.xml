@@ -105,7 +105,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:gravity="center_vertical"
-                android:text="Всі звернення"
+                android:text="Мої звернення"
                 android:textSize="24dp"
                 android:textColor="#1E1E1E"
                 android:fontFamily="@font/inter_semibold" />

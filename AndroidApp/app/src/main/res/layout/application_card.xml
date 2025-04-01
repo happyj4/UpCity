@@ -14,9 +14,7 @@
         android:orientation="vertical"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/rounded_background_edittext"
-        android:clickable="true"
-        android:focusable="true">
+        android:background="@drawable/rounded_background_edittext">
 
         <TextView
             android:id="@+id/ApplicationId"
