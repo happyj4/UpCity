@@ -21,7 +21,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA0fnJmN5WD_SfT1x364vdrKBa4wgXUBss" />
+            android:value="" />
 
         <activity
             android:name=".StartLoading"
