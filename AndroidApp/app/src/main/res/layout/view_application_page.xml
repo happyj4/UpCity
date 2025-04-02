@@ -1,0 +1,257 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="left">
+
+        <ImageButton
+            android:id="@+id/PlusButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/plusbutton"
+            android:background="@null" />
+
+        <TextView
+            android:id="@+id/NameText"
+            android:layout_width="315dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="28dp"
+            android:gravity="left"
+            android:text="Єлизавета Денисенко"
+            android:textSize="14dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_medium" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/PhotoButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="14dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/photo"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Photo Button"
+            app:shapeAppearanceOverlay="@style/CustomCircle"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:orientation="vertical"
+        android:gravity="top|left">
+
+        <fragment
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/Map"
+            android:layout_width="match_parent"
+            android:layout_height="153dp" />
+
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp">
+
+            <ImageButton
+                android:id="@+id/ListButton"
+                android:layout_width="13dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/home_button"
+                android:background="@null"
+                android:paddingEnd="1dp"/>
+
+            <Button
+                android:id="@+id/HomeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                android:layout_marginTop="-1dp"
+                android:layout_marginLeft="5dp"
+                android:text="на головну"
+                android:textColor="#848484"
+                android:background="@android:color/transparent"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:paddingStart="0dp"
+                android:fontFamily="@font/inter_light"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/IdApplicationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:text="#1-2634"
+            android:textSize="16dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:text="Назва"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <TextView
+            android:id="@+id/NameApplicationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="Сміття"
+            android:textSize="24dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_semibold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:text="Адреса"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <TextView
+            android:id="@+id/AddressApplicationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="вул. Римарська, 28"
+            android:textSize="16dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_regular" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:text="КП"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <TextView
+            android:id="@+id/KpApplicationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="КП«Щасливе місто»"
+            android:textSize="16dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_regular" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:text="Опис"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <TextView
+            android:id="@+id/DescriptionApplicationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center_vertical"
+            android:text="Дуже велика груда сміття біля сміткика, воно смердить"
+            android:textSize="16dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_regular" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center|left">
+
+            <ImageView
+                android:id="@+id/StatusApplication"
+                android:layout_width="81dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:src="@drawable/completed_application" />
+
+            <TextView
+                android:id="@+id/DateApplicationText"
+                android:layout_width="81dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="10.10.2025"
+                android:textSize="14dp"
+                android:textColor="#848484"
+                android:background="@drawable/rounded_background_date"
+                android:fontFamily="@font/inter_regular" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:text="Фото"
+            android:textSize="12dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_light" />
+
+        <ImageButton
+            android:id="@+id/AddPhotoButton"
+            android:layout_width="379dp"
+            android:layout_height="132dp"
+            android:layout_marginLeft="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/empty_photo_application"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/rounded_background_photo_application" />
+
+
+    </LinearLayout>
+</LinearLayout>

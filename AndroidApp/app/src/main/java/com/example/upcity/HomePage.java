@@ -56,16 +56,11 @@ public class HomePage extends AppCompatActivity {
         AllList.setLayoutManager(gridLayoutManagerAllList);
 
         List<Application> applicationList = new ArrayList<>();
-        applicationList.add(new Application(1, "Заява 1", "01.01.2022", 123));
-        applicationList.add(new Application(2, "Заява 2", "02.02.2022", 124));
-        applicationList.add(new Application(3, "Заява 3", "03.03.2022", 125));
+        applicationList.add(new Application(1, "Заява 1", "Опис заяви", "Адреса заяви", 123, "01.01.2022"));
+        applicationList.add(new Application(2, "Заява 2", "Опис заяви", "Адреса заяви", 123, "01.01.2023"));
+        applicationList.add(new Application(3, "Заява 3", "Опис заяви", "Адреса заяви", 123, "01.01.2024"));
 
-        ApplicationAdapter adapter = new ApplicationAdapter(applicationList, new ApplicationAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Application application) {
-                Toast.makeText(HomePage.this, "Клик на: " + application.getName(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        ApplicationAdapter adapter = new ApplicationAdapter(applicationList);
 
         MyList.setAdapter(adapter);
         AllList.setAdapter(adapter);

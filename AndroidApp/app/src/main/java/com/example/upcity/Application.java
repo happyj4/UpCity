@@ -14,13 +14,14 @@ public class Application {
     private int imageId;
     private int bitId;
 
-    public Application(int id, String name, String creationDate, int kpid) {
+    public Application(int id, String name, String description, String address, int kpid, String creationDate) {
         this.id = id;
         this.name = name;
-        this.creationDate = creationDate;
+        this.description = description;
+        this.address = address;
         this.kpId = kpid;
+        this.creationDate = creationDate;
     }
-
     public int getId() {
         return id;
     }
@@ -37,6 +38,46 @@ public class Application {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getCreationDate() {
         return creationDate;
     }
@@ -45,20 +86,35 @@ public class Application {
         this.creationDate = creationDate;
     }
 
-    public int getKpid() {
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getKpId() {
         return kpId;
     }
 
-    public void setKpid(int kpid) {
-        this.kpId = kpid;
+    public void setKpId(int kpId) {
+        this.kpId = kpId;
     }
 
-    public void imageId(int imageId) {
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
         this.imageId = imageId;
     }
 
-    public void bitId(int bitId) {
-        this.bitId = bitId;
+    public int getBitId() {
+        return bitId;
     }
 
+    public void setBitId(int bitId) {
+        this.bitId = bitId;
+    }
 }

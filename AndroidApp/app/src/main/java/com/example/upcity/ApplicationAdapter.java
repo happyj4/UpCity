@@ -1,5 +1,7 @@
 package com.example.upcity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,9 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int TYPE_APPLICATION = 1;
 
     private List<Application> applicationList;
-    private OnItemClickListener onItemClickListener;
 
-    public ApplicationAdapter(List<Application> applicationList, OnItemClickListener onItemClickListener) {
+    public ApplicationAdapter(List<Application> applicationList) {
         this.applicationList = applicationList;
-        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -46,12 +46,31 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             appHolder.applicationId.setText(String.valueOf(application.getId()));
             appHolder.applicationName.setText(application.getName());
             appHolder.applicationDate.setText(application.getCreationDate());
-            appHolder.applicationKpid.setText(String.valueOf(application.getKpid()));
+            appHolder.applicationKpid.setText(String.valueOf(application.getKpId()));
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (onItemClickListener != null) {
-                onItemClickListener.onItemClick(application);
+            if (application != null) {
+            Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
+
+            intent.putExtra("applicationId", application.getId());
+            intent.putExtra("applicationName", application.getName());
+            intent.putExtra("applicationDescription", application.getDescription());
+            intent.putExtra("applicationAdress", application.getAddress());
+            intent.putExtra("applicationDate", application.getCreationDate());
+            intent.putExtra("applicationKpId", application.getKpId());
+            intent.putExtra("applicationStatus", application.getStatus());
+            intent.putExtra("applicationImageId", application.getImageId());
+            intent.putExtra("applicationLatitude", application.getLatitude());
+            intent.putExtra("applicationLongitude", application.getLongitude());
+
+            v.getContext().startActivity(intent);
+            ((Activity) v.getContext()).overridePendingTransition(0, 0);
+            }
+            else {
+                Intent intent = new Intent(v.getContext(), CreateApplicationPage.class);
+                v.getContext().startActivity(intent);
+                ((Activity) v.getContext()).overridePendingTransition(0, 0);
             }
         });
     }
@@ -80,9 +99,5 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             applicationDate = itemView.findViewById(R.id.ApplicationDate);
             applicationKpid = itemView.findViewById(R.id.ApplicationKpId);
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(Application application);
     }
 }
