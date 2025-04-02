@@ -26,6 +26,14 @@ public class HomePage extends AppCompatActivity {
         RecyclerView AllList = findViewById(R.id.AllList);
         Button OpenAllButton = findViewById(R.id.OpenAllButton);
         Button OpenMyButton = findViewById(R.id.OpenMyButton);
+        ImageButton MapButton = findViewById(R.id.MapButton);
+
+        MapButton.setOnClickListener(view -> {
+            Intent intent = new Intent(HomePage.this, MapPage.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+            finish();
+        });
 
         OpenAllButton.setOnClickListener(view -> {
             Intent intent = new Intent(HomePage.this, AllApplicationPage.class);

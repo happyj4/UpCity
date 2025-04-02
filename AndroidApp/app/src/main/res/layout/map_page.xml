@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="left">
+
+        <ImageButton
+            android:id="@+id/PlusButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/plusbutton"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@null" />
+
+        <TextView
+            android:id="@+id/NameText"
+            android:layout_width="315dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="28dp"
+            android:gravity="left"
+            android:text="Єлизавета Денисенко"
+            android:textSize="14dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_medium" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/PhotoButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="14dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/photo"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Photo Button"
+            app:shapeAppearanceOverlay="@style/CustomCircle"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:orientation="vertical"
+        android:gravity="top|left">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:id="@+id/Map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="-5dp"
+                android:background="@drawable/rounded_background_edittext"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/ListButton"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/list_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:alpha="0.4"
+                    android:background="@null" />
+
+                <ImageButton
+                    android:id="@+id/MapButton"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/map_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@null" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

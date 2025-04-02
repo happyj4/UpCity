@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +18,10 @@
         <meta-data
             android:name="android.app.background"
             android:resource="@color/background" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA0fnJmN5WD_SfT1x364vdrKBa4wgXUBss" />
 
         <activity
             android:name=".StartLoading"
@@ -77,6 +84,12 @@
 
         <activity
             android:name=".EditProfilePage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".MapPage"
             android:theme="@style/Theme.All"
             android:exported="false">
         </activity>
