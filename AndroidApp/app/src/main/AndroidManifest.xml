@@ -75,5 +75,11 @@
             android:exported="false">
         </activity>
 
+        <activity
+            android:name=".EditProfilePage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
     </application>
 </manifest>

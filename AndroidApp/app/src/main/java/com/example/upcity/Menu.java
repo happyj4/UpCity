@@ -23,7 +23,12 @@ public class Menu {
 
         popupView.findViewById(R.id.EditProfileButton).setOnClickListener(v -> {
             popupWindow.dismiss();
-            Toast.makeText(context, "Редагувати профіль", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, EditProfilePage.class);
+            context.startActivity(intent);
+
+            if (context instanceof Activity) {
+                ((Activity) context).overridePendingTransition(0, 0);
+            }
         });
 
         popupView.findViewById(R.id.MyApplicationButton).setOnClickListener(v -> {
