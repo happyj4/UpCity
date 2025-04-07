@@ -26,7 +26,7 @@ public class BuyPremiumPage extends AppCompatActivity {
             intent.putExtra("description", "Преміум підписка успішно активована");
 
             startActivity(intent);
-            overridePendingTransition(0, 0);
+            overridePendingTransition(R.anim.slide_in_out, 0);
             finish();
         });
     }

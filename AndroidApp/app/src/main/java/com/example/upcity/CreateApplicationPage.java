@@ -25,7 +25,7 @@ public class CreateApplicationPage extends AppCompatActivity {
             intent.putExtra("description", "Впродовж 24 годин воно буде опрацьоване");
 
             startActivity(intent);
-            overridePendingTransition(0, 0);
+            overridePendingTransition(R.anim.slide_in_out, 0);
             finish();
         });
     }
