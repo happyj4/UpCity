@@ -2,6 +2,7 @@ package com.example.upcity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -14,6 +15,11 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomePage extends AppCompatActivity {
     @Override
@@ -31,21 +37,21 @@ public class HomePage extends AppCompatActivity {
         MapButton.setOnClickListener(view -> {
             Intent intent = new Intent(HomePage.this, MapPage.class);
             startActivity(intent);
-            overridePendingTransition(0, 0);
+            overridePendingTransition(R.anim.slide_in_right, 0);
             finish();
         });
 
         OpenAllButton.setOnClickListener(view -> {
             Intent intent = new Intent(HomePage.this, AllApplicationPage.class);
             startActivity(intent);
-            overridePendingTransition(0, 0);
+            overridePendingTransition(R.anim.slide_in_right, 0);
             finish();
         });
 
         OpenMyButton.setOnClickListener(view -> {
             Intent intent = new Intent(HomePage.this, MyApplicationPage.class);
             startActivity(intent);
-            overridePendingTransition(0, 0);
+            overridePendingTransition(R.anim.slide_in_right, 0);
             finish();
         });
 
@@ -65,6 +71,23 @@ public class HomePage extends AppCompatActivity {
         MyList.setAdapter(adapter);
         AllList.setAdapter(adapter);
 
+/*
+        ApiService apiService = RetrofitClient.getInstance();
+
+        apiService.getMessage().enqueue(new Callback<Map<String, String>>() {
+            @Override
+            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d("FastAPI", "Ответ: " + response.body().get("message"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, String>> call, Throwable t) {
+                Log.e("FastAPI", "Ошибка: " + t.getMessage());
+            }
+        });
+*/
     }
 
     public void addToolbar() {

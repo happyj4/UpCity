@@ -23,19 +23,12 @@ public class StartLoading extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Animation fadeOut = AnimationUtils.loadAnimation(StartLoading.this, R.anim.fade_out);
-                contentView.startAnimation(fadeOut);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(StartLoading.this, LoginActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
-                    }
-                }, 900);
+                Intent intent = new Intent(StartLoading.this, LoginActivity.class);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, 0);
+                finish();
             }
-        }, 2000);
+        }, 3000);
+
     }
 }

@@ -90,7 +90,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         HomeButton.setOnClickListener(view -> {
             Intent intent = new Intent(ViewApplicationPage.this, HomePage.class);
             startActivity(intent);
-            overridePendingTransition(0, 0);
+            overridePendingTransition(R.anim.slide_in_left, 0);
             finish();
         });
     }

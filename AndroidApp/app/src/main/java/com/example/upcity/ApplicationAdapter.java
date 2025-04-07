@@ -65,12 +65,12 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             intent.putExtra("applicationLongitude", application.getLongitude());
 
             v.getContext().startActivity(intent);
-            ((Activity) v.getContext()).overridePendingTransition(0, 0);
+            ((Activity) v.getContext()).overridePendingTransition(R.anim.slide_in_out, 0);
             }
             else {
                 Intent intent = new Intent(v.getContext(), CreateApplicationPage.class);
                 v.getContext().startActivity(intent);
-                ((Activity) v.getContext()).overridePendingTransition(0, 0);
+                ((Activity) v.getContext()).overridePendingTransition(R.anim.slide_in_right, 0);
             }
         });
     }

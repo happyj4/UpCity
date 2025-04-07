@@ -27,7 +27,7 @@ public class Menu {
             context.startActivity(intent);
 
             if (context instanceof Activity) {
-                ((Activity) context).overridePendingTransition(0, 0);
+                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, 0);
             }
         });
 
@@ -37,7 +37,7 @@ public class Menu {
             context.startActivity(intent);
 
             if (context instanceof Activity) {
-                ((Activity) context).overridePendingTransition(0, 0);
+                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, 0);
             }
         });
 
@@ -47,7 +47,7 @@ public class Menu {
             context.startActivity(intent);
 
             if (context instanceof Activity) {
-                ((Activity) context).overridePendingTransition(0, 0);
+                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, 0);
             }
         });
         popupView.findViewById(R.id.PremiumButton).setOnClickListener(v -> {
@@ -56,7 +56,7 @@ public class Menu {
             context.startActivity(intent);
 
             if (context instanceof Activity) {
-                ((Activity) context).overridePendingTransition(0, 0);
+                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, 0);
             }
         });
 

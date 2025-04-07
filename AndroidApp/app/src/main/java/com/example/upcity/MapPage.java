@@ -30,7 +30,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
         ListButton.setOnClickListener(view -> {
             Intent intent = new Intent(MapPage.this, HomePage.class);
             startActivity(intent);
-            overridePendingTransition(0, 0);
+            overridePendingTransition(R.anim.slide_in_left, 0);
             finish();
         });
     }

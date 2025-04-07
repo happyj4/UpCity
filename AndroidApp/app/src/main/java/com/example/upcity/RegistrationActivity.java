@@ -18,7 +18,7 @@ public class RegistrationActivity extends AppCompatActivity {
         LoginButton.setOnClickListener(view -> {
             Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
             startActivity(intent);
-            overridePendingTransition(0, 0);
+            overridePendingTransition(R.anim.slide_in_left, 0);
             finish();
         });
     }
