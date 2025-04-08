@@ -2,31 +2,28 @@ package com.example.upcity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.imageview.ShapeableImageView;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
-        addToolbar();
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.menu_container, new ToolbarFragment())
+                    .commit();
+        }
 
         RecyclerView MyList = findViewById(R.id.MyList);
         RecyclerView AllList = findViewById(R.id.AllList);
@@ -88,23 +85,5 @@ public class HomePage extends AppCompatActivity {
             }
         });
 */
-    }
-
-    public void addToolbar() {
-        Menu menu;
-
-        ImageButton PlusButton = findViewById(R.id.PlusButton);
-        ShapeableImageView PhotoButton = findViewById(R.id.PhotoButton);
-
-        menu = new Menu();
-        PhotoButton.setOnClickListener(view -> menu.showPopupMenu(view, HomePage.this));
-
-
-        PlusButton.setOnClickListener(view -> {
-            Intent intent = new Intent(HomePage.this, CreateApplicationPage.class);
-            startActivity(intent);
-            overridePendingTransition(0, 0);
-            finish();
-        });
     }
 }
