@@ -14,6 +14,7 @@
         android:orientation="horizontal"/>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -21,11 +22,17 @@
         android:orientation="vertical"
         android:gravity="top|left">
 
-        <fragment
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:id="@+id/Map"
+        <LinearLayout
+            android:id="@+id/MaplinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="153dp" />
+            android:layout_height="wrap_content">
+
+            <fragment
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:id="@+id/Map"
+                android:layout_width="match_parent"
+                android:layout_height="153dp" />
+        </LinearLayout>
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -214,7 +221,5 @@
             android:clickable="true"
             android:focusable="true"
             android:background="@drawable/rounded_background_photo_application" />
-
-
     </LinearLayout>
 </LinearLayout>

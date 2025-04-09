@@ -12,6 +12,7 @@ public class BuyPremiumPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.premium_page);
+        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -23,10 +24,7 @@ public class BuyPremiumPage extends AppCompatActivity {
         Button HomeButton = findViewById(R.id.HomeButton);
 
         HomeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(BuyPremiumPage.this, HomePage.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
         BuyPremiumButton.setOnClickListener(view -> {
@@ -35,9 +33,7 @@ public class BuyPremiumPage extends AppCompatActivity {
             intent.putExtra("name", "Підписка активована!");
             intent.putExtra("description", "Преміум підписка успішно активована");
 
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
         });
     }
 }

@@ -14,6 +14,7 @@ public class MessagePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message_page);
+        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -26,10 +27,7 @@ public class MessagePage extends AppCompatActivity {
         Button HomeButton = findViewById(R.id.HomeButton);
 
         HomeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(MessagePage.this, HomePage.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
         Intent oldintent = getIntent();

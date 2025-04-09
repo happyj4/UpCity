@@ -18,6 +18,8 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_page);
+        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        AnimationUtilsHelper.animateAndNavigate(this, R.id.MaplinearLayout, R.anim.fade_out, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -32,10 +34,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
         }
 
         ListButton.setOnClickListener(view -> {
-            Intent intent = new Intent(MapPage.this, HomePage.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
     }
 

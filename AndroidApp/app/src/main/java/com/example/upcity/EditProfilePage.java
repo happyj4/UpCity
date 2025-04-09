@@ -12,6 +12,7 @@ public class EditProfilePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile);
+        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -23,10 +24,7 @@ public class EditProfilePage extends AppCompatActivity {
         Button HomeButton = findViewById(R.id.HomeButton);
 
         HomeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(EditProfilePage.this, HomePage.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
         EditConfirmButton.setOnClickListener(view -> {
@@ -35,9 +33,7 @@ public class EditProfilePage extends AppCompatActivity {
             intent.putExtra("name", "Профіль змінено!");
             intent.putExtra("description", "Дані вашого профілю успішно змінено");
 
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
         });
     }
 }

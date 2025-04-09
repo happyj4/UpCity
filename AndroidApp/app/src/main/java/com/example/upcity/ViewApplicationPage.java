@@ -3,6 +3,7 @@ package com.example.upcity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +24,8 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_application_page);
-
+        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        AnimationUtilsHelper.animateAndNavigate(this, R.id.MaplinearLayout, R.anim.fade_out, null, null);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.menu_container, new ToolbarFragment())
@@ -63,10 +65,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         DateApplicationText.setText(applicationDate);
 
         HomeButton.setOnClickListener(view -> {
-            Intent intent1 = new Intent(ViewApplicationPage.this, HomePage.class);
-            startActivity(intent1);
-            overridePendingTransition(R.anim.slide_in_left, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
     }

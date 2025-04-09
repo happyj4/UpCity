@@ -1,6 +1,5 @@
 package com.example.upcity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -17,6 +16,7 @@ public class MyApplicationPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_application_page);
+        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -28,10 +28,7 @@ public class MyApplicationPage extends AppCompatActivity {
         Button HomeButton = findViewById(R.id.HomeButton);
 
         HomeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(MyApplicationPage.this, HomePage.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
         GridLayoutManager gridLayoutManagerAllList = new GridLayoutManager(this, 2);

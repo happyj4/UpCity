@@ -1,5 +1,6 @@
 package com.example.upcity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,10 +33,7 @@ public class ToolbarFragment extends Fragment {
         });
 
         plusButton.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), CreateApplicationPage.class);
-            startActivity(intent);
-            requireActivity().overridePendingTransition(R.anim.slide_in_right, 0);
-            requireActivity().finish();
+            AnimationUtilsHelper.animateAndNavigate(  requireActivity(), R.id.linearLayout, R.anim.slide_out_left, CreateApplicationPage.class, null);
         });
 
         return view;

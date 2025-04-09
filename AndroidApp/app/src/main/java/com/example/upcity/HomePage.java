@@ -2,8 +2,12 @@ package com.example.upcity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,6 +22,7 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
+        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_left, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -32,24 +37,15 @@ public class HomePage extends AppCompatActivity {
         ImageButton MapButton = findViewById(R.id.MapButton);
 
         MapButton.setOnClickListener(view -> {
-            Intent intent = new Intent(HomePage.this, MapPage.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, MapPage.class, null);
         });
 
         OpenAllButton.setOnClickListener(view -> {
-            Intent intent = new Intent(HomePage.this, AllApplicationPage.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.AlllinearLayout, R.anim.slide_out_left, AllApplicationPage.class, null);
         });
 
         OpenMyButton.setOnClickListener(view -> {
-            Intent intent = new Intent(HomePage.this, MyApplicationPage.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.AlllinearLayout, R.anim.slide_out_left, MyApplicationPage.class, null);
         });
 
         LinearLayoutManager layoutManagerMyList = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);

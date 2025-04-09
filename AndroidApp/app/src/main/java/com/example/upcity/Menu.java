@@ -2,7 +2,6 @@ package com.example.upcity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -23,40 +22,28 @@ public class Menu {
 
         popupView.findViewById(R.id.EditProfileButton).setOnClickListener(v -> {
             popupWindow.dismiss();
-            Intent intent = new Intent(context, EditProfilePage.class);
-            context.startActivity(intent);
-
             if (context instanceof Activity) {
-                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, 0);
+                AnimationUtilsHelper.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, EditProfilePage.class, null);
             }
         });
 
         popupView.findViewById(R.id.MyApplicationButton).setOnClickListener(v -> {
             popupWindow.dismiss();
-            Intent intent = new Intent(context, MyApplicationPage.class);
-            context.startActivity(intent);
-
             if (context instanceof Activity) {
-                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, 0);
+                AnimationUtilsHelper.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, MyApplicationPage.class, null);
             }
         });
 
         popupView.findViewById(R.id.AllApplicationButton).setOnClickListener(v -> {
             popupWindow.dismiss();
-            Intent intent = new Intent(context, AllApplicationPage.class);
-            context.startActivity(intent);
-
             if (context instanceof Activity) {
-                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, 0);
+                AnimationUtilsHelper.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, AllApplicationPage.class, null);
             }
         });
         popupView.findViewById(R.id.PremiumButton).setOnClickListener(v -> {
             popupWindow.dismiss();
-            Intent intent = new Intent(context, BuyPremiumPage.class);
-            context.startActivity(intent);
-
             if (context instanceof Activity) {
-                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, 0);
+                AnimationUtilsHelper.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, BuyPremiumPage.class, null);
             }
         });
 

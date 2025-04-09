@@ -1,6 +1,5 @@
 package com.example.upcity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -12,14 +11,12 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
+        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         Button LoginButton = findViewById(R.id.LoginButton);
 
         LoginButton.setOnClickListener(view -> {
-            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, 0);
-            finish();
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, LoginActivity.class, null);
         });
     }
 }

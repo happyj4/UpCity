@@ -64,13 +64,10 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             intent.putExtra("applicationLatitude", application.getLatitude());
             intent.putExtra("applicationLongitude", application.getLongitude());
 
-            v.getContext().startActivity(intent);
-            ((Activity) v.getContext()).overridePendingTransition(R.anim.slide_in_right, 0);
+            AnimationUtilsHelper.animateAndNavigate(((Activity) v.getContext()), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
             }
             else {
-                Intent intent = new Intent(v.getContext(), CreateApplicationPage.class);
-                v.getContext().startActivity(intent);
-                ((Activity) v.getContext()).overridePendingTransition(R.anim.slide_in_right, 0);
+                AnimationUtilsHelper.animateAndNavigate(((Activity) v.getContext()), R.id.linearLayout, R.anim.slide_out_left, CreateApplicationPage.class, null);
             }
         });
     }
