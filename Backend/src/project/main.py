@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from project.crud import get_admins
 
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("Приложение стартует. Получаем админов...")
