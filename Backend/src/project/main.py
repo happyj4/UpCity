@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from crud import get_admins
+from project.crud import get_admins
+
 
 
 @asynccontextmanager
