@@ -1,19 +1,21 @@
-package com.example.upcity;
+package com.example.upcity.page;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MessagePage extends AppCompatActivity {
-    private Menu menu;
+import com.example.upcity.adapters.AnimationUtilsHelper;
+import com.example.upcity.R;
+import com.example.upcity.adapters.ToolbarFragment;
+
+public class PremiumPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.message_page);
+        setContentView(R.layout.activity_premium);
         AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
@@ -22,16 +24,20 @@ public class MessagePage extends AppCompatActivity {
                     .commit();
         }
 
-        TextView NameMessageText = findViewById(R.id.NameMessageText);
-        TextView DescriptionMessageText = findViewById(R.id.DescriptionMessageText);
+        Button BuyPremiumButton = findViewById(R.id.BuyPremiumButton);
         Button HomeButton = findViewById(R.id.HomeButton);
 
         HomeButton.setOnClickListener(view -> {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
-        Intent oldintent = getIntent();
-        NameMessageText.setText(oldintent.getStringExtra("name"));
-        DescriptionMessageText.setText(oldintent.getStringExtra("description"));
+        BuyPremiumButton.setOnClickListener(view -> {
+            Intent intent = new Intent(PremiumPage.this, MessagePage.class);
+
+            intent.putExtra("name", "Підписка активована!");
+            intent.putExtra("description", "Преміум підписка успішно активована");
+
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
+        });
     }
 }

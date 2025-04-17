@@ -1,17 +1,24 @@
-package com.example.upcity;
+package com.example.upcity.page;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class EditProfilePage extends AppCompatActivity {
+import com.example.upcity.adapters.AnimationUtilsHelper;
+import com.example.upcity.adapters.Menu;
+import com.example.upcity.R;
+import com.example.upcity.adapters.ToolbarFragment;
+
+public class MessagePage extends AppCompatActivity {
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_profile);
+        setContentView(R.layout.activity_message);
         AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
@@ -20,20 +27,16 @@ public class EditProfilePage extends AppCompatActivity {
                     .commit();
         }
 
-        Button EditConfirmButton = findViewById(R.id.EditConfirmButton);
+        TextView NameMessageText = findViewById(R.id.NameMessageText);
+        TextView DescriptionMessageText = findViewById(R.id.DescriptionMessageText);
         Button HomeButton = findViewById(R.id.HomeButton);
 
         HomeButton.setOnClickListener(view -> {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
-        EditConfirmButton.setOnClickListener(view -> {
-            Intent intent = new Intent(EditProfilePage.this, MessagePage.class);
-
-            intent.putExtra("name", "Профіль змінено!");
-            intent.putExtra("description", "Дані вашого профілю успішно змінено");
-
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
-        });
+        Intent oldintent = getIntent();
+        NameMessageText.setText(oldintent.getStringExtra("name"));
+        DescriptionMessageText.setText(oldintent.getStringExtra("description"));
     }
 }

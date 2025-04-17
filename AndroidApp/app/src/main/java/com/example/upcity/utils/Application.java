@@ -1,4 +1,4 @@
-package com.example.upcity;
+package com.example.upcity.utils;
 
 public class Application {
     private int id;

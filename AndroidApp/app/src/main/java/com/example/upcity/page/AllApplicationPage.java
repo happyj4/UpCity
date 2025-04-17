@@ -1,4 +1,4 @@
-package com.example.upcity;
+package com.example.upcity.page;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -7,15 +7,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.upcity.adapters.AnimationUtilsHelper;
+import com.example.upcity.utils.Application;
+import com.example.upcity.adapters.ApplicationAdapter;
+import com.example.upcity.R;
+import com.example.upcity.adapters.ToolbarFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyApplicationPage extends AppCompatActivity {
+public class AllApplicationPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_application_page);
+        setContentView(R.layout.activity_all_applications);
         AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
@@ -38,8 +44,6 @@ public class MyApplicationPage extends AppCompatActivity {
         applicationList.add(new Application(1, "Заява 1", "Опис заяви", "Адреса заяви", 123, "01.01.2022"));
         applicationList.add(new Application(2, "Заява 2", "Опис заяви", "Адреса заяви", 123, "01.01.2023"));
         applicationList.add(new Application(3, "Заява 3", "Опис заяви", "Адреса заяви", 123, "01.01.2024"));
-
-        applicationList.add(0, null);
 
         ApplicationAdapter adapter = new ApplicationAdapter(applicationList);
 

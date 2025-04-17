@@ -1,4 +1,4 @@
-package com.example.upcity;
+package com.example.upcity.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.upcity.R;
+import com.example.upcity.page.CreateApplicationPage;
+import com.example.upcity.page.ViewApplicationPage;
+import com.example.upcity.utils.Application;
+
 import java.util.List;
 
 public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -28,11 +34,11 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_EMPTY) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.empty_card, parent, false);
+                    .inflate(R.layout.item_empty, parent, false);
             return new EmptyViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.application_card, parent, false);
+                    .inflate(R.layout.item_application, parent, false);
             return new ApplicationViewHolder(view);
         }
     }

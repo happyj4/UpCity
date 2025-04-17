@@ -1,18 +1,19 @@
-package com.example.upcity;
+package com.example.upcity.page;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.upcity.adapters.AnimationUtilsHelper;
+import com.example.upcity.utils.Application;
+import com.example.upcity.adapters.ApplicationAdapter;
+import com.example.upcity.R;
+import com.example.upcity.adapters.ToolbarFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,12 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_left, null, null);
+        setContentView(R.layout.activity_home);
+        boolean skipAnimation = getIntent().getBooleanExtra("skipAnimation", false);
+
+        if (!skipAnimation) {
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_left, null, null);
+        };
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

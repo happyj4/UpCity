@@ -1,4 +1,4 @@
-package com.example.upcity;
+package com.example.upcity.adapters;
 
 import android.app.Activity;
 import android.content.Intent;

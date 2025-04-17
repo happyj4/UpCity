@@ -1,4 +1,4 @@
-package com.example.upcity;
+package com.example.upcity.page;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,13 +7,15 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.Animation;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.upcity.R;
+
 
 public class StartLoading extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.start_loading);
+        setContentView(R.layout.activity_loading);
 
         final android.view.View contentView = findViewById(android.R.id.content);
 
@@ -23,7 +25,8 @@ public class StartLoading extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(StartLoading.this, LoginActivity.class);
+                Intent intent = new Intent(StartLoading.this, LoginPage.class);
+                intent.putExtra("skipAnimation", true);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, 0);
                 finish();

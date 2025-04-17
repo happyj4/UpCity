@@ -1,4 +1,4 @@
-package com.example.upcity;
+package com.example.upcity.network;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

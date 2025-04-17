@@ -1,4 +1,4 @@
-package com.example.upcity;
+package com.example.upcity.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,12 +8,18 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.example.upcity.R;
+import com.example.upcity.page.AllApplicationPage;
+import com.example.upcity.page.PremiumPage;
+import com.example.upcity.page.EditProfilePage;
+import com.example.upcity.page.MyApplicationPage;
+
 public class Menu {
 
     private PopupWindow popupWindow;
 
     public void showPopupMenu(View anchorView, Context context) {
-        View popupView = LayoutInflater.from(context).inflate(R.layout.menu, null);
+        View popupView = LayoutInflater.from(context).inflate(R.layout.view_menu, null);
 
         popupWindow = new PopupWindow(popupView, 490, LinearLayout.LayoutParams.WRAP_CONTENT, true);
 
@@ -43,7 +49,7 @@ public class Menu {
         popupView.findViewById(R.id.PremiumButton).setOnClickListener(v -> {
             popupWindow.dismiss();
             if (context instanceof Activity) {
-                AnimationUtilsHelper.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, BuyPremiumPage.class, null);
+                AnimationUtilsHelper.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, PremiumPage.class, null);
             }
         });
 
