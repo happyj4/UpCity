@@ -1,10 +1,8 @@
-# src/project/main.py
 
 from fastapi import FastAPI, Depends, Response, status
 from contextlib import asynccontextmanager
 from sqlalchemy.orm import Session
 from .db import database, models
-
 import os
 import shutil
 import uuid
@@ -13,12 +11,17 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from .db import models
+from .api import utility_company 
+
+
 
 
 
 
 
 app = FastAPI()
+
+app.include_router(utility_company.router)
 
 UPLOAD_DIR = "/var/www/myapp/uploads/images"
 BASE_URL = "http://localhost:8000/images" # можно заменить на свой домен
