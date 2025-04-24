@@ -13,6 +13,7 @@ class UtilityCompany(Base):
     phone = Column(String(50))
     email = Column(String(255), unique=True, nullable=False)
     password = Column(String(255))
+    rating = Column(Integer)
 
     applications = relationship("Application", back_populates="utility_company")
 
