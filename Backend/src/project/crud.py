@@ -1,4 +1,4 @@
-from project.database import text, async_engine
+from Backend.src.project.db.database import text, async_engine
 
 async def get_admins():
     async with async_engine.connect() as conn:
