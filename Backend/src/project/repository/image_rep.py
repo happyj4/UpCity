@@ -13,7 +13,7 @@ from ..db import models, database
 get_db = database.get_db
 
 UPLOAD_DIR = "/var/www/myapp/uploads/images"
-BASE_URL = "http://localhost:8000/images" # можно заменить на свой домен
+BASE_URL = "http://46.101.245.42/images" # можно заменить на свой домен
 
 def upload(file:UploadFile):
     if not file.filename.lower().endswith((".jpg", ".jpeg", ".png", ".gif")):
