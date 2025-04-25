@@ -13,8 +13,10 @@ class UtilityCompanyAdd(BaseModel):
 
 class ShowUtilityCompany(BaseModel):
   name:str
+  city:str
   address:str
-  rating: Optional[int]
+  phone:str
+  rating: Optional[int] = 0
 
   class Config():
       orm_mode = True
