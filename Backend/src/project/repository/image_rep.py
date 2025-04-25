@@ -16,7 +16,7 @@ load_dotenv()
 get_db = database.get_db
 
 UPLOAD_DIR = f"{os.getenv('UPLOAD_DIR')}"
-BASE_URL = f"{os.getenv('BASE_URL')}" # можно заменить на свой домен
+BASE_URL = f"{os.getenv('BASE_URL')}"
 
 def upload(file:UploadFile):
     if not file.filename.lower().endswith((".jpg", ".jpeg", ".png", ".gif")):
@@ -41,3 +41,5 @@ def upload(file:UploadFile):
         "image_id": image.image_id,
         "image_url": image.image_url
     })
+
+
