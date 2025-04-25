@@ -8,6 +8,13 @@ class UtilityCompanyAdd(BaseModel):
   phone:str
   email: EmailStr
   
+class UtilityCompanyUpdate(UtilityCompanyAdd):
+  name:str
+  city:str
+  address:str
+  phone:str
+  email: EmailStr
+  
   
 
 
