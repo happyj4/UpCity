@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException, Response, Depends, status
-from ..db import models, database
+from fastapi import APIRouter, Depends
+from ..db import database
 from sqlalchemy.orm import Session
 from ..schemas import utility_company_schemas
 from ..repository import utility_company_rep
@@ -13,3 +13,7 @@ router = APIRouter(tags=['Комунальні підприємтсва'], prefi
 def all(db:Session = Depends(get_db)):
     return utility_company_rep.all(db)
 
+
+@router.post("/")
+def create(request: utility_company_schemas.UtilityCompanyAdd ,db:Session = Depends(get_db)):
+    return utility_company_rep.create(db, request)
