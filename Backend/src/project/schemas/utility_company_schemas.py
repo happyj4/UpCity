@@ -1,22 +1,20 @@
-from typing import List
 from pydantic import BaseModel, EmailStr
+from typing import Optional
 
-
-class UtilityCompany(BaseModel):
-  ut_company_id: int
+class UtilityCompanyAdd(BaseModel):
   name:str
+  city:str
   address:str
   phone:str
   email: EmailStr
-  password: str
-  rating: int
+  
   
 
 
 class ShowUtilityCompany(BaseModel):
   name:str
   address:str
-  rating: int
+  rating: Optional[int]
 
   class Config():
       orm_mode = True
