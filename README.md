@@ -1,6 +1,6 @@
 UpCity
 
-NURE ПЗПІ-23-8 
+NURE Kharkiv ПЗПІ-23-8 
 
 Бут Анна Юріївна
 
