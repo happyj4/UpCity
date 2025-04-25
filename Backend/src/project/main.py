@@ -1,21 +1,9 @@
-# src/project/main.py
 
 from fastapi import FastAPI
-from contextlib import asynccontextmanager
-from project.crud import get_admins
+from .api import utility_company, image 
 
 
+app = FastAPI()
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    print("Приложение стартует. Получаем админов...")
-    await get_admins()
-    yield
-    print("Приложение завершается.")
-
-
-app = FastAPI(lifespan=lifespan)
-
-@app.get("/")
-def root():
-    return {"message": "Hello"}
+app.include_router(utility_company.router)
+app.include_router(image.router)
