@@ -8,12 +8,15 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from fastapi import  UploadFile
 from ..db import models, database
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 get_db = database.get_db
 
-UPLOAD_DIR = "/var/www/myapp/uploads/images"
-BASE_URL = "http://46.101.245.42/images" # можно заменить на свой домен
+UPLOAD_DIR = f"{os.getenv('UPLOAD_DIR')}"
+BASE_URL = f"{os.getenv('BASE_URL')}" # можно заменить на свой домен
 
 def upload(file:UploadFile):
     if not file.filename.lower().endswith((".jpg", ".jpeg", ".png", ".gif")):
