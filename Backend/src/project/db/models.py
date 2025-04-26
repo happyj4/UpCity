@@ -15,7 +15,6 @@ class UtilityCompany(Base):
     password = Column(String(255), nullable=False)
     rating = Column(Integer, nullable=False, default=0)
 
-
     applications = relationship("Application", back_populates="utility_company")
 
 
