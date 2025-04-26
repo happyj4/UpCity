@@ -3,18 +3,20 @@ from typing import Optional
 
 class UtilityCompanyAdd(BaseModel):
   name:str
-  city:str
+  address:str
+  phone:str
+  email: EmailStr
+  password:str
+  
+class UtilityCompanyUpdate(BaseModel):
+  name:str
   address:str
   phone:str
   email: EmailStr
   
-class UtilityCompanyUpdate(UtilityCompanyAdd):
-  pass
-  
   
 class ShowUtilityCompany(BaseModel):
   name:str
-  city:str
   address:str
   phone:str
   rating: Optional[int] = 0
@@ -27,3 +29,7 @@ class ShowUtilityCompanyID(BaseModel):
 
   class Config():
       orm_mode = True
+
+class LoginAdminCompany(BaseModel):
+  email: EmailStr
+  password: str

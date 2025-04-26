@@ -2,13 +2,14 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from ..db import models
 from ..schemas import utility_company_schemas
+from ..hashing import Hash
 
 def all(db:Session):
   companies = db.query(models.UtilityCompany).all()
   return companies
 
 def create(db:Session, request:utility_company_schemas.UtilityCompanyAdd):
-    new_company = models.UtilityCompany(name = request.name, city = request.city ,address = request.address, phone = request.phone, email = request.email)
+    new_company = models.UtilityCompany(name = request.name,address = request.address,phone = request.phone, email = request.email, password = Hash.bcrypt(request.password))
     db.add(new_company)
     db.commit()
     db.refresh(new_company)
@@ -20,7 +21,6 @@ def update(id, request:utility_company_schemas.UtilityCompanyUpdate, db: Session
       raise HTTPException(status_code=404, detail="Company not found")
     
     company.name = request.name
-    company.city = request.city
     company.address = request.address
     company.phone = request.phone
     company.email = request.email

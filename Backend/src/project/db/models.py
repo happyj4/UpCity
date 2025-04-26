@@ -12,9 +12,8 @@ class UtilityCompany(Base):
     address = Column(String(255))
     phone = Column(String(50))
     email = Column(String(255), unique=True, nullable=False)
-    password = Column(String(255))
-    rating = Column(Integer)
-    city = Column(String(100))
+    password = Column(String(255), nullable=False)
+    rating = Column(Integer, nullable=False, default=0)
 
     applications = relationship("Application", back_populates="utility_company")
 
