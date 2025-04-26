@@ -19,5 +19,12 @@ def login(db: Session, request:utility_company_schemas.LoginAdminCompany):
         if not Hash.verify(company.password, request.password):
             raise Exception("Невірний пароль для КП")
         return "company" 
+    
+    user = db.query(models.User).filter(models.User.email == request.email).first()
+    
+    if user:
+        if not Hash.verify(user.password, request.password):
+            raise Exception("Невірний пароль для користувача")
+        return "Successful"
 
     raise Exception("User not found")

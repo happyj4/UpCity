@@ -7,7 +7,7 @@ from ..repository import authentication_rep
 from ..schemas import utility_company_schemas
 get_db = database.get_db
 
-router = APIRouter(tags=['Авторизація🔓'])
+router = APIRouter(tags=['Авторизація для | Користувача | Адміна | Кп | 🔓'])
 
 
 @router.post("/login")
