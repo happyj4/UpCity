@@ -9,21 +9,21 @@ class UtilityCompanyAdd(BaseModel):
   email: EmailStr
   
 class UtilityCompanyUpdate(UtilityCompanyAdd):
-  name:str
-  city:str
-  address:str
-  phone:str
-  email: EmailStr
+  pass
   
   
-
-
 class ShowUtilityCompany(BaseModel):
   name:str
   city:str
   address:str
   phone:str
   rating: Optional[int] = 0
+
+  class Config():
+      orm_mode = True
+
+class ShowUtilityCompanyID(BaseModel):
+  name:str
 
   class Config():
       orm_mode = True

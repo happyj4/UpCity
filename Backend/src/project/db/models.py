@@ -85,6 +85,7 @@ class Application(Base):
     latitude = Column(DECIMAL(9, 6))
     status = Column(String(50))
     application_date = Column(TIMESTAMP, server_default=func.now())
+    application_number = Column(Integer, nullable=False)
     user_id = Column(Integer, ForeignKey("app_user.user_id", ondelete="CASCADE"))
     ut_company_id = Column(Integer, ForeignKey("utility_company.ut_company_id", ondelete="CASCADE"))
     img_id = Column(Integer, ForeignKey("image.image_id", ondelete="SET NULL"))
