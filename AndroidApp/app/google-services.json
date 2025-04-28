@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "313744909164",
+    "project_id": "upcity-7930c",
+    "storage_bucket": "upcity-7930c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313744909164:android:15dc62d47e85f56b764949",
+        "android_client_info": {
+          "package_name": "com.example.upcity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313744909164-p1ilpc5kickf43qn52cu05bdsetga3dm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.upcity",
+            "certificate_hash": "0ec3976f032d7f58adcbeabc290c7add3afcf7fc"
+          }
+        },
+        {
+          "client_id": "313744909164-9ko6m5o6vu6gdqevbgh98u8vt0t1jev3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF7khbhW3TeDVtFuTyLZCYvu0MD5lzLbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313744909164-9ko6m5o6vu6gdqevbgh98u8vt0t1jev3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
