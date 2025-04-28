@@ -24,9 +24,11 @@ public class PremiumPage extends AppCompatActivity {
                     .commit();
         }
 
+        // Подключение зависимостей
         Button BuyPremiumButton = findViewById(R.id.BuyPremiumButton);
         Button HomeButton = findViewById(R.id.HomeButton);
 
+        // Подключение кнопок
         HomeButton.setOnClickListener(view -> {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });

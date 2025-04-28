@@ -24,13 +24,16 @@ public class EditProfilePage extends AppCompatActivity {
                     .commit();
         }
 
+        // Подключение зависимостей
         Button EditConfirmButton = findViewById(R.id.EditConfirmButton);
         Button HomeButton = findViewById(R.id.HomeButton);
 
+        // Подключение кнопок
         HomeButton.setOnClickListener(view -> {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
+        // Показ сообщения
         EditConfirmButton.setOnClickListener(view -> {
             Intent intent = new Intent(EditProfilePage.this, MessagePage.class);
 

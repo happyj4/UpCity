@@ -16,8 +16,10 @@ public class RegistrationPage extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
+        // Подключение зависимостей
         Button LoginButton = findViewById(R.id.LoginButton);
 
+        // Подключение кнопок
         LoginButton.setOnClickListener(view -> {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, LoginPage.class, null);
         });

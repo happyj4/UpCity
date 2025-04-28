@@ -30,12 +30,14 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
                     .commit();
         }
 
+        // Подключение зависимостей
         ImageButton ListButton = findViewById(R.id.ListButton);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.Map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
 
+        // Подключение кнопок
         ListButton.setOnClickListener(view -> {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });

@@ -41,9 +41,7 @@ public class MyApplicationPage extends AppCompatActivity {
         AllList.setLayoutManager(gridLayoutManagerAllList);
 
         List<Application> applicationList = new ArrayList<>();
-        applicationList.add(new Application(1, "Заява 1", "Опис заяви", "Адреса заяви", 123, "01.01.2022"));
-        applicationList.add(new Application(2, "Заява 2", "Опис заяви", "Адреса заяви", 123, "01.01.2023"));
-        applicationList.add(new Application(3, "Заява 3", "Опис заяви", "Адреса заяви", 123, "01.01.2024"));
+        // сюда все плашки
 
         applicationList.add(0, null);
 

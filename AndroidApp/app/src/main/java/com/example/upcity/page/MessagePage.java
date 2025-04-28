@@ -27,14 +27,18 @@ public class MessagePage extends AppCompatActivity {
                     .commit();
         }
 
+        // Подключение зависимостей
         TextView NameMessageText = findViewById(R.id.NameMessageText);
         TextView DescriptionMessageText = findViewById(R.id.DescriptionMessageText);
         Button HomeButton = findViewById(R.id.HomeButton);
 
+
+        // Подключение кнопок
         HomeButton.setOnClickListener(view -> {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
+        // Показ сообщений
         Intent oldintent = getIntent();
         NameMessageText.setText(oldintent.getStringExtra("name"));
         DescriptionMessageText.setText(oldintent.getStringExtra("description"));

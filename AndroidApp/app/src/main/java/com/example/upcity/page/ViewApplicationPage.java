@@ -39,13 +39,31 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
             mapFragment.getMapAsync(this);
         }
 
+        // Подключение зависимостей
+        Button HomeButton = findViewById(R.id.HomeButton);
+
+        // Подключение кнопок
+        HomeButton.setOnClickListener(view -> {
+            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+        });
+
+    }
+
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        LatLng location = new LatLng(applicationLatitude, applicationLongitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17));
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+    }
+}
+
+/*
         TextView IdApplicationText = findViewById(R.id.IdApplicationText);
         TextView NameApplicationText = findViewById(R.id.NameApplicationText);
         TextView AddressApplicationText = findViewById(R.id.AddressApplicationText);
         TextView KpApplicationText = findViewById(R.id.KpApplicationText);
         TextView DescriptionApplicationText = findViewById(R.id.DescriptionApplicationText);
         TextView DateApplicationText = findViewById(R.id.DateApplicationText);
-        Button HomeButton = findViewById(R.id.HomeButton);
 
         Intent intent = getIntent();
         int applicationId = intent.getIntExtra("applicationId", -1);
@@ -65,17 +83,4 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         KpApplicationText.setText(String.valueOf(applicationKpId));
         DescriptionApplicationText.setText(applicationDescription);
         DateApplicationText.setText(applicationDate);
-
-        HomeButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
-        });
-
-    }
-
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        LatLng location = new LatLng(applicationLatitude, applicationLongitude);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17));
-        mMap.getUiSettings().setAllGesturesEnabled(false);
-    }
-}
+*/

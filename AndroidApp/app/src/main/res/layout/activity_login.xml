@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.08"
+        android:layout_weight="0.1"
         android:background="@color/white"
         android:orientation="vertical"
         android:gravity="right">
@@ -16,7 +16,7 @@
             android:id="@+id/RegistrationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="33dp"
             android:text="@string/account_registration"
             android:textColor="#1E1E1E"
             android:gravity="end|right"

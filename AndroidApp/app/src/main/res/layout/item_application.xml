@@ -17,7 +17,7 @@
         android:background="@drawable/rounded_background_edittext">
 
         <TextView
-            android:id="@+id/ApplicationId"
+            android:id="@+id/ApplicationNumber"
             android:layout_width="315dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -69,7 +69,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/ApplicationKpId"
+            android:id="@+id/ApplicationUtilityCompany"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"

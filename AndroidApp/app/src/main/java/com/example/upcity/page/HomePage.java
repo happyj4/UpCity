@@ -3,6 +3,7 @@ package com.example.upcity.page;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,15 +11,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.upcity.adapters.AnimationUtilsHelper;
+import com.example.upcity.network.ApplicationAllLoadHelper;
 import com.example.upcity.utils.Application;
 import com.example.upcity.adapters.ApplicationAdapter;
 import com.example.upcity.R;
 import com.example.upcity.adapters.ToolbarFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomePage extends AppCompatActivity {
+
+    private ApplicationAllLoadHelper applicationAllLoadHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +39,14 @@ public class HomePage extends AppCompatActivity {
                     .commit();
         }
 
+        // Подключение зависимостей
         RecyclerView MyList = findViewById(R.id.MyList);
         RecyclerView AllList = findViewById(R.id.AllList);
         Button OpenAllButton = findViewById(R.id.OpenAllButton);
         Button OpenMyButton = findViewById(R.id.OpenMyButton);
         ImageButton MapButton = findViewById(R.id.MapButton);
 
+        // Подключение кнопок
         MapButton.setOnClickListener(view -> {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, MapPage.class, null);
         });
@@ -59,32 +65,19 @@ public class HomePage extends AppCompatActivity {
         GridLayoutManager gridLayoutManagerAllList = new GridLayoutManager(this, 2);
         AllList.setLayoutManager(gridLayoutManagerAllList);
 
-        List<Application> applicationList = new ArrayList<>();
-        applicationList.add(new Application(1, "Заява 1", "Опис заяви", "Адреса заяви", 123, "01.01.2022"));
-        applicationList.add(new Application(2, "Заява 2", "Опис заяви", "Адреса заяви", 123, "01.01.2023"));
-        applicationList.add(new Application(3, "Заява 3", "Опис заяви", "Адреса заяви", 123, "01.01.2024"));
-
-        ApplicationAdapter adapter = new ApplicationAdapter(applicationList);
-
-        MyList.setAdapter(adapter);
-        AllList.setAdapter(adapter);
-
-/*
-        ApiService apiService = RetrofitClient.getInstance();
-
-        apiService.getMessage().enqueue(new Callback<Map<String, String>>() {
+        // Отображение всех заявок
+        applicationAllLoadHelper = new ApplicationAllLoadHelper();
+        applicationAllLoadHelper.loadApplications(this, new ApplicationAllLoadHelper.ApplicationCallback() {
             @Override
-            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Log.d("FastAPI", "Ответ: " + response.body().get("message"));
-                }
+            public void onSuccess(List<Application> applications) {
+                ApplicationAdapter adapter = new ApplicationAdapter(applications);
+                AllList.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<Map<String, String>> call, Throwable t) {
-                Log.e("FastAPI", "Ошибка: " + t.getMessage());
+            public void onFailure(String error) {
+                Toast.makeText(HomePage.this, "Ошибка в загрузке всех заявок: " + error, Toast.LENGTH_SHORT).show();
             }
         });
-*/
     }
 }

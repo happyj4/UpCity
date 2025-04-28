@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +14,9 @@ import com.example.upcity.page.CreateApplicationPage;
 import com.example.upcity.page.ViewApplicationPage;
 import com.example.upcity.utils.Application;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_EMPTY = 0;
@@ -49,26 +52,28 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (holder instanceof ApplicationViewHolder) {
             ApplicationViewHolder appHolder = (ApplicationViewHolder) holder;
-            appHolder.applicationId.setText(String.valueOf(application.getId()));
+            appHolder.applicationNumber.setText(String.valueOf(application.getApplicationNumber()));
             appHolder.applicationName.setText(application.getName());
-            appHolder.applicationDate.setText(application.getCreationDate());
-            appHolder.applicationKpid.setText(String.valueOf(application.getKpId()));
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+            appHolder.applicationDate.setText(dateFormat.format(application.getApplicationDate()));
+
+            appHolder.applicationUtilityCompany.setText(String.valueOf(application.getUtilityCompany().getName()));
+
+            if (application.getStatus().equals("Виконано")) {
+                appHolder.applicationStatus.setImageResource(R.drawable.completed_application);
+            } else if (application.getStatus().equals("В роботі")) {
+                appHolder.applicationStatus.setImageResource(R.drawable.work_application);
+            } else {
+                appHolder.applicationStatus.setImageResource(R.drawable.rejected_application);
+            }
         }
 
         holder.itemView.setOnClickListener(v -> {
             if (application != null) {
             Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
 
-            intent.putExtra("applicationId", application.getId());
-            intent.putExtra("applicationName", application.getName());
-            intent.putExtra("applicationDescription", application.getDescription());
-            intent.putExtra("applicationAdress", application.getAddress());
-            intent.putExtra("applicationDate", application.getCreationDate());
-            intent.putExtra("applicationKpId", application.getKpId());
-            intent.putExtra("applicationStatus", application.getStatus());
-            intent.putExtra("applicationImageId", application.getImageId());
-            intent.putExtra("applicationLatitude", application.getLatitude());
-            intent.putExtra("applicationLongitude", application.getLongitude());
+           // intent.putExtra("applicationId", application.getId());
 
             AnimationUtilsHelper.animateAndNavigate(((Activity) v.getContext()), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
             }
@@ -90,17 +95,19 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public static class ApplicationViewHolder extends RecyclerView.ViewHolder {
-        TextView applicationId;
+        TextView applicationNumber;
         TextView applicationName;
         TextView applicationDate;
-        TextView applicationKpid;
+        ImageView applicationStatus;
+        TextView applicationUtilityCompany;
 
         public ApplicationViewHolder(View itemView) {
             super(itemView);
-            applicationId = itemView.findViewById(R.id.ApplicationId);
+            applicationNumber = itemView.findViewById(R.id.ApplicationNumber);
             applicationName = itemView.findViewById(R.id.ApplicationName);
+            applicationStatus = itemView.findViewById(R.id.ApplicationStatus);
             applicationDate = itemView.findViewById(R.id.ApplicationDate);
-            applicationKpid = itemView.findViewById(R.id.ApplicationKpId);
+            applicationUtilityCompany = itemView.findViewById(R.id.ApplicationUtilityCompany);
         }
     }
 }

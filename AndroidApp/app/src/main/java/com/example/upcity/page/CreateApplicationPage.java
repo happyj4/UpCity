@@ -24,13 +24,16 @@ public class CreateApplicationPage extends AppCompatActivity {
                     .commit();
         }
 
+        // Подключение зависимостей
         Button CreateApplicationButton = findViewById(R.id.CreateApplicationButton);
         Button HomeButton = findViewById(R.id.HomeButton);
 
+        // Подключение кнопок
         HomeButton.setOnClickListener(view -> {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
+        // Показ сообщения
         CreateApplicationButton.setOnClickListener(view -> {
             Intent intent = new Intent(CreateApplicationPage.this, MessagePage.class);
 

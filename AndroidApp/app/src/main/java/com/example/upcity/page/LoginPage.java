@@ -26,10 +26,12 @@ public class LoginPage extends AppCompatActivity {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_left, null, null);
         }
 
+        // Подключение зависимостей
         Button registrationButton = findViewById(R.id.RegistrationButton);
         Button loginButton = findViewById(R.id.LoginButton);
         ImageButton googleButton = findViewById(R.id.GoogleButton);
 
+        // Авторизация через гугл
         googleAuthHelper = new GoogleAuthHelper(this);
         googleAuthHelper.setOnGoogleAuthListener(new GoogleAuthHelper.OnGoogleAuthListener() {
             @Override
@@ -43,6 +45,7 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
+        // Подключение кнопок
         googleButton.setOnClickListener(view -> googleAuthHelper.signIn());
 
         registrationButton.setOnClickListener(view -> {
