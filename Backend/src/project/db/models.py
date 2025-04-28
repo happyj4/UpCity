@@ -82,7 +82,7 @@ class Application(Base):
     address = Column(String(255))
     longitude = Column(DECIMAL(9, 6))
     latitude = Column(DECIMAL(9, 6))
-    status = Column(String(50))
+    status = Column(String(50), default='В роботі')
     application_date = Column(TIMESTAMP, server_default=func.now())
     application_number = Column(Integer, nullable=False)
     user_id = Column(Integer, ForeignKey("app_user.user_id", ondelete="CASCADE"))

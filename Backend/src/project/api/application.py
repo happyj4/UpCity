@@ -13,4 +13,3 @@ router = APIRouter(tags=['Заявки ⚠️'], prefix="/application")
 @router.get("/", response_model=list[application_schemas.ShowApp])
 def all(db: Session = Depends(get_db)):
     return application_rep.all(db)
-  
