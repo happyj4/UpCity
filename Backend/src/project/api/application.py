@@ -10,7 +10,6 @@ get_db = database.get_db
 
 router = APIRouter(tags=['Заявки ⚠️'], prefix="/application")
 
-@router.get("/", response_model=list[application_schemas.ShowApp])
+@router.get("/", response_model=list[application_schemas.ShowApp], status_code=status.HTTP_200_OK)
 def all(db: Session = Depends(get_db)):
     return application_rep.all(db)
-  

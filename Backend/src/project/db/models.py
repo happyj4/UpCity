@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date, Text, TIMESTAMP, DECIMAL, CheckConstraint, func
+from sqlalchemy import Column, Integer, String, ForeignKey, Date, Text, TIMESTAMP, DECIMAL, CheckConstraint, func, Double
 from .database import Base
 from sqlalchemy.orm import relationship
 
@@ -53,6 +53,7 @@ class User(Base):
     surname = Column(String(100))
     email = Column(String(255), unique=True, nullable=False)
     password = Column(String(255))
+    rating = Column(Double, nullable= False, default=0)
     subscription_id = Column(Integer, ForeignKey("app_subscription.subscription_id", ondelete="SET NULL"))
     image_id = Column(Integer, ForeignKey("image.image_id", ondelete="SET NULL"))
 
@@ -82,7 +83,7 @@ class Application(Base):
     address = Column(String(255))
     longitude = Column(DECIMAL(9, 6))
     latitude = Column(DECIMAL(9, 6))
-    status = Column(String(50))
+    status = Column(String(50), default='В роботі')
     application_date = Column(TIMESTAMP, server_default=func.now())
     application_number = Column(Integer, nullable=False)
     user_id = Column(Integer, ForeignKey("app_user.user_id", ondelete="CASCADE"))
