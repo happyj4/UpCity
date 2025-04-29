@@ -10,7 +10,7 @@ get_db = database.get_db
 
 router = APIRouter(tags=['Користувач🧔‍♂️'], prefix='/user')
 
-@router.post("/")
+@router.post("/", status_code=status.HTTP_201_CREATED)
 def register(request: user_schemas.UserRegister, db:Session = Depends(get_db)):
   return user_rep.register(request, db)
 
