@@ -49,3 +49,10 @@ def update(id, request: utility_company_schemas.UtilityCompanyUpdate, db: Sessio
     db.commit()
     db.refresh(company)
     return company
+
+def destroy(id, db:Session):
+    company  = db.query(models.UtilityCompany).filter(models.UtilityCompany.ut_company_id == id).delete(synchronize_session=False)
+    db.commit()
+    if not company:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail = f"КП з id = {id} не знайдено")
+    return 

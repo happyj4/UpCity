@@ -27,3 +27,8 @@ def create(request: utility_company_schemas.UtilityCompanyAdd ,db:Session = Depe
 @router.put("/{id}", status_code=status.HTTP_200_OK)
 def update(id:int , request: utility_company_schemas.UtilityCompanyUpdate ,db:Session = Depends(get_db)):
     return utility_company_rep.update(id, request , db)
+
+
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def update(id:int ,db:Session = Depends(get_db)):
+    return utility_company_rep.destroy(id,  db)
