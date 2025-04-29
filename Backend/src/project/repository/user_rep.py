@@ -11,7 +11,7 @@ def register(request: user_schemas.UserRegister, db: Session):
     if existing_user:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail=f"Користувач з email {request.email} вже існує"
+            detail=f"Користувач з email = {request.email} вже існує"
         )
 
     new_user = models.User(

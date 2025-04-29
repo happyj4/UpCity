@@ -5,14 +5,14 @@ from ..schemas import utility_company_schemas
 from ..hashing import Hash
 
 def all(db:Session):
-  companies = db.query(models.UtilityCompany).all()
-  return companies
+    companies = db.query(models.UtilityCompany).all()
+    return companies
 
 def get_one(id, db:Session ):
-  company = db.query(models.UtilityCompany).filter(models.UtilityCompany.ut_company_id == id).first()
-  if not company:
-      raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Компанію за id = {id} не знайдено")
-  return company
+    company = db.query(models.UtilityCompany).filter(models.UtilityCompany.ut_company_id == id).first()
+    if not company:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Компанію за id = {id} не знайдено")
+    return company
 
 def create(db: Session, request: utility_company_schemas.UtilityCompanyAdd):
     existing_company = db.query(models.UtilityCompany).filter(models.UtilityCompany.email == request.email).first()
