@@ -11,8 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.upcity.adapters.AnimationUtilsHelper;
 import com.example.upcity.R;
 import com.example.upcity.network.RegistrationHelper;
-import com.example.upcity.utils.LoginRequest;
-import com.example.upcity.utils.User;
+import com.example.upcity.utils.UserRequest;
 
 public class RegistrationPage extends AppCompatActivity {
 
@@ -40,26 +39,27 @@ public class RegistrationPage extends AppCompatActivity {
             String name = nameEditText.getText().toString();
             String surname = surnameEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            User user = new User(email, name, surname, password);
-
-            RegistrationHelper registrationHelper = new RegistrationHelper();
-
-            registrationHelper.registerUser(this, user, new RegistrationHelper.RegistrationCallback() {
-                @Override
-                public void onSuccess(String message) {
-                    Intent intent = new Intent(RegistrationPage.this, HomePage.class);
-                    intent.putExtra("skipAnimation", true);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_out, 0);
-                    finish();
-                }
-
-                @Override
-                public void onFailure(String error) {
-                    Toast.makeText(RegistrationPage.this, "Ошибка регистрации: " + error, Toast.LENGTH_SHORT).show();
-                }
-            });
+            UserRequest userRequest = new UserRequest(email, name, surname, password);
+            performRegistration(userRequest);
         });
+    }
+    private void performRegistration(UserRequest userRequest) {
+        RegistrationHelper registrationHelper = new RegistrationHelper();
 
+        registrationHelper.registerUser(this, userRequest, new RegistrationHelper.RegistrationCallback() {
+            @Override
+            public void onSuccess(String message) {
+                Intent intent = new Intent(RegistrationPage.this, HomePage.class);
+                intent.putExtra("skipAnimation", true);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_out, 0);
+                finish();
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Toast.makeText(RegistrationPage.this, "Ошибка регистрации: " + error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

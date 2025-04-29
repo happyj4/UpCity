@@ -1,7 +1,7 @@
 package com.example.upcity.network;
 
 import android.content.Context;
-import com.example.upcity.utils.User;
+import com.example.upcity.utils.UserRequest;
 import com.example.upcity.utils.ApiResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -9,9 +9,9 @@ import retrofit2.Response;
 
 public class RegistrationHelper {
 
-    public void registerUser(Context context, User user, final RegistrationCallback callback) {
+    public void registerUser(Context context, UserRequest userRequest, final RegistrationCallback callback) {
         ApiService apiService = RetrofitClient.getInstance();
-        Call<ApiResponse> call = apiService.createUser(user);
+        Call<ApiResponse> call = apiService.createUser(userRequest);
 
         call.enqueue(new Callback<ApiResponse>() {
             @Override

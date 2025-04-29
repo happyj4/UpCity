@@ -1,12 +1,12 @@
 package com.example.upcity.utils;
 
-public class User {
+public class UserRequest {
     private String email;
     private String name;
     private String surname;
     private String password;
 
-    public User(String email, String name, String surname, String password) {
+    public UserRequest(String email, String name, String surname, String password) {
         this.email = email;
         this.name = name;
         this.surname = surname;

@@ -61,24 +61,27 @@ public class LoginPage extends AppCompatActivity {
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
             LoginRequest loginRequest = new LoginRequest(email, password);
+            performLogin(loginRequest);
+        });
+    }
 
-            LoginHelper loginHelper = new LoginHelper();
+    private void performLogin(LoginRequest loginRequest) {
+        LoginHelper loginHelper = new LoginHelper();
 
-            loginHelper.login(this, loginRequest, new LoginHelper.LoginCallback() {
-                @Override
-                public void onSuccess(String response) {
-                    Intent intent = new Intent(LoginPage.this, HomePage.class);
-                    intent.putExtra("skipAnimation", true);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_out, 0);
-                    finish();
-                }
+        loginHelper.login(this, loginRequest, new LoginHelper.LoginCallback() {
+            @Override
+            public void onSuccess(String response) {
+                Intent intent = new Intent(LoginPage.this, HomePage.class);
+                intent.putExtra("skipAnimation", true);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_out, 0);
+                finish();
+            }
 
-                @Override
-                public void onFailure(String error) {
-                    Toast.makeText(LoginPage.this, "Ошибка входа: " + error, Toast.LENGTH_SHORT).show();
-                }
-            });
+            @Override
+            public void onFailure(String error) {
+                Toast.makeText(LoginPage.this, "Ошибка входа: " + error, Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
