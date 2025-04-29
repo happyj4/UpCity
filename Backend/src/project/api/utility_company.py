@@ -30,5 +30,5 @@ def update(id:int , request: utility_company_schemas.UtilityCompanyUpdate ,db:Se
 
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def update(id:int ,db:Session = Depends(get_db)):
+def destroy(id:int ,db:Session = Depends(get_db)):
     return utility_company_rep.destroy(id,  db)
