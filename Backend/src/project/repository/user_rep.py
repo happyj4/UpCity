@@ -24,3 +24,7 @@ def register(request: user_schemas.UserRegister, db: Session):
     db.commit()
     db.refresh(new_user)
     return {"message": "Успішна регістрація"}
+
+def show_all(db:Session):
+    users = db.query(models.User).all()
+    return users
