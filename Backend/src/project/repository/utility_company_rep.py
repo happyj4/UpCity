@@ -1,12 +1,20 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy import asc, desc
+from typing import Optional
 from ..db import models
 from ..schemas import utility_company_schemas
 from ..hashing import Hash
 
-def all(db:Session):
-    companies = db.query(models.UtilityCompany).all()
-    return companies
+def all(db: Session, sort_by_rating: Optional[str] = None):
+    query = db.query(models.UtilityCompany)
+
+    if sort_by_rating == "asc":
+        query = query.order_by(asc(models.UtilityCompany.rating))
+    elif sort_by_rating == "desc":
+        query = query.order_by(desc(models.UtilityCompany.rating))
+
+    return query.all()
 
 def get_one(id, db:Session ):
     company = db.query(models.UtilityCompany).filter(models.UtilityCompany.ut_company_id == id).first()

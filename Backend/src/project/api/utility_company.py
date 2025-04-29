@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, Query
 from ..db import database
 from sqlalchemy.orm import Session
 from ..schemas import utility_company_schemas
 from ..repository import utility_company_rep
+from typing import Optional
 
 
 
@@ -15,8 +16,8 @@ def get_one(id:int, db:Session = Depends(get_db)):
     return utility_company_rep.get_one(id, db)
 
 @router.get("/", response_model=list[utility_company_schemas.ShowUtilityCompany], status_code=status.HTTP_200_OK)
-def all(db:Session = Depends(get_db)):
-    return utility_company_rep.all(db)
+def all(db:Session = Depends(get_db),sort_by_rating: Optional[str] = Query(None, regex="^(asc|desc)$")):
+    return utility_company_rep.all(db, sort_by_rating=sort_by_rating)
 
 
 @router.post("/",status_code=status.HTTP_201_CREATED)
