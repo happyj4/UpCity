@@ -1,12 +1,8 @@
 package com.example.upcity.network;
 
 import android.content.Context;
-import android.widget.Toast;
-
 import com.example.upcity.utils.Application;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,14 +18,12 @@ public class ApplicationAllLoadHelper {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body());
                 } else {
-                    Toast.makeText(context, "Ошибка загрузки заявок", Toast.LENGTH_SHORT).show();
-                    callback.onFailure("Ошибка загрузки заявок");
+                    callback.onFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Application>> call, Throwable t) {
-                Toast.makeText(context, "Ошибка сети: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 callback.onFailure(t.getMessage());
             }
         });

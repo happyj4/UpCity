@@ -3,6 +3,7 @@ package com.example.upcity.page;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.upcity.adapters.AnimationUtilsHelper;
 import com.example.upcity.R;
 import com.example.upcity.network.GoogleAuthHelper;
+import com.example.upcity.network.LoginHelper;
+import com.example.upcity.utils.LoginRequest;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -30,6 +33,8 @@ public class LoginPage extends AppCompatActivity {
         Button registrationButton = findViewById(R.id.RegistrationButton);
         Button loginButton = findViewById(R.id.LoginButton);
         ImageButton googleButton = findViewById(R.id.GoogleButton);
+        EditText emailEditText  = findViewById(R.id.EmailEditText);
+        EditText passwordEditText  = findViewById(R.id.PasswordEditText);
 
         // Авторизация через гугл
         googleAuthHelper = new GoogleAuthHelper(this);
@@ -53,11 +58,27 @@ public class LoginPage extends AppCompatActivity {
         });
 
         loginButton.setOnClickListener(view -> {
-            Intent intent = new Intent(LoginPage.this, HomePage.class);
-            intent.putExtra("skipAnimation", true);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_out, 0);
-            finish();
+            String email = emailEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
+            LoginRequest loginRequest = new LoginRequest(email, password);
+
+            LoginHelper loginHelper = new LoginHelper();
+
+            loginHelper.login(this, loginRequest, new LoginHelper.LoginCallback() {
+                @Override
+                public void onSuccess(String response) {
+                    Intent intent = new Intent(LoginPage.this, HomePage.class);
+                    intent.putExtra("skipAnimation", true);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_out, 0);
+                    finish();
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    Toast.makeText(LoginPage.this, "Ошибка входа: " + error, Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 
