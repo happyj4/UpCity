@@ -3,34 +3,40 @@ from sqlalchemy.orm import Session
 from ..db import models
 from ..schemas import utility_company_schemas
 from ..hashing import Hash
+from ..token import create_access_token
+from fastapi.security import OAuth2PasswordRequestForm
 
 
-def login(db: Session, request:utility_company_schemas.LoginAdminCompany):
-    admin = db.query(models.Admin).filter(models.Admin.email == request.email).first()
+def login(db: Session, request: OAuth2PasswordRequestForm):
+    email = request.username
+    password = request.password
+
+    admin = db.query(models.Admin).filter(models.Admin.email == email).first()
     
-    if admin:
-        if not(admin.password == request.password):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Невірний пароль для адміна")
-        return {"message": "Успішний вхід ADMIN"}
+    if admin and admin.password == password: 
+        access_token = create_access_token(data={"sub": user.email, "user_id": user.user_id})
+        return {"access_token": access_token, "token_type": "bearer"}
+
+    company = db.query(models.UtilityCompany).filter(models.UtilityCompany.email == email).first()
     
-    company = db.query(models.UtilityCompany).filter(models.UtilityCompany.email == request.email).first()
+    if company and Hash.verify(company.password, password):
+        access_token = create_access_token(data={"sub": user.email, "user_id": user.user_id})
+        return {"access_token": access_token, "token_type": "bearer"}
+
+    user = db.query(models.User).filter(models.User.email == email).first()
     
-    if company:
-        if not Hash.verify(company.password, request.password):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Невірний пароль для КП")
-        return {"message": "Успішний вхід COMPANY"}
-    
-    user = db.query(models.User).filter(models.User.email == request.email).first()
-    
-    if user:
-        if not Hash.verify(user.password, request.password):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Невірний пароль для користувача")
+    if user and Hash.verify(user.password, password):
+        access_token = create_access_token(data={"sub": user.email, "user_id": user.user_id})
         return {
-            "message": "Успішний вхід USER",
+            "access_token": access_token,
+            "token_type": "bearer",
             "data": {
                 "name": user.name,
                 "surname": user.surname
             }
         }
 
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"З email = {request.email} не зареєстровано жодний обліковий запис")
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Невірний email або пароль"
+    )

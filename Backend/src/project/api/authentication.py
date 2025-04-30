@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from ..db import database
+from fastapi.security import  OAuth2PasswordRequestForm
 from datetime import datetime, timedelta, timezone
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from ..repository import authentication_rep
@@ -11,5 +12,5 @@ router = APIRouter(tags=['Авторизація для | Користувача
 
 
 @router.post("/", status_code=status.HTTP_200_OK)
-def login(request:utility_company_schemas.LoginAdminCompany, db:Session = Depends(get_db)):
+def login(request: OAuth2PasswordRequestForm = Depends(), db:Session = Depends(get_db)):
     return authentication_rep.login(db,request)
