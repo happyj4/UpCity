@@ -11,7 +11,7 @@ get_db = database.get_db
 
 router = APIRouter(tags=['Комунальні підприємтсва 🧑‍🏭'], prefix="/utility_company")
 
-@router.get("/{id}", response_model=utility_company_schemas.ShowOneUtilityCompany, status_code=status.HTTP_200_OK)
+@router.get("/{id}/", response_model=utility_company_schemas.ShowOneUtilityCompany, status_code=status.HTTP_200_OK)
 def get_one(id:int, db:Session = Depends(get_db)):
     return utility_company_rep.get_one(id, db)
 
@@ -25,11 +25,11 @@ def create(request: utility_company_schemas.UtilityCompanyAdd ,db:Session = Depe
     return utility_company_rep.create(db, request)
 
 
-@router.put("/{id}", status_code=status.HTTP_200_OK)
+@router.put("/{id}/", status_code=status.HTTP_200_OK)
 def update(id:int , request: utility_company_schemas.UtilityCompanyUpdate ,db:Session = Depends(get_db)):
     return utility_company_rep.update(id, request , db)
 
 
-@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{id}/", status_code=status.HTTP_204_NO_CONTENT)
 def destroy(id:int ,db:Session = Depends(get_db)):
     return utility_company_rep.destroy(id,  db)
