@@ -1,9 +1,11 @@
 venv/
 .env
-__pycache__/
+# Python cache
 *.pyc
 *.pyo
-*.pyd
+__pycache__/
+**/__pycache__/
+
 
 *.log
 
@@ -13,3 +15,4 @@ __pycache__/
 .DS_Store
 
 *.sqlite3
+
