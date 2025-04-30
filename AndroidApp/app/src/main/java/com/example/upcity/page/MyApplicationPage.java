@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.upcity.adapters.AnimationUtilsHelper;
-import com.example.upcity.utils.Application;
+import com.example.upcity.utils.ApplicationRequest;
 import com.example.upcity.adapters.ApplicationAdapter;
 import com.example.upcity.R;
 import com.example.upcity.adapters.ToolbarFragment;
@@ -40,7 +40,7 @@ public class MyApplicationPage extends AppCompatActivity {
         GridLayoutManager gridLayoutManagerAllList = new GridLayoutManager(this, 2);
         AllList.setLayoutManager(gridLayoutManagerAllList);
 
-        List<Application> applicationList = new ArrayList<>();
+        List<ApplicationRequest> applicationList = new ArrayList<>();
         // сюда все плашки
 
         applicationList.add(0, null);

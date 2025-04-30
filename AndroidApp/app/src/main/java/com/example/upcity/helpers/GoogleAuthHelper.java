@@ -1,4 +1,4 @@
-package com.example.upcity.network;
+package com.example.upcity.helpers;
 
 import android.app.Activity;
 import android.content.Intent;

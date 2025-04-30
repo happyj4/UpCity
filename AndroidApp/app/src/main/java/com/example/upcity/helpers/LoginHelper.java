@@ -1,40 +1,43 @@
-package com.example.upcity.network;
+package com.example.upcity.helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.upcity.utils.UserRequest;
+import com.example.upcity.network.ApiService;
+import com.example.upcity.network.RetrofitClient;
+import com.example.upcity.utils.LoginRequest;
 import com.example.upcity.utils.ApiResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegistrationHelper {
+public class LoginHelper {
 
-    public void registerUser(Context context, UserRequest userRequest, final RegistrationCallback callback) {
+    public void login(Context context, LoginRequest loginRequest, final LoginCallback callback) {
         ApiService apiService = RetrofitClient.getInstance();
-        Call<ApiResponse> call = apiService.createUser(userRequest);
+
+        Call<ApiResponse> call = apiService.login(loginRequest);
 
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body().getMessage());
-                    saveUser(context, userRequest.getEmail(), userRequest.getSurname() + " " + userRequest.getName());
+                    saveUser(context, loginRequest.getEmail(), "Корякін Захар");
                 } else {
-                    callback.onFailure(response.message());
+                    callback.onFailure("Login failed: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-                callback.onFailure(t.getMessage());
+                callback.onFailure("Network error: " + t.getMessage());
             }
         });
     }
 
-    public interface RegistrationCallback {
-        void onSuccess(String message);
+    public interface LoginCallback {
+        void onSuccess(String token);
         void onFailure(String error);
     }
 
@@ -46,3 +49,4 @@ public class RegistrationHelper {
         editor.apply();
     }
 }
+

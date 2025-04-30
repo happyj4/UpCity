@@ -136,22 +136,20 @@
             android:textColor="#1E1E1E"
             android:fontFamily="@font/inter_light" />
 
-        <EditText
-            android:id="@+id/KpEditText"
-            android:inputType="text"
-            android:hint=""
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:textColor="#848383"
-            android:textSize="13sp"
+        <Spinner
+            android:id="@+id/SpinnerUtilityCompany"
             android:layout_width="379dp"
             android:layout_height="35dp"
+            android:layout_marginLeft="15dp"
             android:background="@drawable/rounded_background_edittext"
-            android:paddingHorizontal="20dp"
+            android:popupBackground="@drawable/rounded_background_edittext"
             android:elevation="3dp"
-            android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical"
-            android:textCursorDrawable="@null"/>
+            android:paddingHorizontal="20dp"
+            android:spinnerMode="dropdown"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp" />
 
         <TextView
             android:layout_width="match_parent"

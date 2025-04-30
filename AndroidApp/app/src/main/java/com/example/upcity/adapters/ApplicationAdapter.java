@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.upcity.R;
 import com.example.upcity.page.CreateApplicationPage;
 import com.example.upcity.page.ViewApplicationPage;
-import com.example.upcity.utils.Application;
+import com.example.upcity.utils.ApplicationRequest;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -22,9 +22,9 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int TYPE_EMPTY = 0;
     private static final int TYPE_APPLICATION = 1;
 
-    private List<Application> applicationList;
+    private List<ApplicationRequest> applicationList;
 
-    public ApplicationAdapter(List<Application> applicationList) {
+    public ApplicationAdapter(List<ApplicationRequest> applicationList) {
         this.applicationList = applicationList;
     }
 
@@ -48,21 +48,21 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Application application = applicationList.get(position);
+        ApplicationRequest applicationRequest = applicationList.get(position);
 
         if (holder instanceof ApplicationViewHolder) {
             ApplicationViewHolder appHolder = (ApplicationViewHolder) holder;
-            appHolder.applicationNumber.setText(String.valueOf(application.getApplicationNumber()));
-            appHolder.applicationName.setText(application.getName());
+            appHolder.applicationNumber.setText(String.valueOf(applicationRequest.getApplicationNumber()));
+            appHolder.applicationName.setText(applicationRequest.getName());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-            appHolder.applicationDate.setText(dateFormat.format(application.getApplicationDate()));
+            appHolder.applicationDate.setText(dateFormat.format(applicationRequest.getApplicationDate()));
 
-            appHolder.applicationUtilityCompany.setText(String.valueOf(application.getUtilityCompany().getName()));
+            appHolder.applicationUtilityCompany.setText(String.valueOf(applicationRequest.getUtilityCompany().getName()));
 
-            if (application.getStatus().equals("Виконано")) {
+            if (applicationRequest.getStatus().equals("Виконано")) {
                 appHolder.applicationStatus.setImageResource(R.drawable.completed_application);
-            } else if (application.getStatus().equals("В роботі")) {
+            } else if (applicationRequest.getStatus().equals("В роботі")) {
                 appHolder.applicationStatus.setImageResource(R.drawable.work_application);
             } else {
                 appHolder.applicationStatus.setImageResource(R.drawable.rejected_application);
@@ -70,7 +70,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (application != null) {
+            if (applicationRequest != null) {
             Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
 
            // intent.putExtra("applicationId", application.getId());

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.upcity.adapters.AnimationUtilsHelper;
 import com.example.upcity.R;
-import com.example.upcity.network.RegistrationHelper;
+import com.example.upcity.helpers.RegistrationHelper;
 import com.example.upcity.utils.UserRequest;
 
 public class RegistrationPage extends AppCompatActivity {

@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.upcity.adapters.AnimationUtilsHelper;
 import com.example.upcity.R;
-import com.example.upcity.network.GoogleAuthHelper;
-import com.example.upcity.network.LoginHelper;
+import com.example.upcity.helpers.GoogleAuthHelper;
+import com.example.upcity.helpers.LoginHelper;
 import com.example.upcity.utils.LoginRequest;
 
 public class LoginPage extends AppCompatActivity {

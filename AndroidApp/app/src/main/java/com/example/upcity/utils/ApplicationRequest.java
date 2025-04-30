@@ -3,7 +3,7 @@ package com.example.upcity.utils;
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
-public class Application {
+public class ApplicationRequest {
     private String name;
     private String status;
 

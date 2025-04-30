@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.upcity.adapters.AnimationUtilsHelper;
-import com.example.upcity.network.ApplicationAllLoadHelper;
-import com.example.upcity.utils.Application;
+import com.example.upcity.helpers.ApplicationAllLoadHelper;
+import com.example.upcity.utils.ApplicationRequest;
 import com.example.upcity.adapters.ApplicationAdapter;
 import com.example.upcity.R;
 import com.example.upcity.adapters.ToolbarFragment;
@@ -69,7 +69,7 @@ public class HomePage extends AppCompatActivity {
         applicationAllLoadHelper = new ApplicationAllLoadHelper();
         applicationAllLoadHelper.loadApplications(this, new ApplicationAllLoadHelper.ApplicationCallback() {
             @Override
-            public void onSuccess(List<Application> applications) {
+            public void onSuccess(List<ApplicationRequest> applications) {
                 ApplicationAdapter adapter = new ApplicationAdapter(applications);
                 AllList.setAdapter(adapter);
             }
