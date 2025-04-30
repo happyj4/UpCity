@@ -1,10 +1,13 @@
 package com.example.upcity.adapters;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -14,18 +17,16 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 public class ToolbarFragment extends Fragment {
 
-    private ShapeableImageView photoButton;
-    private ImageButton plusButton;
-    private Menu menu;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_custom_toolbar, container, false);
 
-        photoButton = view.findViewById(R.id.PhotoButton);
-        plusButton = view.findViewById(R.id.PlusButton);
+        TextView NameText = view.findViewById(R.id.NameText);
+        ShapeableImageView photoButton = view.findViewById(R.id.PhotoButton);
+        ImageButton plusButton = view.findViewById(R.id.PlusButton);
+        Menu menu = new Menu();
 
-        menu = new Menu();
+        NameText.setText(getUserName(requireContext()));
 
         photoButton.setOnClickListener(v -> {
             if (requireActivity() != null) {
@@ -38,5 +39,10 @@ public class ToolbarFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public static String getUserName(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
+        return prefs.getString("name", null);
     }
 }

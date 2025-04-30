@@ -2,6 +2,7 @@ package com.example.upcity.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;

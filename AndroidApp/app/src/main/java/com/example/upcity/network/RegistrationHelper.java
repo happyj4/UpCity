@@ -1,6 +1,8 @@
 package com.example.upcity.network;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.upcity.utils.UserRequest;
 import com.example.upcity.utils.ApiResponse;
 import retrofit2.Call;
@@ -18,6 +20,7 @@ public class RegistrationHelper {
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body().getMessage());
+                    saveUser(context, userRequest.getEmail(), userRequest.getSurname() + " " + userRequest.getName());
                 } else {
                     callback.onFailure(response.message());
                 }
@@ -33,5 +36,13 @@ public class RegistrationHelper {
     public interface RegistrationCallback {
         void onSuccess(String message);
         void onFailure(String error);
+    }
+
+    public static void saveUser(Context context, String email, String name) {
+        SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("email", email);
+        editor.putString("name", name);
+        editor.apply();
     }
 }

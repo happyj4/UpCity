@@ -1,6 +1,9 @@
 package com.example.upcity.network;
 
+import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.upcity.utils.LoginRequest;
 import com.example.upcity.utils.ApiResponse;
 import retrofit2.Call;
@@ -19,6 +22,7 @@ public class LoginHelper {
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body().getMessage());
+                    saveUser(context, loginRequest.getEmail(), "Корякін Захар");
                 } else {
                     callback.onFailure("Login failed: " + response.message());
                 }
@@ -34,6 +38,14 @@ public class LoginHelper {
     public interface LoginCallback {
         void onSuccess(String token);
         void onFailure(String error);
+    }
+
+    public static void saveUser(Context context, String email, String name) {
+        SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("email", email);
+        editor.putString("name", name);
+        editor.apply();
     }
 }
 
