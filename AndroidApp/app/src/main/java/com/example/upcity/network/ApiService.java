@@ -1,5 +1,6 @@
 package com.example.upcity.network;
 
+import com.example.upcity.utils.ApiLoginResponse;
 import com.example.upcity.utils.ApiResponse;
 import com.example.upcity.utils.ApplicationRequest;
 import com.example.upcity.utils.LoginRequest;
@@ -24,5 +25,5 @@ public interface ApiService {
     Call<ApiResponse> createUser(@Body UserRequest user);
 
     @POST("/login/")
-    Call<ApiResponse> login(@Body LoginRequest loginRequest);
+    Call<ApiLoginResponse> login(@Body LoginRequest loginRequest);
 }
