@@ -25,6 +25,12 @@ def login(db: Session, request:utility_company_schemas.LoginAdminCompany):
     if user:
         if not Hash.verify(user.password, request.password):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Невірний пароль для користувача")
-        return {"message": "Успішний вхід USER"}
+        return {
+            "message": "Успішний вхід USER",
+            "data": {
+                "name": user.name,
+                "surname": user.surname
+            }
+        }
 
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"З email = {request.email} не зареєстровано жодний обліковий запис")
