@@ -23,7 +23,13 @@ def register(request: user_schemas.UserRegister, db: Session):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {"message": "Успішна регістрація"}
+    return {
+    "message": "Успішна реєстрація",
+    "user": {
+        "name": request.name,
+        "surname": request.surname,
+    }
+}
 
 def show_all(db:Session):
     users = db.query(models.User).all()
