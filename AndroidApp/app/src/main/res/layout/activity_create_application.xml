@@ -191,16 +191,23 @@
             android:textColor="#1E1E1E"
             android:fontFamily="@font/inter_light" />
 
-        <ImageButton
-            android:id="@+id/AddPhotoButton"
+        <FrameLayout
             android:layout_width="379dp"
             android:layout_height="132dp"
             android:layout_marginLeft="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/empty_photo_application"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/rounded_background_photo_application" />
+            android:background="@drawable/rounded_background_photo_application"
+            android:clipToOutline="true"
+            android:outlineProvider="background">
+
+            <ImageView
+                android:id="@+id/AddPhotoButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/empty_photo_application"
+                android:clickable="true"
+                android:focusable="true" />
+        </FrameLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/CreateApplicationButton"

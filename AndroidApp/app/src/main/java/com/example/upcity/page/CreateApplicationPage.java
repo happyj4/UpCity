@@ -1,9 +1,12 @@
 package com.example.upcity.page;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -33,9 +36,9 @@ public class CreateApplicationPage extends AppCompatActivity {
         }
 
         // Подключение зависимостей
-        Spinner spinner = findViewById(R.id.SpinnerUtilityCompany);
         Button CreateApplicationButton = findViewById(R.id.CreateApplicationButton);
         Button HomeButton = findViewById(R.id.HomeButton);
+        ImageView AddPhotoButton = findViewById(R.id.AddPhotoButton);
 
         // Подключение спинера КП
         loadUtilityCompanies();
@@ -43,6 +46,10 @@ public class CreateApplicationPage extends AppCompatActivity {
         // Подключение кнопок
         HomeButton.setOnClickListener(view -> {
             AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+        });
+
+        AddPhotoButton.setOnClickListener(view -> {
+            openGallery();
         });
 
         // Показ сообщения
@@ -77,4 +84,26 @@ public class CreateApplicationPage extends AppCompatActivity {
             }
         });
     }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri imageUri = data.getData();
+
+            ImageView AddPhotoButton = findViewById(R.id.AddPhotoButton);
+            AddPhotoButton.setImageURI(imageUri);
+
+            String imagePath = imageUri.toString();
+            Toast.makeText(this, "Фото вибрано", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
