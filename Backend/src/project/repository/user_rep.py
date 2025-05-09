@@ -34,3 +34,18 @@ def register(request: user_schemas.UserRegister, db: Session):
 def show_all(db:Session):
     users = db.query(models.User).all()
     return users
+
+def block_user(request: user_schemas.BlockUser, db: Session):
+    user = db.query(models.User).filter(models.User.user_id == request.user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Користувача не знайдено")
+
+    block = models.Blocking(
+        user_id=request.user_id,
+        reason=request.reason,
+        block_date=request.block_date
+    )
+    db.add(block)
+    db.commit()
+    db.refresh(block)
+    return {"message": "Користувача заблоковано"}

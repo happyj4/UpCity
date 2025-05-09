@@ -16,7 +16,10 @@ def register(request: user_schemas.UserRegister, db:Session = Depends(get_db)):
   return user_rep.register(request, db)
 
 
-@router.get("/",response_model= List[user_schemas.UserShowAll],status_code=status.HTTP_200_OK)
+@router.get("/ ",response_model= List[user_schemas.UserShowAll],status_code=status.HTTP_200_OK)
 def show_all(db:Session = Depends(get_db)):
   return user_rep.show_all(db)
 
+@router.post("/block", status_code=status.HTTP_201_CREATED)
+def block_user(request: user_schemas.BlockUser, db: Session = Depends(get_db)):
+    return user_rep.block_user(request, db)

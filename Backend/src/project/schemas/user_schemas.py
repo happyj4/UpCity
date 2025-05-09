@@ -27,3 +27,8 @@ class UserShowAll(BaseModel):
 class UserLogin(BaseModel):
   email:EmailStr
   password:str
+  
+class BlockUser(BaseModel):
+  user_id: int
+  reason: str
+  block_date: str
