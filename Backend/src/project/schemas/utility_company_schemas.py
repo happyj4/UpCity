@@ -1,17 +1,18 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Optional, Annotated
+from annotated_types import MinLen, MaxLen
 
 class UtilityCompanyAdd(BaseModel):
-  name:str
-  address:str
-  phone:str
+  name: Annotated[str, MinLen(3), MaxLen(35)]
+  address:Annotated[str, MinLen(10), MaxLen(150)]
+  phone: Annotated[str, MinLen(10), MaxLen(20)]
   email: EmailStr
-  password:str
+  password: Annotated[str, MinLen(8), MaxLen(64)]
   
 class UtilityCompanyUpdate(BaseModel):
-  name:str
-  address:str
-  phone:str
+  name: Annotated[str, MinLen(3), MaxLen(35)]
+  address:Annotated[str, MinLen(10), MaxLen(150)]
+  phone: Annotated[str, MinLen(10), MaxLen(20)]
   email: EmailStr
   
   
