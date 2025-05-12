@@ -35,30 +35,33 @@ def register(request: user_schemas.UserRegister, db: Session):
 
 def get_users(
     db: Session,
-    has_subscription: bool | None,
-    sort_by: Literal["name", "surname", "rating"] | None,
-    sort_order: Literal["asc", "desc"] | None,
+    sort_by_subscription: Literal["З підписокою", "Без підписки", "Просрочено"] | None,
+    sort_by_rating: Literal["За зростанням", "За спаданням"] | None,
+    sort_by_name: Literal["А-Я", "Я-А"] | None,
 ):
-    """
-    Get users with filtering and sorting options:
-    - Filter by subscription status (has subscription or not)
-    - Sort by name, surname, or rating in ascending or descending order
-    """
+
     query = db.query(models.User)
     
-    if has_subscription is not None:
-        if has_subscription:
-            query = query.filter(models.User.subscription_id != None)
-        else:
-            query = query.filter(models.User.subscription_id == None)
+    if sort_by_subscription == "З підписокою":
+        query = query.join(models.User.subscription).filter(models.Subscription.status == "Активна")
+    elif sort_by_subscription == "Без підписки":
+        query = query.filter(models.User.subscription_id == None)
+    elif sort_by_subscription == "Просрочено":
+        query = query.join(models.User.subscription).filter(models.Subscription.status == "Неактивна")
+
     
-    if sort_by:
-        sort_column = getattr(models.User, sort_by)
+    if sort_by_rating == "За зростанням":
+        query = query.order_by(asc(models.User.rating))
+    elif sort_by_rating == "За спаданням":
+        query = query.order_by(desc(models.User.rating))
+    
+    if sort_by_name == "А-Я":
+        query = query.order_by(asc(models.User.name))
         
-        if sort_order == "desc":
-            query = query.order_by(desc(sort_column))
-        else:
-            query = query.order_by(asc(sort_column))
-    
+    elif sort_by_name == "Я-А":
+        query = query.order_by(desc(models.User.name))
+        
     users = query.all()
     return users
+
+
