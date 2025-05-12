@@ -31,4 +31,4 @@ class UserLogin(BaseModel):
 class BlockUser(BaseModel):
   user_id: int
   reason: str
-  block_date: str
+

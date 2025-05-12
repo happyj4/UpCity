@@ -8,6 +8,8 @@ from ..hashing import Hash
 
 def register(request: user_schemas.UserRegister, db: Session):
     existing_user = db.query(models.User).filter(models.User.email == request.email).first()
+    if existing_user.blocking:
+        raise HTTPException(status_code=400, detail="Користувач уже заблокований")
     if existing_user:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -40,10 +42,12 @@ def block_user(request: user_schemas.BlockUser, db: Session):
     if not user:
         raise HTTPException(status_code=404, detail="Користувача не знайдено")
 
+    if user.blocking:
+        raise HTTPException(status_code=400, detail="Користувач уже заблокований")
+
     block = models.Blocking(
         user_id=request.user_id,
-        reason=request.reason,
-        block_date=request.block_date
+        reason=request.reason
     )
     db.add(block)
     db.commit()
