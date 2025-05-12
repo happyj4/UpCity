@@ -41,7 +41,7 @@ def login(db: Session, request: utility_company_schemas.LoginAdminCompany):
         if not Hash.verify(request.password, user.password):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Невірний пароль для користувача")
         
-        access_token = oauth2.create_access_token(data={"sub": user.email, "role": "user"})
+        access_token = oauth2.create_access_token(data={"sub": user.user_id, "role": "user"})
         return {
             "message": "Успішний вхід USER",
             "access_token": access_token,
