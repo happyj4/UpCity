@@ -1,5 +1,7 @@
+from typing import Literal
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy import asc, desc
 from ..db import models
 from ..schemas import user_schemas
 from ..hashing import Hash
@@ -33,6 +35,7 @@ def register(request: user_schemas.UserRegister, db: Session):
     }
 }
 
+
 def show_all(db:Session):
     users = db.query(models.User).all()
     return users
@@ -53,3 +56,37 @@ def block_user(request: user_schemas.BlockUser, db: Session):
     db.commit()
     db.refresh(block)
     return {"message": "Користувача заблоковано"}
+
+def get_users(
+    db: Session,
+    sort_by_subscription: Literal["З підписокою", "Без підписки", "Просрочено"] | None,
+    sort_by_rating: Literal["За зростанням", "За спаданням"] | None,
+    sort_by_name: Literal["А-Я", "Я-А"] | None,
+):
+
+    query = db.query(models.User)
+    
+    if sort_by_subscription == "З підписокою":
+        query = query.join(models.User.subscription).filter(models.Subscription.status == "Активна")
+    elif sort_by_subscription == "Без підписки":
+        query = query.filter(models.User.subscription_id == None)
+    elif sort_by_subscription == "Просрочено":
+        query = query.join(models.User.subscription).filter(models.Subscription.status == "Неактивна")
+
+    
+    if sort_by_rating == "За зростанням":
+        query = query.order_by(asc(models.User.rating))
+    elif sort_by_rating == "За спаданням":
+        query = query.order_by(desc(models.User.rating))
+    
+    if sort_by_name == "А-Я":
+        query = query.order_by(asc(models.User.name))
+        
+    elif sort_by_name == "Я-А":
+        query = query.order_by(desc(models.User.name))
+        
+    users = query.all()
+    return users
+
+
+

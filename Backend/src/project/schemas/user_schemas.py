@@ -2,14 +2,15 @@
 from pydantic import BaseModel, EmailStr
 from .image_schemas import ImageOut
 from .subscription_schemas import SubscriptionOut
-from typing import Optional
+from typing import Optional, Annotated
+from annotated_types import MaxLen, MinLen
 
 
 class UserRegister(BaseModel):
   email:EmailStr
-  name:str
-  surname:str
-  password:str
+  name: Annotated[str, MinLen(3), MaxLen(35)]
+  surname:Annotated[str, MinLen(3), MaxLen(35)]
+  password: Annotated[str, MinLen(8), MaxLen(64)]
 
 class UserShowAll(BaseModel):
   user_id: int
@@ -31,4 +32,7 @@ class UserLogin(BaseModel):
 class BlockUser(BaseModel):
   user_id: int
   reason: str
+
+    
+
 
