@@ -10,9 +10,11 @@ from ..hashing import Hash
 
 def register(request: user_schemas.UserRegister, db: Session):
     existing_user = db.query(models.User).filter(models.User.email == request.email).first()
-    if existing_user.blocking:
-        raise HTTPException(status_code=400, detail="Користувач уже заблокований")
+    
     if existing_user:
+        if existing_user.blocking:
+            raise HTTPException(status_code=400, detail="Користувач уже заблокований")
+        
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=f"Користувач з email = {request.email} вже існує"
@@ -28,12 +30,12 @@ def register(request: user_schemas.UserRegister, db: Session):
     db.commit()
     db.refresh(new_user)
     return {
-    "message": "Успішна реєстрація",
-    "user": {
-        "name": request.name,
-        "surname": request.surname,
+        "message": "Успішна реєстрація",
+        "user": {
+            "name": request.name,
+            "surname": request.surname,
+        }
     }
-}
 
 
 def show_all(db:Session):
