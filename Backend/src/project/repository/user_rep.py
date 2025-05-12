@@ -10,9 +10,10 @@ from ..hashing import Hash
 
 def register(request: user_schemas.UserRegister, db: Session):
     existing_user = db.query(models.User).filter(models.User.email == request.email).first()
-    if existing_user.blocking:
-        raise HTTPException(status_code=400, detail="Користувач уже заблокований")
+    
     if existing_user:
+        if existing_user.blocking:
+            raise HTTPException(status_code=400, detail="Користувач уже заблокований")
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=f"Користувач з email = {request.email} вже існує"
@@ -28,19 +29,17 @@ def register(request: user_schemas.UserRegister, db: Session):
     db.commit()
     db.refresh(new_user)
     return {
-    "message": "Успішна реєстрація",
-    "user": {
-        "name": request.name,
-        "surname": request.surname,
+        "message": "Успішна реєстрація",
+        "user": {
+            "name": request.name,
+            "surname": request.surname,
+        }
     }
-}
 
 
-def show_all(db:Session):
-    users = db.query(models.User).all()
-    return users
-
-def block_user(request: user_schemas.BlockUser, db: Session):
+def block_user(request: user_schemas.BlockUser, db: Session, current_user:dict):
+    if current_user["role"] != "admin":
+        raise HTTPException(status_code=403, detail="Недостатньо прав")
     user = db.query(models.User).filter(models.User.user_id == request.user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="Користувача не знайдено")
@@ -62,8 +61,10 @@ def get_users(
     sort_by_subscription: Literal["З підписокою", "Без підписки", "Просрочено"] | None,
     sort_by_rating: Literal["За зростанням", "За спаданням"] | None,
     sort_by_name: Literal["А-Я", "Я-А"] | None,
+    current_user:dict
 ):
-
+    if current_user["role"] != "admin":
+        raise HTTPException(status_code=403, detail="Недостатньо прав")
     query = db.query(models.User)
     
     if sort_by_subscription == "З підписокою":
