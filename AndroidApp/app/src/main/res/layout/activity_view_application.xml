@@ -70,156 +70,190 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/IdApplicationText"
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:text="#1-2634"
-            android:textSize="16dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
+            android:layout_height="match_parent"
+            android:paddingBottom="50dp"
+            android:scrollbars="none"
+            android:fillViewport="true">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:text="Назва"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
 
-        <TextView
-            android:id="@+id/NameApplicationText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:gravity="center_vertical"
-            android:text="Сміття"
-            android:textSize="24dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_semibold" />
+                <TextView
+                    android:id="@+id/IdApplicationText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:text="#1-2634"
+                    android:textSize="16dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_light" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:text="Адреса"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:text="Назва"
+                    android:textSize="12dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_light" />
 
-        <TextView
-            android:id="@+id/AddressApplicationText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:gravity="center_vertical"
-            android:text="вул. Римарська, 28"
-            android:textSize="16dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_regular" />
+                <TextView
+                    android:id="@+id/NameApplicationText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:text="Сміття"
+                    android:textSize="24dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_semibold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:text="КП"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"
+                    android:text="Адреса"
+                    android:textSize="12dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_light" />
 
-        <TextView
-            android:id="@+id/KpApplicationText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:gravity="center_vertical"
-            android:text="КП«Щасливе місто»"
-            android:textSize="16dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_regular" />
+                <TextView
+                    android:id="@+id/AddressApplicationText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:text="вул. Римарська, 28"
+                    android:textSize="16dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_regular" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:text="Опис"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"
+                    android:text="КП"
+                    android:textSize="12dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_light" />
 
-        <TextView
-            android:id="@+id/DescriptionApplicationText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center_vertical"
-            android:text="Дуже велика груда сміття біля сміткика, воно смердить"
-            android:textSize="16dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_regular" />
+                <TextView
+                    android:id="@+id/KpApplicationText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:text="КП«Щасливе місто»"
+                    android:textSize="16dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_regular" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/background"
-            android:orientation="horizontal"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center|left">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"
+                    android:text="Опис"
+                    android:textSize="12dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_light" />
 
-            <ImageView
-                android:id="@+id/StatusApplication"
-                android:layout_width="81dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:src="@drawable/completed_application" />
+                <TextView
+                    android:id="@+id/DescriptionApplicationText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center_vertical"
+                    android:text="Дуже велика груда сміття біля сміткика, воно смердить"
+                    android:textSize="16dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_regular" />
 
-            <TextView
-                android:id="@+id/DateApplicationText"
-                android:layout_width="81dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="10.10.2025"
-                android:textSize="14dp"
-                android:textColor="#848484"
-                android:background="@drawable/rounded_background_date"
-                android:fontFamily="@font/inter_regular" />
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center|left">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
-            android:gravity="center_vertical"
-            android:text="Фото"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
+                    <ImageView
+                        android:id="@+id/StatusApplication"
+                        android:layout_width="81dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/completed_application" />
 
-        <ImageButton
-            android:id="@+id/AddPhotoButton"
-            android:layout_width="379dp"
-            android:layout_height="132dp"
-            android:layout_marginLeft="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/empty_photo_application"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/rounded_background_photo_application" />
+                    <TextView
+                        android:id="@+id/DateApplicationText"
+                        android:layout_width="81dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:text="10.10.2025"
+                        android:textSize="14dp"
+                        android:textColor="#848484"
+                        android:background="@drawable/rounded_background_date"
+                        android:fontFamily="@font/inter_regular" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_vertical"
+                    android:text="Фото"
+                    android:textSize="12dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_light" />
+
+                <ImageView
+                    android:id="@+id/ClientPhoto"
+                    android:layout_width="379dp"
+                    android:layout_height="132dp"
+                    android:layout_marginLeft="15dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/empty_photo_application"
+                    android:background="@drawable/rounded_background_photo_application" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"
+                    android:text="Фото “ПІСЛЯ”"
+                    android:textSize="12dp"
+                    android:textColor="#1E1E1E"
+                    android:fontFamily="@font/inter_light" />
+
+                <ImageView
+                    android:id="@+id/UtilityCompaniePhoto"
+                    android:layout_width="379dp"
+                    android:layout_height="132dp"
+                    android:layout_marginLeft="15dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/empty_photo_application"
+                    android:background="@drawable/rounded_background_photo_application" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </LinearLayout>

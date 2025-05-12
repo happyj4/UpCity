@@ -71,7 +71,6 @@ public class LoginPage extends AppCompatActivity {
         loginHelper.login(this, loginRequest, new LoginHelper.LoginCallback() {
             @Override
             public void onSuccess(String response) {
-                Toast.makeText(LoginPage.this, response, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginPage.this, HomePage.class);
                 intent.putExtra("skipAnimation", true);
                 startActivity(intent);

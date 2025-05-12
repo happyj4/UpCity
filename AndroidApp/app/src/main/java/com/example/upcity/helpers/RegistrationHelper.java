@@ -22,7 +22,7 @@ public class RegistrationHelper {
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body().getMessage());
-                    saveUser(context, userRequest.getEmail(), userRequest.getSurname() + " " + userRequest.getName());
+                    saveUser(context, userRequest.getEmail(), userRequest.getName(), userRequest.getSurname());
                 } else {
                     callback.onFailure(response.message());
                 }
@@ -40,11 +40,12 @@ public class RegistrationHelper {
         void onFailure(String error);
     }
 
-    public static void saveUser(Context context, String email, String name) {
+    public static void saveUser(Context context, String email, String name, String surname) {
         SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("email", email);
         editor.putString("name", name);
+        editor.putString("surname", surname);
         editor.apply();
     }
 }

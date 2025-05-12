@@ -21,7 +21,7 @@ import java.util.List;
 
 public class CreateApplicationPage extends AppCompatActivity {
 
-    private String[] items;
+    private String[] UtilityCompanies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +68,10 @@ public class CreateApplicationPage extends AppCompatActivity {
         helper.loadUtilityCompany(this, new UtilityCompanyAllLoadHelper.ApplicationCallback() {
             @Override
             public void onSuccess(List<String> companyNames) {
-                items = companyNames.toArray(new String[0]);
+                UtilityCompanies = companyNames.toArray(new String[0]);
 
                 runOnUiThread(() -> {
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(CreateApplicationPage.this, R.layout.item_spinner_utility_company, items);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(CreateApplicationPage.this, R.layout.item_spinner_utility_company, UtilityCompanies);
                     adapter.setDropDownViewResource(R.layout.item_spinner_utility_company);
                     Spinner spinner = findViewById(R.id.SpinnerUtilityCompany);
                     spinner.setAdapter(adapter);

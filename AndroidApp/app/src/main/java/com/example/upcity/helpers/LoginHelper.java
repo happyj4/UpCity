@@ -26,7 +26,7 @@ public class LoginHelper {
                     String name = response.body().getData().getName();
                     String surname = response.body().getData().getSurname();
 
-                    saveUser(context, loginRequest.getEmail(), surname + " " + name);
+                    saveUser(context, loginRequest.getEmail(), name, surname);
                 } else {
                     callback.onFailure("Login failed: " + response.message());
                 }
@@ -44,11 +44,12 @@ public class LoginHelper {
         void onFailure(String error);
     }
 
-    public static void saveUser(Context context, String email, String name) {
+    public static void saveUser(Context context, String email, String name, String surname) {
         SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("email", email);
         editor.putString("name", name);
+        editor.putString("surname", surname);
         editor.apply();
     }
 }

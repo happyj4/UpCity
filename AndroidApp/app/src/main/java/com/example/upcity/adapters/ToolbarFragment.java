@@ -26,7 +26,7 @@ public class ToolbarFragment extends Fragment {
         ImageButton plusButton = view.findViewById(R.id.PlusButton);
         Menu menu = new Menu();
 
-        NameText.setText(getUserName(requireContext()));
+        NameText.setText(getUserInfo(requireContext()));
 
         photoButton.setOnClickListener(v -> {
             if (requireActivity() != null) {
@@ -41,8 +41,11 @@ public class ToolbarFragment extends Fragment {
         return view;
     }
 
-    public static String getUserName(Context context) {
+    public static String getUserInfo(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
-        return prefs.getString("name", null);
+        String name = prefs.getString("name", null);
+        String surname = prefs.getString("surname", null);
+
+        return surname + " " + name;
     }
 }
