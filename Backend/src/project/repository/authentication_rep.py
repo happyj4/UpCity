@@ -23,6 +23,8 @@ def login(db: Session, request:utility_company_schemas.LoginAdminCompany):
     user = db.query(models.User).filter(models.User.email == request.email).first()
     
     if user:
+        if user.blocking:
+            raise HTTPException(status_code=400, detail="Користувач уже заблокований")
         if not Hash.verify(user.password, request.password):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Невірний пароль для користувача")
         return {

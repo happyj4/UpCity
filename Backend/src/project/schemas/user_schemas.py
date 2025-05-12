@@ -27,4 +27,12 @@ class UserShowAll(BaseModel):
 
 class UserLogin(BaseModel):
   email:EmailStr
-  password: Annotated[str, MinLen(8), MaxLen(64)]
+  password:str
+  
+class BlockUser(BaseModel):
+  user_id: int
+  reason: str
+
+    
+
+
