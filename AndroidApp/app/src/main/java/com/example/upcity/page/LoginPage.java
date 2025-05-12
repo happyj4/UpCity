@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -66,6 +67,7 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void performLogin(LoginRequest loginRequest) {
+        TextView ErrorMessage   = findViewById(R.id.ErrorMessage);
         LoginHelper loginHelper = new LoginHelper();
 
         loginHelper.login(this, loginRequest, new LoginHelper.LoginCallback() {
@@ -80,7 +82,11 @@ public class LoginPage extends AppCompatActivity {
 
             @Override
             public void onFailure(String error) {
-                Toast.makeText(LoginPage.this, "Ошибка входа: " + error, Toast.LENGTH_SHORT).show();
+                if (error.equals("value is not a valid email address: An email address must have an @-sign.")) {
+                    ErrorMessage.setText("Введіть коректний Email");
+                } else {
+                    ErrorMessage.setText(error);
+                }
             }
         });
     }

@@ -7,6 +7,10 @@ import com.example.upcity.network.ApiService;
 import com.example.upcity.network.RetrofitClient;
 import com.example.upcity.utils.ApiLoginResponse;
 import com.example.upcity.utils.LoginRequest;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,7 +32,8 @@ public class LoginHelper {
 
                     saveUser(context, loginRequest.getEmail(), name, surname);
                 } else {
-                    callback.onFailure("Login failed: " + response.message());
+                    String errorMessage = parseErrorMessage(response);
+                    callback.onFailure(errorMessage);
                 }
             }
 
@@ -37,6 +42,22 @@ public class LoginHelper {
                 callback.onFailure("Network error: " + t.getMessage());
             }
         });
+    }
+
+    private String parseErrorMessage(Response<?> response) {
+        try {
+            String errorBody = response.errorBody().string();
+            JSONObject json = new JSONObject(errorBody);
+            Object detail = json.get("detail");
+
+            if (detail instanceof JSONArray) {
+                return ((JSONArray) detail).getJSONObject(0).getString("msg");
+            }
+
+            return detail.toString();
+        } catch (Exception e) {
+            return "Помилка";
+        }
     }
 
     public interface LoginCallback {

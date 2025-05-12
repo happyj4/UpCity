@@ -148,9 +148,20 @@
             android:fontFamily="@font/inter_semibold" />
 
         <TextView
+            android:id="@+id/ErrorMessage"
+            android:layout_width="320dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="0dp"
+            android:gravity="top|center"
+            android:text=""
+            android:textSize="11dp"
+            android:textColor="#D54343"
+            android:fontFamily="@font/inter_light" />
+
+        <TextView
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="або"
             android:textSize="12dp"

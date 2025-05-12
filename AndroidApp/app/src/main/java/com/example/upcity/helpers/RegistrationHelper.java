@@ -2,11 +2,16 @@ package com.example.upcity.helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.upcity.network.ApiService;
 import com.example.upcity.network.RetrofitClient;
 import com.example.upcity.utils.UserRequest;
 import com.example.upcity.utils.ApiResponse;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,7 +29,8 @@ public class RegistrationHelper {
                     callback.onSuccess(response.body().getMessage());
                     saveUser(context, userRequest.getEmail(), userRequest.getName(), userRequest.getSurname());
                 } else {
-                    callback.onFailure(response.message());
+                    String errorMessage = parseErrorMessage(response);
+                    callback.onFailure(errorMessage);
                 }
             }
 
@@ -33,6 +39,22 @@ public class RegistrationHelper {
                 callback.onFailure(t.getMessage());
             }
         });
+    }
+
+    private String parseErrorMessage(Response<?> response) {
+        try {
+            String errorBody = response.errorBody().string();
+            JSONObject json = new JSONObject(errorBody);
+            Object detail = json.get("detail");
+
+            if (detail instanceof JSONArray) {
+                return ((JSONArray) detail).getJSONObject(0).getString("msg");
+            }
+
+            return detail.toString();
+        } catch (Exception e) {
+            return "Помилка";
+        }
     }
 
     public interface RegistrationCallback {
