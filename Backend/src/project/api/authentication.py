@@ -1,16 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
-from ..db import database
-from datetime import datetime, timedelta, timezone
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from ..repository import authentication_rep
-from ..schemas import utility_company_schemas
-get_db = database.get_db
+from fastapi.security import  OAuth2PasswordRequestForm
+
+from project.db.database import get_db
+from project.repository import authentication_rep
+from project.schemas import utility_company_schemas
+
 
 router = APIRouter(tags=['Авторизація для | Користувача | Адміна | Кп | 🔓'], prefix="/login")
 
-
-from fastapi.security import OAuth2PasswordRequestForm
 
 @router.post("/", status_code=status.HTTP_200_OK)
 def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
