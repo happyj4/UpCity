@@ -5,6 +5,7 @@ from ..schemas import utility_company_schemas
 from ..repository import utility_company_rep
 from typing import Optional, Annotated
 from ..oauth2 import get_current_user
+from typing import List, Literal
 
 
 
@@ -18,7 +19,7 @@ def get_one(id: Annotated[int, Path(ge=1, lt=10_000)], db:Session = Depends(get_
     return utility_company_rep.get_one(current_user=current_user,id=id, db=db)
 
 @router.get("/", response_model=list[utility_company_schemas.ShowUtilityCompany], status_code=status.HTTP_200_OK)
-def all(db:Session = Depends(get_db),sort_by_rating: Optional[str] = Query(None, regex="^(asc|desc)$"), current_user: dict = Depends(get_current_user)):
+def all(db:Session = Depends(get_db),sort_by_rating: Literal["За зростанням", "За спаданням"] | None = Query(None, description="Фільтраця за рейтингом"), current_user: dict = Depends(get_current_user)):
     return utility_company_rep.all(current_user=current_user, db=db, sort_by_rating=sort_by_rating)
 
 
