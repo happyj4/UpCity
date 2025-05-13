@@ -20,17 +20,27 @@ public class LoginHelper {
     public void login(Context context, LoginRequest loginRequest, final LoginCallback callback) {
         ApiService apiService = RetrofitClient.getInstance();
 
-        Call<ApiLoginResponse> call = apiService.login(loginRequest);
+        Call<ApiLoginResponse> call = apiService.login(
+                loginRequest.getGrantType(),
+                loginRequest.getUsername(),
+                loginRequest.getPassword(),
+                loginRequest.getScope(),
+                loginRequest.getClientId(),
+                loginRequest.getClientSecret()
+        );
 
         call.enqueue(new Callback<ApiLoginResponse>() {
             @Override
             public void onResponse(Call<ApiLoginResponse> call, Response<ApiLoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body().getMessage());
-                    String name = response.body().getData().getName();
-                    String surname = response.body().getData().getSurname();
 
-                    saveUser(context, loginRequest.getEmail(), name, surname);
+                    String name = response.body().getUser().getName();
+                    String surname = response.body().getUser().getSurname();
+                    String email = loginRequest.getUsername();
+                    String access_token = response.body().getAccessToken();
+
+                    saveUser(context, email, name, surname, access_token);
                 } else {
                     String errorMessage = parseErrorMessage(response);
                     callback.onFailure(errorMessage);
@@ -65,12 +75,13 @@ public class LoginHelper {
         void onFailure(String error);
     }
 
-    public static void saveUser(Context context, String email, String name, String surname) {
+    public static void saveUser(Context context, String email, String name, String surname, String access_token) {
         SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("email", email);
         editor.putString("name", name);
         editor.putString("surname", surname);
+        editor.putString("access_token", access_token);
         editor.apply();
     }
 }

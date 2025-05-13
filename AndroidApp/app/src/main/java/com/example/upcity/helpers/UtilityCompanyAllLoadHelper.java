@@ -1,6 +1,7 @@
 package com.example.upcity.helpers;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.example.upcity.network.ApiService;
 import com.example.upcity.network.RetrofitClient;
@@ -15,8 +16,10 @@ import retrofit2.Response;
 
 public class UtilityCompanyAllLoadHelper {
     public void loadUtilityCompany(Context context, final ApplicationCallback callback) {
+        SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
+        String accessToken = prefs.getString("access_token", null);
         ApiService apiService = RetrofitClient.getInstance();
-        Call<List<UtilityCompanyRequest>> call = apiService.getUtilityCompany();
+        Call<List<UtilityCompanyRequest>> call = apiService.getUtilityCompany("Bearer " + accessToken);
 
         call.enqueue(new Callback<List<UtilityCompanyRequest>>() {
             @Override

@@ -2,17 +2,27 @@ package com.example.upcity.utils;
 
 public class ApiLoginResponse {
     private String message;
-    private UserData data;
+    private String access_token;
+    private String token_type;
+    private User user;
 
     public String getMessage() {
         return message;
     }
 
-    public UserData getData() {
-        return data;
+    public String getAccessToken() {
+        return access_token;
     }
 
-    public static class UserData {
+    public String getTokenType() {
+        return token_type;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public static class User {
         private String name;
         private String surname;
 

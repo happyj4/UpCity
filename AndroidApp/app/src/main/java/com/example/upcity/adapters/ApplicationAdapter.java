@@ -73,7 +73,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (applicationRequest != null) {
             Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
 
-           // intent.putExtra("applicationId", application.getId());
+            intent.putExtra("applicationId", applicationRequest.getApplicationId());
 
             AnimationUtilsHelper.animateAndNavigate(((Activity) v.getContext()), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
             }

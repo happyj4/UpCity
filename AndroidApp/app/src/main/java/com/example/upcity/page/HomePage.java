@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.upcity.adapters.AnimationUtilsHelper;
 import com.example.upcity.helpers.ApplicationAllLoadHelper;
+import com.example.upcity.helpers.UserApplicationsLoadHelper;
 import com.example.upcity.utils.ApplicationRequest;
 import com.example.upcity.adapters.ApplicationAdapter;
 import com.example.upcity.R;
@@ -22,6 +23,7 @@ import java.util.List;
 public class HomePage extends AppCompatActivity {
 
     private ApplicationAllLoadHelper applicationAllLoadHelper;
+    private UserApplicationsLoadHelper userApplicationsLoadHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,23 @@ public class HomePage extends AppCompatActivity {
 
         LinearLayoutManager layoutManagerMyList = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         MyList.setLayoutManager(layoutManagerMyList);
+
+        // Отображение моих заявок
+        userApplicationsLoadHelper = new UserApplicationsLoadHelper();
+        UserApplicationsLoadHelper userApplicationsLoadHelper = new UserApplicationsLoadHelper();
+
+        userApplicationsLoadHelper.getUserApplications(this, new UserApplicationsLoadHelper.ApplicationCallback() {
+            @Override
+            public void onSuccess(List<ApplicationRequest> applications) {
+                ApplicationAdapter adapter = new ApplicationAdapter(applications);
+                MyList.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Toast.makeText(HomePage.this, "Ошибка в загрузке моих заявок: " + error, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         GridLayoutManager gridLayoutManagerAllList = new GridLayoutManager(this, 2);
         AllList.setLayoutManager(gridLayoutManagerAllList);

@@ -225,14 +225,21 @@
                     android:textColor="#1E1E1E"
                     android:fontFamily="@font/inter_light" />
 
-                <ImageView
-                    android:id="@+id/ClientPhoto"
+                <FrameLayout
                     android:layout_width="379dp"
                     android:layout_height="132dp"
                     android:layout_marginLeft="15dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/empty_photo_application"
-                    android:background="@drawable/rounded_background_photo_application" />
+                    android:background="@drawable/rounded_background_photo_application"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background">
+
+                    <ImageView
+                        android:id="@+id/ClientPhoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/empty_photo_application" />
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -245,14 +252,21 @@
                     android:textColor="#1E1E1E"
                     android:fontFamily="@font/inter_light" />
 
-                <ImageView
-                    android:id="@+id/UtilityCompaniePhoto"
+                <FrameLayout
                     android:layout_width="379dp"
                     android:layout_height="132dp"
                     android:layout_marginLeft="15dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/empty_photo_application"
-                    android:background="@drawable/rounded_background_photo_application" />
+                    android:background="@drawable/rounded_background_photo_application"
+                    android:clipToOutline="true"
+                    android:outlineProvider="background">
+
+                    <ImageView
+                        android:id="@+id/UtilityCompaniePhoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/empty_photo_application" />
+                </FrameLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

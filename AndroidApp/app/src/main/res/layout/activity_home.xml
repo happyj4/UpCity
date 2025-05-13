@@ -137,7 +137,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/AllList"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:scrollbars="none"
                 android:orientation="horizontal" />

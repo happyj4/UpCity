@@ -2,12 +2,14 @@ package com.example.upcity.page;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.upcity.adapters.AnimationUtilsHelper;
+import com.example.upcity.helpers.UserApplicationsLoadHelper;
 import com.example.upcity.utils.ApplicationRequest;
 import com.example.upcity.adapters.ApplicationAdapter;
 import com.example.upcity.R;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyApplicationPage extends AppCompatActivity {
+
+    private UserApplicationsLoadHelper userApplicationsLoadHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +44,22 @@ public class MyApplicationPage extends AppCompatActivity {
         GridLayoutManager gridLayoutManagerAllList = new GridLayoutManager(this, 2);
         AllList.setLayoutManager(gridLayoutManagerAllList);
 
-        List<ApplicationRequest> applicationList = new ArrayList<>();
-        // сюда все плашки
+        userApplicationsLoadHelper = new UserApplicationsLoadHelper();
+        UserApplicationsLoadHelper userApplicationsLoadHelper = new UserApplicationsLoadHelper();
 
-        applicationList.add(0, null);
+        userApplicationsLoadHelper.getUserApplications(this, new UserApplicationsLoadHelper.ApplicationCallback() {
+            @Override
+            public void onSuccess(List<ApplicationRequest> applications) {
+                List<ApplicationRequest> applicationList = applications;
+                applications.add(0, null);
+                ApplicationAdapter adapter = new ApplicationAdapter(applicationList);
+                AllList.setAdapter(adapter);
+            }
 
-        ApplicationAdapter adapter = new ApplicationAdapter(applicationList);
-
-        AllList.setAdapter(adapter);
+            @Override
+            public void onFailure(String error) {
+                Toast.makeText(MyApplicationPage.this, "Ошибка в загрузке моих заявок: " + error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -3,6 +3,7 @@ package com.example.upcity.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.upcity.network.ApiService;
 import com.example.upcity.network.RetrofitClient;
@@ -27,7 +28,13 @@ public class RegistrationHelper {
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body().getMessage());
-                    saveUser(context, userRequest.getEmail(), userRequest.getName(), userRequest.getSurname());
+
+                    String email = userRequest.getEmail();
+                    String name = response.body().getUser().getName();
+                    String surname = response.body().getUser().getSurname();
+                    String access_token = response.body().getAccessToken();
+
+                    saveUser(context, email, name, surname, access_token);
                 } else {
                     String errorMessage = parseErrorMessage(response);
                     callback.onFailure(errorMessage);
@@ -36,7 +43,7 @@ public class RegistrationHelper {
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-                callback.onFailure(t.getMessage());
+                callback.onFailure("Network error: " + t.getMessage());
             }
         });
     }
@@ -62,12 +69,13 @@ public class RegistrationHelper {
         void onFailure(String error);
     }
 
-    public static void saveUser(Context context, String email, String name, String surname) {
+    public static void saveUser(Context context, String email, String name, String surname, String access_token) {
         SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("email", email);
         editor.putString("name", name);
         editor.putString("surname", surname);
+        editor.putString("access_token", access_token);
         editor.apply();
     }
 }

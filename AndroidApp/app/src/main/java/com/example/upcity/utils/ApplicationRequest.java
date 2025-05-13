@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class ApplicationRequest {
+    @SerializedName("application_id")
+    private int applicationId;
+
     private String name;
     private String status;
 
@@ -15,6 +18,14 @@ public class ApplicationRequest {
 
     @SerializedName("utility_company")
     private UtilityCompany utilityCompany;
+
+    public int getApplicationId() {
+        return applicationId;
+    }
+
+    public int getId() {
+        return applicationId;
+    }
 
     public String getName() {
         return name;
