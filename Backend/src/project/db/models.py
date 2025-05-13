@@ -1,7 +1,19 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date, Text, TIMESTAMP, DECIMAL, CheckConstraint, func, Double
-from .database import Base
+from sqlalchemy import (
+    Column, 
+    Integer, 
+    String, 
+    ForeignKey, 
+    Date, 
+    Text, 
+    TIMESTAMP, 
+    DECIMAL, 
+    CheckConstraint, 
+    func, 
+    Double
+) 
 from sqlalchemy.orm import relationship
 
+from project.db.database import Base
 
 
 class UtilityCompany(Base):

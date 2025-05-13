@@ -1,37 +1,37 @@
-
 from pydantic import BaseModel, EmailStr
-from .image_schemas import ImageOut
-from .subscription_schemas import SubscriptionOut
 from typing import Optional, Annotated
 from annotated_types import MaxLen, MinLen
 
+from project.schemas.image_schemas import ImageOut
+from project.schemas.subscription_schemas import SubscriptionOut
+
 
 class UserRegister(BaseModel):
-  email:EmailStr
-  name: Annotated[str, MinLen(3), MaxLen(35)]
-  surname:Annotated[str, MinLen(3), MaxLen(35)]
-  password: Annotated[str, MinLen(8), MaxLen(64)]
+    email: EmailStr
+    name: Annotated[str, MinLen(3), MaxLen(35)]
+    surname: Annotated[str, MinLen(3), MaxLen(35)]
+    password: Annotated[str, MinLen(8), MaxLen(64)]
 
 class UserShowAll(BaseModel):
-  user_id: int
-  name:str
-  surname:str
-  email:EmailStr
-  rating: Optional[float] = 0
-  image: Optional[ImageOut] = None
-  subscription: Optional[SubscriptionOut] = None
+    user_id: int
+    name: str
+    surname: str
+    email: EmailStr
+    rating: Optional[float] = 0
+    image: Optional[ImageOut] = None
+    subscription: Optional[SubscriptionOut] = None
 
-  class Config():
-      orm_mode = True
+    class Config():
+        orm_mode = True
 
 
 class UserLogin(BaseModel):
-  email:EmailStr
-  password:str
+    email:EmailStr
+    password:str
   
 class BlockUser(BaseModel):
-  user_id: int
-  reason: str
+    user_id: int
+    reason: str
 
     
 
