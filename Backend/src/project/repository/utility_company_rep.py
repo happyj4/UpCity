@@ -8,7 +8,7 @@ from ..hashing import Hash
 from typing import List, Literal
 
 def all(current_user:dict, db: Session, sort_by_rating: Literal["За зростанням", "За спаданням"] | None):
-    if current_user["role"] != "admin":
+    if current_user["role"] != "admin" and current_user["role"] != "user":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
     query = db.query(models.UtilityCompany)
 

@@ -29,8 +29,8 @@ def all_by_user(
 
 
 @router.get("/{app_id}/", status_code=status.HTTP_200_OK, response_model=application_schemas.application_review)
-def application_review(app_id: int, db: Session = Depends(get_db)):
-    return application_rep.application_review(app_id = app_id, db = db)
+def application_review(app_id: int, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
+    return application_rep.application_review(app_id = app_id, db = db, current_user = current_user)
 
 
 

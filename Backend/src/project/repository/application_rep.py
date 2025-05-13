@@ -94,7 +94,10 @@ def create(name:str, address:str, description:str, company_name:str, photo: Uplo
     }
 
 
-def application_review(app_id:int, db:Session):
+def application_review(app_id:int, db:Session, current_user:dict):
+    if current_user["role"] != "company" and current_user["role"] != "user":
+        raise HTTPException(status_code=403, detail="Недостатньо прав")
+    
     application = db.query(models.Application).options(
         joinedload(models.Application.image),
         joinedload(models.Application.utility_company)
