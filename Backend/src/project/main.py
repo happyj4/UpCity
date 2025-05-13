@@ -1,7 +1,8 @@
-
 from fastapi import FastAPI
-from .api import utility_company, image, application, authentication, user
 from fastapi.staticfiles import StaticFiles
+
+from project.api import utility_company, user, authentication, image, application
+
 
 app = FastAPI()
 

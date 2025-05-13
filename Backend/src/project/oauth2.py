@@ -1,6 +1,8 @@
 from fastapi.security import OAuth2PasswordBearer # FastAPI-шний механізм для витягування токена з Authorization заголовку (Bearer <token>).
 from fastapi import Depends, HTTPException, status
-from .jwt_handler import verify_token, create_access_token # функції з jwt_handler, які кодують/декодують токени
+
+from project.jwt_handler import verify_token # функції з jwt_handler, які кодують/декодують токени
+
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/")
 

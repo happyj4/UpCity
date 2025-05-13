@@ -1,15 +1,14 @@
-from fastapi import APIRouter, Depends, status, HTTPException , UploadFile
-from sqlalchemy.orm import Session
-from ..db import models
 import requests
-from sqlalchemy.orm import joinedload
 from fastapi.responses import JSONResponse
-from .image_rep import upload
+from fastapi import HTTPException , UploadFile
+from sqlalchemy.orm import Session, joinedload
 
+from project.db.models import Application, UtilityCompany, Report
+from project.repository.image_rep import upload
 
 
 def all(db:Session):
-    applications = db.query(models.Application).all()
+    applications = db.query(Application).all()
     return applications
 
 def geocode_address(address: str):
@@ -46,7 +45,7 @@ def create(name:str, address:str, description:str, company_name:str, photo: Uplo
         raise HTTPException(status_code=401, detail="Не вдалося витягти ідентифікатор користувача")
 
     
-    company = db.query(models.UtilityCompany).filter(models.UtilityCompany.name == company_name).first()
+    company = db.query(UtilityCompany).filter(UtilityCompany.name == company_name).first()
     if not company:
         raise HTTPException(status_code=404, detail="Компанія не знайдена")
 
@@ -61,16 +60,16 @@ def create(name:str, address:str, description:str, company_name:str, photo: Uplo
     image_id = upload_data["image_id"]
 
    
-    report = models.Report(image_id=image_id)
+    report = Report(image_id=image_id)
     db.add(report)
     db.flush()
 
     
-    max_number = db.query(models.Application.application_number).order_by(models.Application.application_number.desc()).first()
+    max_number = db.query(Application.application_number).order_by(Application.application_number.desc()).first()
     new_number = (max_number[0] + 1) if max_number else 1
 
     
-    application = models.Application(
+    application = Application(
         name=name,
         address=address,
         description=description,
@@ -98,10 +97,10 @@ def application_review(app_id:int, db:Session, current_user:dict):
     if current_user["role"] != "company" and current_user["role"] != "user":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
     
-    application = db.query(models.Application).options(
-        joinedload(models.Application.image),
-        joinedload(models.Application.utility_company)
-    ).filter(models.Application.application_id == app_id).first()
+    application = db.query(Application).options(
+        joinedload(Application.image),
+        joinedload(Application.utility_company)
+    ).filter(Application.application_id == app_id).first()
 
     if not application:
         raise HTTPException(status_code=404, detail="Заявку не знайдено")
@@ -116,5 +115,5 @@ def all_by_user(db: Session, current_user:dict):
     if not user_id:
         raise HTTPException(status_code=401, detail="Не вдалося витягти ідентифікатор користувача")
 
-    applications = db.query(models.Application).filter(models.Application.user_id == user_id).all()
+    applications = db.query(Application).filter(Application.user_id == user_id).all()
     return applications

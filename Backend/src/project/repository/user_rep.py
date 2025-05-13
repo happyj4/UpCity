@@ -1,16 +1,17 @@
 from typing import Literal
+
 from fastapi import HTTPException, status
-from sqlalchemy.orm import Session
 from sqlalchemy import asc, desc
-from ..db import models
-from ..schemas import user_schemas
-from ..hashing import Hash
-from .. import oauth2
+from sqlalchemy.orm import Session
+
+from project.db.models import User, Blocking, Subscription
+from project.schemas.user_schemas import UserRegister, BlockUser
+from project.hashing import Hash
+from project.jwt_handler import create_access_token
 
 
-
-def register(request: user_schemas.UserRegister, db: Session):
-    existing_user = db.query(models.User).filter(models.User.email == request.email).first()
+def register(request: UserRegister, db: Session):
+    existing_user = db.query(User).filter(User.email == request.email).first()
     
     if existing_user:
         if existing_user.blocking:
@@ -20,7 +21,7 @@ def register(request: user_schemas.UserRegister, db: Session):
             detail=f"Користувач з email = {request.email} вже існує"
         )
 
-    new_user = models.User(
+    new_user = User(
         email=request.email,
         name=request.name,
         surname=request.surname,
@@ -30,7 +31,7 @@ def register(request: user_schemas.UserRegister, db: Session):
     db.commit()
     db.refresh(new_user)  
 
-    access_token = oauth2.create_access_token(data={"sub": new_user.user_id, "role": "user"})
+    access_token = create_access_token(data={"sub": new_user.user_id, "role": "user"})
     
     return {
         "message": "Успішна реєстрація",
@@ -44,17 +45,17 @@ def register(request: user_schemas.UserRegister, db: Session):
 
 
 
-def block_user(request: user_schemas.BlockUser, db: Session, current_user:dict):
+def block_user(request: BlockUser, db: Session, current_user:dict):
     if current_user["role"] != "admin":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
-    user = db.query(models.User).filter(models.User.user_id == request.user_id).first()
+    user = db.query(User).filter(User.user_id == request.user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="Користувача не знайдено")
 
     if user.blocking:
         raise HTTPException(status_code=400, detail="Користувач уже заблокований")
 
-    block = models.Blocking(
+    block = Blocking(
         user_id=request.user_id,
         reason=request.reason
     )
@@ -72,26 +73,26 @@ def get_users(
 ):
     if current_user["role"] != "admin":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
-    query = db.query(models.User)
+    query = db.query(User)
     
     if sort_by_subscription == "З підписокою":
-        query = query.join(models.User.subscription).filter(models.Subscription.status == "Активна")
+        query = query.join(User.subscription).filter(Subscription.status == "Активна")
     elif sort_by_subscription == "Без підписки":
-        query = query.filter(models.User.subscription_id == None)
+        query = query.filter(User.subscription_id == None)
     elif sort_by_subscription == "Просрочено":
-        query = query.join(models.User.subscription).filter(models.Subscription.status == "Неактивна")
+        query = query.join(User.subscription).filter(Subscription.status == "Неактивна")
 
     
     if sort_by_rating == "За зростанням":
-        query = query.order_by(asc(models.User.rating))
+        query = query.order_by(asc(User.rating))
     elif sort_by_rating == "За спаданням":
-        query = query.order_by(desc(models.User.rating))
+        query = query.order_by(desc(User.rating))
     
     if sort_by_name == "А-Я":
-        query = query.order_by(asc(models.User.name))
+        query = query.order_by(asc(User.name))
         
     elif sort_by_name == "Я-А":
-        query = query.order_by(desc(models.User.name))
+        query = query.order_by(desc(User.name))
         
     users = query.all()
     return users

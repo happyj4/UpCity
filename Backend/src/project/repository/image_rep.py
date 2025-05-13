@@ -1,15 +1,16 @@
-from fastapi import HTTPException
-from datetime import datetime
 import os
 import shutil
 import uuid
+from datetime import datetime
+
+from fastapi import HTTPException, UploadFile
 from sqlalchemy.orm import Session
 from fastapi.responses import JSONResponse
-from sqlalchemy.orm import Session
-from fastapi import  UploadFile
-from ..db import models, database
 from dotenv import load_dotenv
-import os
+
+from project.db import database
+from project.db.models import Image
+
 
 load_dotenv()
 
@@ -29,9 +30,9 @@ def upload(file:UploadFile):
         shutil.copyfileobj(file.file, buffer)
 
     image_url = f"{BASE_URL}/{filename}"
-    image = models.Image(image_url=image_url, image_date=datetime.utcnow())
+    image = Image(image_url=image_url, image_date=datetime.utcnow())
 
-    db: Session = next(database.get_db())
+    db: Session = next(get_db())
     db.add(image)
     db.commit()
     db.refresh(image)
