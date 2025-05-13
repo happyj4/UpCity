@@ -5,6 +5,7 @@ from sqlalchemy import asc, desc
 from ..db import models
 from ..schemas import user_schemas
 from ..hashing import Hash
+from .. import oauth2
 
 
 
@@ -27,14 +28,20 @@ def register(request: user_schemas.UserRegister, db: Session):
     )
     db.add(new_user)
     db.commit()
-    db.refresh(new_user)
+    db.refresh(new_user)  
+
+    access_token = oauth2.create_access_token(data={"sub": new_user.user_id, "role": "user"})
+    
     return {
         "message": "Успішна реєстрація",
+        "access_token": access_token,
+        "token_type": "bearer",
         "user": {
-            "name": request.name,
-            "surname": request.surname,
+            "name": new_user.name,
+            "surname": new_user.surname,
         }
     }
+
 
 
 def block_user(request: user_schemas.BlockUser, db: Session, current_user:dict):

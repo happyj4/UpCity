@@ -15,10 +15,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/")
 #         raise credentials_exception
 #     return user_data
 def get_current_user(token: str = Depends(oauth2_scheme)):
-    print(f"[DEBUG] Получен токен: {token}")
+    print(f"[DEBUG] Отримано токен: {token}")
     
     user_data = verify_token(token)
-    print(f"[DEBUG] Распакованные данные токена: {user_data}")
+    print(f"[DEBUG]  Розпаковані дані токена: {user_data}")
 
     if user_data is None:
         print("[ERROR] Токен недействительный!")

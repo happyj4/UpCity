@@ -5,15 +5,16 @@ from typing import Optional
 from ..db import models
 from ..schemas import utility_company_schemas
 from ..hashing import Hash
+from typing import List, Literal
 
-def all(current_user:dict, db: Session, sort_by_rating: Optional[str] = None):
+def all(current_user:dict, db: Session, sort_by_rating: Literal["За зростанням", "За спаданням"] | None):
     if current_user["role"] != "admin":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
     query = db.query(models.UtilityCompany)
 
-    if sort_by_rating == "asc":
+    if sort_by_rating == "За зростанням":
         query = query.order_by(asc(models.UtilityCompany.rating))
-    elif sort_by_rating == "desc":
+    elif sort_by_rating == "За спаданням":
         query = query.order_by(desc(models.UtilityCompany.rating))
 
     return query.all()

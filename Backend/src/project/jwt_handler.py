@@ -20,7 +20,7 @@ def create_access_token(data: dict):
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     token = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    print(f"[DEBUG] Сгенерирован токен: {token}")
+    print(f"[DEBUG] Згенеровано токен: {token}")
     return token
 
 
@@ -40,10 +40,10 @@ def create_access_token(data: dict):
 
 def verify_token(token: str):
     try:
-        print(f"[DEBUG] Декодируем токен: {token}")
+        print(f"[DEBUG] Декодуємо токен: {token}")
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        print(f"[DEBUG] Успешно декодирован payload: {payload}")
+        print(f"[DEBUG] Успішно декодовано payload: {payload}")
         return payload
     except JWTError as e:
-        print(f"[ERROR] JWT ошибка: {str(e)}")
+        print(f"[ERROR] JWT помилка: {str(e)}")
         return None
