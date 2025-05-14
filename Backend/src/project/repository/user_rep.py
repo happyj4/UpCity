@@ -1,10 +1,11 @@
 from typing import Literal
 
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, UploadFile
 from sqlalchemy import asc, desc
 from sqlalchemy.orm import Session
 
 from project.db.models import User, Blocking, Subscription
+from project.repository.image_rep import upload
 from project.schemas.user_schemas import UserRegister, BlockUser
 from project.hashing import Hash
 from project.jwt_handler import create_access_token
@@ -40,6 +41,7 @@ def register(request: UserRegister, db: Session):
         "user": {
             "name": new_user.name,
             "surname": new_user.surname,
+            "image": new_user.image.image_url if new_user.image else None
         }
     }
 
@@ -97,5 +99,51 @@ def get_users(
     users = query.all()
     return users
 
+def update_profile(email: str, name: str, surname: str,
+                   image: UploadFile | None, db: Session, current_user: dict):
+    if current_user["role"] != "user":
+        raise HTTPException(status_code=403, detail="Недостатньо прав")
 
+    user_id = current_user.get("sub")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Не вдалося визначити користувача")
+
+    user = db.query(User).filter(User.user_id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Користувача не знайдено")
+
+    existing_user = db.query(User).filter(User.email == email).first()
+
+    if existing_user and existing_user.user_id != user.user_id:
+        if existing_user.blocking:
+            raise HTTPException(status_code=400, detail="Користувач з таким email заблокований")
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Користувач з email = {email} вже існує"
+        )
+
+
+
+    user.email = email
+    user.name = name
+    user.surname = surname
+
+    if image:
+        upload_result = upload(image)
+        image_id = upload_result.get("image_id")
+        if image_id:
+            user.image_id = image_id
+
+    db.commit()
+    db.refresh(user)
+
+    return {
+        "message": "Дані оновлено",
+        "user": {
+            "name": user.name,
+            "surname": user.surname,
+            "email": user.email,
+            "image": user.image.image_url if user.image else None
+        }
+    }
 

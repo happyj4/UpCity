@@ -53,10 +53,7 @@ def create(name:str, address:str, description:str, company_name:str, photo: Uplo
     lat, lon = geocode_address(address)
 
     
-    upload_response: JSONResponse = upload(photo)
-    upload_data = upload_response.body.decode()  
-    import json
-    upload_data = json.loads(upload_data)
+    upload_data = upload(photo)
     image_id = upload_data["image_id"]
 
    
