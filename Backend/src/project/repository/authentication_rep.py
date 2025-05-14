@@ -17,6 +17,7 @@ def login(db: Session, request: LoginAdminCompany):
         access_token = create_access_token(data={"sub": admin.email, "role": "admin"})
         return {
             "message": "Успішний вхід ADMIN",
+            "admin_surname": admin.surname,
             "access_token": access_token,
             "token_type": "bearer"
         }
@@ -30,6 +31,7 @@ def login(db: Session, request: LoginAdminCompany):
         access_token = create_access_token(data={"sub": company.email, "role": "company"})
         return {
             "message": "Успішний вхід COMPANY",
+            "company_name": company.name,
             "access_token": access_token,
             "token_type": "bearer"
         }
@@ -49,7 +51,8 @@ def login(db: Session, request: LoginAdminCompany):
             "token_type": "bearer",
             "user": {
                 "name": user.name,
-                "surname": user.surname
+                "surname": user.surname,
+                "image": user.image.image_url if user.image else None
             }
         }
 
