@@ -35,4 +35,6 @@ class BlockUser(BaseModel):
 
     
 
+class PaymentRequest(BaseModel):
+    paymentToken: str
 
