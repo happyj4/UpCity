@@ -5,15 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.upcity.R;
 import com.example.upcity.page.CreateApplicationPage;
 import com.example.upcity.page.ViewApplicationPage;
 import com.example.upcity.utils.RequestCreateApplication;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -23,9 +23,12 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int TYPE_APPLICATION = 1;
 
     private List<RequestCreateApplication> applicationList;
+    private int lastPosition = -1;
+    private boolean[] animationCompleted;
 
     public AdapterApplication(List<RequestCreateApplication> applicationList) {
         this.applicationList = applicationList;
+        animationCompleted = new boolean[applicationList.size()];
     }
 
     @Override
@@ -60,27 +63,48 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             appHolder.applicationUtilityCompany.setText(String.valueOf(requestCreateApplication.getUtilityCompany().getName()));
 
-            if (requestCreateApplication.getStatus().equals("Виконано")) {
-                appHolder.applicationStatus.setImageResource(R.drawable.completed_application);
-            } else if (requestCreateApplication.getStatus().equals("В роботі")) {
-                appHolder.applicationStatus.setImageResource(R.drawable.work_application);
-            } else {
-                appHolder.applicationStatus.setImageResource(R.drawable.rejected_application);
+            switch (requestCreateApplication.getStatus()) {
+                case "Виконано":
+                    appHolder.applicationStatus.setImageResource(R.drawable.completed_application);
+                    break;
+                case "В роботі":
+                    appHolder.applicationStatus.setImageResource(R.drawable.work_application);
+                    break;
+                default:
+                    appHolder.applicationStatus.setImageResource(R.drawable.rejected_application);
+                    break;
             }
         }
 
         holder.itemView.setOnClickListener(v -> {
             if (requestCreateApplication != null) {
-            Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
-
-            intent.putExtra("applicationId", requestCreateApplication.getApplicationId());
-
-            AdapterAnimation.animateAndNavigate(((Activity) v.getContext()), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
-            }
-            else {
-                AdapterAnimation.animateAndNavigate(((Activity) v.getContext()), R.id.linearLayout, R.anim.slide_out_left, CreateApplicationPage.class, null);
+                Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
+                intent.putExtra("applicationId", requestCreateApplication.getApplicationId());
+                AdapterAnimation.animateAndNavigate((Activity) v.getContext(), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
+            } else {
+                AdapterAnimation.animateAndNavigate((Activity) v.getContext(), R.id.linearLayout, R.anim.slide_out_left, CreateApplicationPage.class, null);
             }
         });
+
+        if (!animationCompleted[position]) {
+            setAnimation(holder.itemView, position);
+            animationCompleted[position] = true;
+        }
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), R.anim.item_fade_in);
+            animation.setStartOffset(position * 75);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
     }
 
     @Override

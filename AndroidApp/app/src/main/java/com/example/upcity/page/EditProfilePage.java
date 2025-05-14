@@ -93,11 +93,13 @@ public class EditProfilePage extends AppCompatActivity {
 
                 @Override
                 public void onError(String error) {
-                    runOnUiThread(() -> Toast.makeText(EditProfilePage.this, error, Toast.LENGTH_LONG).show());
+                    Intent intent = new Intent(EditProfilePage.this, MessagePage.class);
+                    intent.putExtra("name", "Помилка!");
+                    intent.putExtra("description", error);
+                    AdapterAnimation.animateAndNavigate(EditProfilePage.this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
                 }
             });
         });
-
     }
 
     public static String getUserEmail(Context context) {

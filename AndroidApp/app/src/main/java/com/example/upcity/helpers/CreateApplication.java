@@ -20,6 +20,7 @@ public class CreateApplication {
         ApiService apiService = RetrofitClient.getInstance();
         SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
         String accessToken = prefs.getString("access_token", null);
+
         RequestBody namePart = RequestBody.create(MediaType.parse("text/plain"), name);
         RequestBody addressPart = RequestBody.create(MediaType.parse("text/plain"), address);
         RequestBody descriptionPart = RequestBody.create(MediaType.parse("text/plain"), description);

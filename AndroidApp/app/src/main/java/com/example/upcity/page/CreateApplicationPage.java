@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import com.example.upcity.helpers.CreateApplication;
 import com.example.upcity.helpers.LoadUtilityCompany;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class CreateApplicationPage extends AppCompatActivity {
@@ -147,5 +149,4 @@ public class CreateApplicationPage extends AppCompatActivity {
             AddPhotoButton.setImageURI(imageUri);
         }
     }
-
 }

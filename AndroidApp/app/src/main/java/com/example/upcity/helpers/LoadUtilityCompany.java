@@ -18,6 +18,7 @@ public class LoadUtilityCompany {
     public void loadUtilityCompany(Context context, final ApplicationCallback callback) {
         SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
         String accessToken = prefs.getString("access_token", null);
+
         ApiService apiService = RetrofitClient.getInstance();
         Call<List<RequestUtilityCompany>> call = apiService.getUtilityCompany("Bearer " + accessToken);
 
