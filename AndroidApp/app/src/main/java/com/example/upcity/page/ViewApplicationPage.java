@@ -136,7 +136,6 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
     private void updateMap() {
         LatLng location = new LatLng(applicationLatitude, applicationLongitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17));
-        mMap.addMarker(new MarkerOptions().position(location).title("Местоположение заявки"));
         mMap.getUiSettings().setAllGesturesEnabled(false);
     }
 
