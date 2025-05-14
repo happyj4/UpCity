@@ -1,7 +1,10 @@
-from typing import List, Literal
+from typing import List, Literal, Annotated
 
-from fastapi import APIRouter, Depends, status, Query
+from fastapi import APIRouter, Depends, status, Query, Path, UploadFile, Form, File
 from sqlalchemy.orm import Session
+from annotated_types import MinLen, MaxLen
+from pydantic import EmailStr
+
 
 from project.db.database import get_db
 from project.schemas.user_schemas import UserRegister , UserShowAll , BlockUser
@@ -27,6 +30,27 @@ def get_users(
 ):
 
     return user_rep.get_users(db= db, sort_by_subscription=sort_by_subscription, sort_by_rating=sort_by_rating, sort_by_name=sort_by_name, current_user=current_user)
+
+@router.put("/me/", status_code=status.HTTP_200_OK)
+def update_info(
+    email: EmailStr = Form(...),
+    name: Annotated[str, MinLen(3), MaxLen(35)] = Form(...),
+    surname: Annotated[str, MinLen(3), MaxLen(35)] = Form(...),
+    image: UploadFile | str | None = File(None),
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
+):
+    if image == "" or image is None:
+        image = None
+
+    return user_rep.update_profile(
+        email=email,
+        name=name,
+        surname=surname,
+        image=image,
+        db=db,
+        current_user=current_user
+    )
 
 
 @router.post("/block/", status_code=status.HTTP_201_CREATED)

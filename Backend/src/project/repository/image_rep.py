@@ -19,9 +19,9 @@ get_db = database.get_db
 UPLOAD_DIR = f"{os.getenv('UPLOAD_DIR')}"
 BASE_URL = f"{os.getenv('BASE_URL')}"
 
-def upload(file:UploadFile):
+def upload(file: UploadFile):
     if not file.filename.lower().endswith((".jpg", ".jpeg", ".png", ".gif")):
-      raise HTTPException(status_code=400, detail="Неподдерживаемый формат файла")
+        raise HTTPException(status_code=400, detail="Неподдерживаемый формат файла")
 
     filename = f"{uuid.uuid4().hex}_{file.filename}"
     filepath = os.path.join(UPLOAD_DIR, filename)
@@ -37,11 +37,12 @@ def upload(file:UploadFile):
     db.commit()
     db.refresh(image)
 
-    return JSONResponse(content={
+    return {
         "message": "Изображение успешно загружено",
         "image_id": image.image_id,
         "image_url": image.image_url
-    })
+    }
+
 
 
 
