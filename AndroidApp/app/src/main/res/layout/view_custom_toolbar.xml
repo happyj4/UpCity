@@ -35,7 +35,7 @@
             android:layout_height="35dp"
             android:layout_marginTop="38dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/photo"
+            android:src="@drawable/empty_user_photo"
             android:clickable="true"
             android:focusable="true"
             android:contentDescription="Photo Button"

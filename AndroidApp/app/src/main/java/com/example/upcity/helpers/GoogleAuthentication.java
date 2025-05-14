@@ -10,13 +10,13 @@ import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-public class GoogleAuthHelper {
+public class GoogleAuthentication {
     private final Activity activity;
     private final GoogleSignInClient googleSignInClient;
     private static final int RC_SIGN_IN = 9001;
     private OnGoogleAuthListener authListener;
 
-    public GoogleAuthHelper(Activity activity) {
+    public GoogleAuthentication(Activity activity) {
         this.activity = activity;
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

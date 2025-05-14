@@ -13,10 +13,10 @@ import com.bumptech.glide.Glide;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.upcity.R;
-import com.example.upcity.adapters.AnimationUtilsHelper;
-import com.example.upcity.adapters.ToolbarFragment;
-import com.example.upcity.helpers.ApplicationDetailsHelper;
-import com.example.upcity.utils.ApplicationDetailsResponse;
+import com.example.upcity.adapters.AdapterAnimation;
+import com.example.upcity.adapters.FragmentToolbar;
+import com.example.upcity.helpers.LoadApplicationInfo;
+import com.example.upcity.utils.ResponseDetailsApplication;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -47,12 +47,12 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_application);
 
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.MaplinearLayout, R.anim.fade_out, null, null);
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        AdapterAnimation.animateAndNavigate(this, R.id.MaplinearLayout, R.anim.fade_out, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.menu_container, new ToolbarFragment())
+                    .replace(R.id.menu_container, new FragmentToolbar())
                     .commit();
         }
 
@@ -63,7 +63,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
 
         Button HomeButton = findViewById(R.id.HomeButton);
         HomeButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
         // Подключение зависимостей
@@ -91,9 +91,9 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         SharedPreferences prefs = getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
         String accessToken = prefs.getString("access_token", null);
 
-        ApplicationDetailsHelper.loadApplicationDetails(this, appId, accessToken, new ApplicationDetailsHelper.ApplicationDetailsCallback() {
+        LoadApplicationInfo.loadApplicationDetails(this, appId, accessToken, new LoadApplicationInfo.ApplicationDetailsCallback() {
             @Override
-            public void onApplicationDetailsLoaded(ApplicationDetailsResponse app) {
+            public void onApplicationDetailsLoaded(ResponseDetailsApplication app) {
                 IdApplicationText.setText(String.valueOf(app.getApplicationNumber()));
                 NameApplicationText.setText(app.getName());
                 AddressApplicationText.setText(app.getAddress());

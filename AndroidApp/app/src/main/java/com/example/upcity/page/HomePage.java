@@ -10,20 +10,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.upcity.adapters.AnimationUtilsHelper;
-import com.example.upcity.helpers.ApplicationAllLoadHelper;
-import com.example.upcity.helpers.UserApplicationsLoadHelper;
-import com.example.upcity.utils.ApplicationRequest;
-import com.example.upcity.adapters.ApplicationAdapter;
+import com.example.upcity.adapters.AdapterAnimation;
+import com.example.upcity.helpers.LoadAllApplication;
+import com.example.upcity.helpers.LoadUserApplications;
+import com.example.upcity.utils.RequestCreateApplication;
+import com.example.upcity.adapters.AdapterApplication;
 import com.example.upcity.R;
-import com.example.upcity.adapters.ToolbarFragment;
+import com.example.upcity.adapters.FragmentToolbar;
 
 import java.util.List;
 
 public class HomePage extends AppCompatActivity {
 
-    private ApplicationAllLoadHelper applicationAllLoadHelper;
-    private UserApplicationsLoadHelper userApplicationsLoadHelper;
+    private LoadAllApplication loadAllApplication;
+    private LoadUserApplications loadUserApplications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +32,12 @@ public class HomePage extends AppCompatActivity {
         boolean skipAnimation = getIntent().getBooleanExtra("skipAnimation", false);
 
         if (!skipAnimation) {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_left, null, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_left, null, null);
         };
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.menu_container, new ToolbarFragment())
+                    .replace(R.id.menu_container, new FragmentToolbar())
                     .commit();
         }
 
@@ -50,28 +50,28 @@ public class HomePage extends AppCompatActivity {
 
         // Подключение кнопок
         MapButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, MapPage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, MapPage.class, null);
         });
 
         OpenAllButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.AlllinearLayout, R.anim.slide_out_left, AllApplicationPage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.AlllinearLayout, R.anim.slide_out_left, AllApplicationPage.class, null);
         });
 
         OpenMyButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.AlllinearLayout, R.anim.slide_out_left, MyApplicationPage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.AlllinearLayout, R.anim.slide_out_left, MyApplicationPage.class, null);
         });
 
         LinearLayoutManager layoutManagerMyList = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         MyList.setLayoutManager(layoutManagerMyList);
 
         // Отображение моих заявок
-        userApplicationsLoadHelper = new UserApplicationsLoadHelper();
-        UserApplicationsLoadHelper userApplicationsLoadHelper = new UserApplicationsLoadHelper();
+        this.loadUserApplications = new LoadUserApplications();
+        LoadUserApplications loadUserApplications = new LoadUserApplications();
 
-        userApplicationsLoadHelper.getUserApplications(this, new UserApplicationsLoadHelper.ApplicationCallback() {
+        loadUserApplications.getUserApplications(this, new LoadUserApplications.ApplicationCallback() {
             @Override
-            public void onSuccess(List<ApplicationRequest> applications) {
-                ApplicationAdapter adapter = new ApplicationAdapter(applications);
+            public void onSuccess(List<RequestCreateApplication> applications) {
+                AdapterApplication adapter = new AdapterApplication(applications);
                 MyList.setAdapter(adapter);
             }
 
@@ -85,11 +85,11 @@ public class HomePage extends AppCompatActivity {
         AllList.setLayoutManager(gridLayoutManagerAllList);
 
         // Отображение всех заявок
-        applicationAllLoadHelper = new ApplicationAllLoadHelper();
-        applicationAllLoadHelper.loadApplications(this, new ApplicationAllLoadHelper.ApplicationCallback() {
+        loadAllApplication = new LoadAllApplication();
+        loadAllApplication.loadApplications(this, new LoadAllApplication.ApplicationCallback() {
             @Override
-            public void onSuccess(List<ApplicationRequest> applications) {
-                ApplicationAdapter adapter = new ApplicationAdapter(applications);
+            public void onSuccess(List<RequestCreateApplication> applications) {
+                AdapterApplication adapter = new AdapterApplication(applications);
                 AllList.setAdapter(adapter);
             }
 

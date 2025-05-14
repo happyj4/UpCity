@@ -3,7 +3,7 @@ package com.example.upcity.utils;
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
-public class ApplicationRequest {
+public class RequestCreateApplication {
     @SerializedName("application_id")
     private int applicationId;
 

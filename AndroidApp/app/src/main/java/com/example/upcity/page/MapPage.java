@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.upcity.adapters.AnimationUtilsHelper;
+import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.R;
-import com.example.upcity.adapters.ToolbarFragment;
+import com.example.upcity.adapters.FragmentToolbar;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,12 +21,12 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.MaplinearLayout, R.anim.fade_out, null, null);
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        AdapterAnimation.animateAndNavigate(this, R.id.MaplinearLayout, R.anim.fade_out, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.menu_container, new ToolbarFragment())
+                    .replace(R.id.menu_container, new FragmentToolbar())
                     .commit();
         }
 
@@ -39,7 +39,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
 
         // Подключение кнопок
         ListButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
     }
 

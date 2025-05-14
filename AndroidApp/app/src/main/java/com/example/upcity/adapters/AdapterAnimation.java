@@ -7,7 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
-public class AnimationUtilsHelper {
+public class AdapterAnimation {
 
     public static void animateAndNavigate(Activity activity, int layoutId, int animationResId,
                                           Class<?> targetActivity, Intent intent) {

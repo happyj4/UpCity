@@ -6,9 +6,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.upcity.adapters.AnimationUtilsHelper;
+import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.R;
-import com.example.upcity.adapters.ToolbarFragment;
+import com.example.upcity.adapters.FragmentToolbar;
 
 public class PremiumPage extends AppCompatActivity {
 
@@ -16,11 +16,11 @@ public class PremiumPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_premium);
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.menu_container, new ToolbarFragment())
+                    .replace(R.id.menu_container, new FragmentToolbar())
                     .commit();
         }
 
@@ -30,7 +30,7 @@ public class PremiumPage extends AppCompatActivity {
 
         // Подключение кнопок
         HomeButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
         BuyPremiumButton.setOnClickListener(view -> {
@@ -39,7 +39,7 @@ public class PremiumPage extends AppCompatActivity {
             intent.putExtra("name", "Підписка активована!");
             intent.putExtra("description", "Преміум підписка успішно активована");
 
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
         });
     }
 }

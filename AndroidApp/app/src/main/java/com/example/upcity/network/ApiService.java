@@ -1,12 +1,11 @@
 package com.example.upcity.network;
 
-import com.example.upcity.utils.ApiLoginResponse;
-import com.example.upcity.utils.ApiResponse;
-import com.example.upcity.utils.ApplicationDetailsResponse;
-import com.example.upcity.utils.ApplicationRequest;
-import com.example.upcity.utils.LoginRequest;
-import com.example.upcity.utils.UserRequest;
-import com.example.upcity.utils.UtilityCompanyRequest;
+import com.example.upcity.utils.ResponseDetailsApplication;
+import com.example.upcity.utils.RequestCreateApplication;
+import com.example.upcity.utils.ResponseAuthentication;
+import com.example.upcity.utils.ResponseCreateApplication;
+import com.example.upcity.utils.RequestRegister;
+import com.example.upcity.utils.RequestUtilityCompany;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -25,20 +24,20 @@ import java.util.List;
 
 public interface ApiService {
     @GET("/application/all_by_user/")
-    Call<List<ApplicationRequest>> getUserApplications(@Header("Authorization") String authorization);
+    Call<List<RequestCreateApplication>> getUserApplications(@Header("Authorization") String authorization);
 
     @GET("/application/")
-    Call<List<ApplicationRequest>> getApplications();
+    Call<List<RequestCreateApplication>> getApplications();
 
     @GET("/utility_company/")
-    Call<List<UtilityCompanyRequest>> getUtilityCompany(@Header("Authorization") String authorization);
+    Call<List<RequestUtilityCompany>> getUtilityCompany(@Header("Authorization") String authorization);
 
     @POST("/user/")
-    Call<ApiResponse> createUser(@Body UserRequest user);
+    Call<ResponseAuthentication> createUser(@Body RequestRegister user);
 
     @FormUrlEncoded
     @POST("/login/")
-    Call<ApiLoginResponse> login(
+    Call<ResponseAuthentication> login(
             @Field("grant_type") String grantType,
             @Field("username") String username,
             @Field("password") String password,
@@ -48,15 +47,15 @@ public interface ApiService {
     );
 
     @GET("/application/{app_id}/")
-    Call<ApplicationDetailsResponse> getApplicationDetails(
+    Call<ResponseDetailsApplication> getApplicationDetails(
             @Header("Authorization") String token,
             @Path("app_id") int appId
     );
 
     @Multipart
     @POST("/application/create/")
-    Call<ApiResponse> createApplication(
-            @Header("Authorization") String authorization,  // Заголовок для токена
+    Call<ResponseCreateApplication> createApplication(
+            @Header("Authorization") String authorization,
             @Part("name") RequestBody name,
             @Part("address") RequestBody address,
             @Part("description") RequestBody description,

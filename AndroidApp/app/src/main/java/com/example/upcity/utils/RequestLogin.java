@@ -1,6 +1,6 @@
 package com.example.upcity.utils;
 
-public class LoginRequest {
+public class RequestLogin {
     private String grantType = "password";
     private String username;
     private String password;
@@ -8,7 +8,7 @@ public class LoginRequest {
     private String clientId = "";
     private String clientSecret = "";
 
-    public LoginRequest(String username, String password) {
+    public RequestLogin(String username, String password) {
         this.username = username;
         this.password = password;
     }

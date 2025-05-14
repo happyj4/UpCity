@@ -9,15 +9,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.upcity.adapters.AnimationUtilsHelper;
+import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.R;
-import com.example.upcity.helpers.GoogleAuthHelper;
-import com.example.upcity.helpers.LoginHelper;
-import com.example.upcity.utils.LoginRequest;
+import com.example.upcity.helpers.GoogleAuthentication;
+import com.example.upcity.helpers.HelperLogin;
+import com.example.upcity.utils.RequestLogin;
 
 public class LoginPage extends AppCompatActivity {
 
-    private GoogleAuthHelper googleAuthHelper;
+    private GoogleAuthentication googleAuthentication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class LoginPage extends AppCompatActivity {
         boolean skipAnimation = getIntent().getBooleanExtra("skipAnimation", false);
 
         if (!skipAnimation) {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_left, null, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_left, null, null);
         }
 
         // Подключение зависимостей
@@ -38,8 +38,8 @@ public class LoginPage extends AppCompatActivity {
         EditText passwordEditText  = findViewById(R.id.PasswordEditText);
 
         // Авторизация через гугл
-        googleAuthHelper = new GoogleAuthHelper(this);
-        googleAuthHelper.setOnGoogleAuthListener(new GoogleAuthHelper.OnGoogleAuthListener() {
+        googleAuthentication = new GoogleAuthentication(this);
+        googleAuthentication.setOnGoogleAuthListener(new GoogleAuthentication.OnGoogleAuthListener() {
             @Override
             public void onSuccess(String name, String email) {
                 Toast.makeText(LoginPage.this, "Вибраний акаунт:\nІм'я: " + name + "\nПошта: " + email, Toast.LENGTH_LONG).show();
@@ -52,25 +52,25 @@ public class LoginPage extends AppCompatActivity {
         });
 
         // Подключение кнопок
-        googleButton.setOnClickListener(view -> googleAuthHelper.signIn());
+        googleButton.setOnClickListener(view -> googleAuthentication.signIn());
 
         registrationButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, RegistrationPage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_left, RegistrationPage.class, null);
         });
 
         loginButton.setOnClickListener(view -> {
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            LoginRequest loginRequest = new LoginRequest(email, password);
-            performLogin(loginRequest);
+            RequestLogin requestLogin = new RequestLogin(email, password);
+            performLogin(requestLogin);
         });
     }
 
-    private void performLogin(LoginRequest loginRequest) {
+    private void performLogin(RequestLogin requestLogin) {
         TextView ErrorMessage   = findViewById(R.id.ErrorMessage);
-        LoginHelper loginHelper = new LoginHelper();
+        HelperLogin helperLogin = new HelperLogin();
 
-        loginHelper.login(this, loginRequest, new LoginHelper.LoginCallback() {
+        helperLogin.login(this, requestLogin, new HelperLogin.LoginCallback() {
             @Override
             public void onSuccess(String response) {
                 Intent intent = new Intent(LoginPage.this, HomePage.class);
@@ -94,6 +94,6 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        googleAuthHelper.handleActivityResult(requestCode, resultCode, data);
+        googleAuthentication.handleActivityResult(requestCode, resultCode, data);
     }
 }

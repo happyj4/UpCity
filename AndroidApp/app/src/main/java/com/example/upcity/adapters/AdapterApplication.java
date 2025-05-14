@@ -12,19 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.upcity.R;
 import com.example.upcity.page.CreateApplicationPage;
 import com.example.upcity.page.ViewApplicationPage;
-import com.example.upcity.utils.ApplicationRequest;
+import com.example.upcity.utils.RequestCreateApplication;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_EMPTY = 0;
     private static final int TYPE_APPLICATION = 1;
 
-    private List<ApplicationRequest> applicationList;
+    private List<RequestCreateApplication> applicationList;
 
-    public ApplicationAdapter(List<ApplicationRequest> applicationList) {
+    public AdapterApplication(List<RequestCreateApplication> applicationList) {
         this.applicationList = applicationList;
     }
 
@@ -48,21 +48,21 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ApplicationRequest applicationRequest = applicationList.get(position);
+        RequestCreateApplication requestCreateApplication = applicationList.get(position);
 
         if (holder instanceof ApplicationViewHolder) {
             ApplicationViewHolder appHolder = (ApplicationViewHolder) holder;
-            appHolder.applicationNumber.setText(String.valueOf(applicationRequest.getApplicationNumber()));
-            appHolder.applicationName.setText(applicationRequest.getName());
+            appHolder.applicationNumber.setText(String.valueOf(requestCreateApplication.getApplicationNumber()));
+            appHolder.applicationName.setText(requestCreateApplication.getName());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-            appHolder.applicationDate.setText(dateFormat.format(applicationRequest.getApplicationDate()));
+            appHolder.applicationDate.setText(dateFormat.format(requestCreateApplication.getApplicationDate()));
 
-            appHolder.applicationUtilityCompany.setText(String.valueOf(applicationRequest.getUtilityCompany().getName()));
+            appHolder.applicationUtilityCompany.setText(String.valueOf(requestCreateApplication.getUtilityCompany().getName()));
 
-            if (applicationRequest.getStatus().equals("Виконано")) {
+            if (requestCreateApplication.getStatus().equals("Виконано")) {
                 appHolder.applicationStatus.setImageResource(R.drawable.completed_application);
-            } else if (applicationRequest.getStatus().equals("В роботі")) {
+            } else if (requestCreateApplication.getStatus().equals("В роботі")) {
                 appHolder.applicationStatus.setImageResource(R.drawable.work_application);
             } else {
                 appHolder.applicationStatus.setImageResource(R.drawable.rejected_application);
@@ -70,15 +70,15 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (applicationRequest != null) {
+            if (requestCreateApplication != null) {
             Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
 
-            intent.putExtra("applicationId", applicationRequest.getApplicationId());
+            intent.putExtra("applicationId", requestCreateApplication.getApplicationId());
 
-            AnimationUtilsHelper.animateAndNavigate(((Activity) v.getContext()), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
+            AdapterAnimation.animateAndNavigate(((Activity) v.getContext()), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
             }
             else {
-                AnimationUtilsHelper.animateAndNavigate(((Activity) v.getContext()), R.id.linearLayout, R.anim.slide_out_left, CreateApplicationPage.class, null);
+                AdapterAnimation.animateAndNavigate(((Activity) v.getContext()), R.id.linearLayout, R.anim.slide_out_left, CreateApplicationPage.class, null);
             }
         });
     }

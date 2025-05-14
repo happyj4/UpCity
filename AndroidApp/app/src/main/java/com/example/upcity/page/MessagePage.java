@@ -7,23 +7,23 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.upcity.adapters.AnimationUtilsHelper;
-import com.example.upcity.adapters.Menu;
+import com.example.upcity.adapters.AdapterAnimation;
+import com.example.upcity.adapters.FragmentMenu;
 import com.example.upcity.R;
-import com.example.upcity.adapters.ToolbarFragment;
+import com.example.upcity.adapters.FragmentToolbar;
 
 public class MessagePage extends AppCompatActivity {
-    private Menu menu;
+    private FragmentMenu fragmentMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.menu_container, new ToolbarFragment())
+                    .replace(R.id.menu_container, new FragmentToolbar())
                     .commit();
         }
 
@@ -35,7 +35,7 @@ public class MessagePage extends AppCompatActivity {
 
         // Подключение кнопок
         HomeButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
         // Показ сообщений

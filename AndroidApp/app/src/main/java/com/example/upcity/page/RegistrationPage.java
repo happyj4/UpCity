@@ -8,14 +8,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.upcity.adapters.AnimationUtilsHelper;
+import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.R;
-import com.example.upcity.helpers.RegistrationHelper;
-import com.example.upcity.utils.UserRequest;
+import com.example.upcity.helpers.HelperRegistration;
+import com.example.upcity.utils.RequestRegister;
 
 public class RegistrationPage extends AppCompatActivity {
     TextView ErrorMessage;
@@ -24,7 +23,7 @@ public class RegistrationPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         // Подключение зависимостей
         Button loginButton = findViewById(R.id.LoginButton);
@@ -38,7 +37,7 @@ public class RegistrationPage extends AppCompatActivity {
 
         // Подключение кнопок
         loginButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, LoginPage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, LoginPage.class, null);
         });
 
         registrationButton.setOnClickListener(view -> {
@@ -50,8 +49,8 @@ public class RegistrationPage extends AppCompatActivity {
             String name = nameEditText.getText().toString();
             String surname = surnameEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            UserRequest userRequest = new UserRequest(email, name, surname, password);
-            performRegistration(userRequest);
+            RequestRegister requestRegister = new RequestRegister(email, name, surname, password);
+            performRegistration(requestRegister);
 
             } else {
                 checkBox.setTextColor(Color.parseColor("#D54343"));
@@ -61,10 +60,10 @@ public class RegistrationPage extends AppCompatActivity {
         });
     }
 
-    private void performRegistration(UserRequest userRequest) {
-        RegistrationHelper registrationHelper = new RegistrationHelper();
+    private void performRegistration(RequestRegister requestRegister) {
+        HelperRegistration helperRegistration = new HelperRegistration();
 
-        registrationHelper.registerUser(this, userRequest, new RegistrationHelper.RegistrationCallback() {
+        helperRegistration.registerUser(this, requestRegister, new HelperRegistration.RegistrationCallback() {
             @Override
             public void onSuccess(String message) {
                 Intent intent = new Intent(RegistrationPage.this, HomePage.class);

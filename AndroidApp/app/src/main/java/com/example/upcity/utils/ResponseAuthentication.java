@@ -1,6 +1,6 @@
 package com.example.upcity.utils;
 
-public class ApiResponse {
+public class ResponseAuthentication {
     private String message;
     private String access_token;
     private String tokenType;
@@ -14,8 +14,10 @@ public class ApiResponse {
     public static class User {
         private String name;
         private String surname;
+        private String image;
 
         public String getName() { return name; }
         public String getSurname() { return surname; }
+        public String getImage() { return image; }
     }
 }

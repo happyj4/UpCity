@@ -8,28 +8,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.upcity.adapters.AnimationUtilsHelper;
-import com.example.upcity.helpers.ApplicationAllLoadHelper;
-import com.example.upcity.adapters.ApplicationAdapter;
+import com.example.upcity.adapters.AdapterAnimation;
+import com.example.upcity.helpers.LoadAllApplication;
+import com.example.upcity.adapters.AdapterApplication;
 import com.example.upcity.R;
-import com.example.upcity.adapters.ToolbarFragment;
-import com.example.upcity.utils.ApplicationRequest;
+import com.example.upcity.adapters.FragmentToolbar;
+import com.example.upcity.utils.RequestCreateApplication;
 
 import java.util.List;
 
 public class AllApplicationPage extends AppCompatActivity {
 
-    private ApplicationAllLoadHelper applicationAllLoadHelper;
+    private LoadAllApplication loadAllApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_applications);
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.menu_container, new ToolbarFragment())
+                    .replace(R.id.menu_container, new FragmentToolbar())
                     .commit();
         }
 
@@ -39,18 +39,18 @@ public class AllApplicationPage extends AppCompatActivity {
 
         // Подключение кнопок
         HomeButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
         GridLayoutManager gridLayoutManagerAllList = new GridLayoutManager(this, 2);
         AllList.setLayoutManager(gridLayoutManagerAllList);
 
         // Отображение всех заявок
-        applicationAllLoadHelper = new ApplicationAllLoadHelper();
-        applicationAllLoadHelper.loadApplications(this, new ApplicationAllLoadHelper.ApplicationCallback() {
+        loadAllApplication = new LoadAllApplication();
+        loadAllApplication.loadApplications(this, new LoadAllApplication.ApplicationCallback() {
             @Override
-            public void onSuccess(List<ApplicationRequest> applications) {
-                ApplicationAdapter adapter = new ApplicationAdapter(applications);
+            public void onSuccess(List<RequestCreateApplication> applications) {
+                AdapterApplication adapter = new AdapterApplication(applications);
                 AllList.setAdapter(adapter);
             }
 

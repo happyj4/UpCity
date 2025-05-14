@@ -8,29 +8,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.upcity.adapters.AnimationUtilsHelper;
-import com.example.upcity.helpers.UserApplicationsLoadHelper;
-import com.example.upcity.utils.ApplicationRequest;
-import com.example.upcity.adapters.ApplicationAdapter;
+import com.example.upcity.adapters.AdapterAnimation;
+import com.example.upcity.helpers.LoadUserApplications;
+import com.example.upcity.utils.RequestCreateApplication;
+import com.example.upcity.adapters.AdapterApplication;
 import com.example.upcity.R;
-import com.example.upcity.adapters.ToolbarFragment;
+import com.example.upcity.adapters.FragmentToolbar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyApplicationPage extends AppCompatActivity {
 
-    private UserApplicationsLoadHelper userApplicationsLoadHelper;
+    private LoadUserApplications loadUserApplications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_applications);
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.menu_container, new ToolbarFragment())
+                    .replace(R.id.menu_container, new FragmentToolbar())
                     .commit();
         }
 
@@ -38,21 +37,21 @@ public class MyApplicationPage extends AppCompatActivity {
         Button HomeButton = findViewById(R.id.HomeButton);
 
         HomeButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
         GridLayoutManager gridLayoutManagerAllList = new GridLayoutManager(this, 2);
         AllList.setLayoutManager(gridLayoutManagerAllList);
 
-        userApplicationsLoadHelper = new UserApplicationsLoadHelper();
-        UserApplicationsLoadHelper userApplicationsLoadHelper = new UserApplicationsLoadHelper();
+        this.loadUserApplications = new LoadUserApplications();
+        LoadUserApplications loadUserApplications = new LoadUserApplications();
 
-        userApplicationsLoadHelper.getUserApplications(this, new UserApplicationsLoadHelper.ApplicationCallback() {
+        loadUserApplications.getUserApplications(this, new LoadUserApplications.ApplicationCallback() {
             @Override
-            public void onSuccess(List<ApplicationRequest> applications) {
-                List<ApplicationRequest> applicationList = applications;
+            public void onSuccess(List<RequestCreateApplication> applications) {
+                List<RequestCreateApplication> applicationList = applications;
                 applications.add(0, null);
-                ApplicationAdapter adapter = new ApplicationAdapter(applicationList);
+                AdapterApplication adapter = new AdapterApplication(applicationList);
                 AllList.setAdapter(adapter);
             }
 

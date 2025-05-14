@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,10 +15,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.upcity.R;
-import com.example.upcity.adapters.AnimationUtilsHelper;
-import com.example.upcity.adapters.ToolbarFragment;
-import com.example.upcity.helpers.ApplicationCreatorHelper;
-import com.example.upcity.helpers.UtilityCompanyAllLoadHelper;
+import com.example.upcity.adapters.AdapterAnimation;
+import com.example.upcity.adapters.FragmentToolbar;
+import com.example.upcity.helpers.CreateApplication;
+import com.example.upcity.helpers.LoadUtilityCompany;
 
 import java.io.File;
 import java.util.List;
@@ -33,11 +32,11 @@ public class CreateApplicationPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_application);
-        AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.menu_container, new ToolbarFragment())
+                    .replace(R.id.menu_container, new FragmentToolbar())
                     .commit();
         }
 
@@ -54,7 +53,7 @@ public class CreateApplicationPage extends AppCompatActivity {
 
         // Подключение кнопок
         HomeButton.setOnClickListener(view -> {
-            AnimationUtilsHelper.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
         });
 
         AddPhotoButton.setOnClickListener(view -> {
@@ -70,14 +69,14 @@ public class CreateApplicationPage extends AppCompatActivity {
             String companyName = ((Spinner) findViewById(R.id.SpinnerUtilityCompany)).getSelectedItem().toString();
 
             if (selectedPhoto != null) {
-                ApplicationCreatorHelper.createApplication(CreateApplicationPage.this, name, address, description, companyName, selectedPhoto, new ApplicationCreatorHelper.ApplicationCreationCallback() {
+                CreateApplication.createApplication(CreateApplicationPage.this, name, address, description, companyName, selectedPhoto, new CreateApplication.ApplicationCreationCallback() {
                     @Override
                     public void onApplicationCreated(String message) {
                         Intent intent = new Intent(CreateApplicationPage.this, MessagePage.class);
                         intent.putExtra("name", "Звернення Створено!");
                         intent.putExtra("description", "Впродовж 24 годин воно буде опрацьоване");
 
-                        AnimationUtilsHelper.animateAndNavigate(CreateApplicationPage.this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
+                        AdapterAnimation.animateAndNavigate(CreateApplicationPage.this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
                     }
 
                     @Override
@@ -86,7 +85,7 @@ public class CreateApplicationPage extends AppCompatActivity {
                         intent.putExtra("name", "Помилка!");
                         intent.putExtra("description", errorMessage);
 
-                        AnimationUtilsHelper.animateAndNavigate(CreateApplicationPage.this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
+                        AdapterAnimation.animateAndNavigate(CreateApplicationPage.this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
                     }
                 });
             } else {
@@ -94,14 +93,14 @@ public class CreateApplicationPage extends AppCompatActivity {
                 intent.putExtra("name", "Помилка!");
                 intent.putExtra("description", "Не додано фото");
 
-                AnimationUtilsHelper.animateAndNavigate(CreateApplicationPage.this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
+                AdapterAnimation.animateAndNavigate(CreateApplicationPage.this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
             }
         });
     }
 
     private void loadUtilityCompanies() {
-        UtilityCompanyAllLoadHelper helper = new UtilityCompanyAllLoadHelper();
-        helper.loadUtilityCompany(this, new UtilityCompanyAllLoadHelper.ApplicationCallback() {
+        LoadUtilityCompany helper = new LoadUtilityCompany();
+        helper.loadUtilityCompany(this, new LoadUtilityCompany.ApplicationCallback() {
             @Override
             public void onSuccess(List<String> companyNames) {
                 UtilityCompanies = companyNames.toArray(new String[0]);
