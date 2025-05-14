@@ -87,7 +87,9 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:src="@drawable/edit_photo_button"
-            android:contentDescription="Photo Button" />
+            android:contentDescription="Photo Button"
+            android:clickable="true"
+            android:focusable="true" />
 
         <TextView
             android:layout_width="match_parent"

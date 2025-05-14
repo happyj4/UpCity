@@ -6,6 +6,7 @@ import com.example.upcity.utils.ResponseAuthentication;
 import com.example.upcity.utils.ResponseCreateApplication;
 import com.example.upcity.utils.RequestRegister;
 import com.example.upcity.utils.RequestUtilityCompany;
+import com.example.upcity.utils.ResponseUpdateProfile;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -17,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -63,4 +65,13 @@ public interface ApiService {
             @Part MultipartBody.Part photo
     );
 
+    @Multipart
+    @PUT("user/me/")
+    Call<ResponseUpdateProfile> updateUser(
+            @Part("email") RequestBody email,
+            @Part("name") RequestBody name,
+            @Part("surname") RequestBody surname,
+            @Part MultipartBody.Part image,
+            @Header("Authorization") String token
+    );
 }
