@@ -5,7 +5,13 @@ from annotated_types import MaxLen, MinLen
 from project.schemas.image_schemas import ImageOut
 from project.schemas.subscription_schemas import SubscriptionOut
 
-
+class BlockUser(BaseModel):
+    user_id: int
+    reason: str
+    
+class BlockingOut(BaseModel):
+    reason:str
+    
 class UserRegister(BaseModel):
     email: EmailStr
     name: Annotated[str, MinLen(3), MaxLen(35)]
@@ -20,6 +26,7 @@ class UserShowAll(BaseModel):
     rating: Optional[float] = 0
     image: Optional[ImageOut] = None
     subscription: Optional[SubscriptionOut] = None
+    blocking: Optional[BlockingOut] = None
 
     class Config():
         orm_mode = True
@@ -29,9 +36,7 @@ class UserLogin(BaseModel):
     email:EmailStr
     password:str
   
-class BlockUser(BaseModel):
-    user_id: int
-    reason: str
+
 
     
 
