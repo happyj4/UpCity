@@ -71,6 +71,7 @@ def get_users(
     sort_by_subscription: Literal["З підписокою", "Без підписки", "Просрочено"] | None,
     sort_by_rating: Literal["За зростанням", "За спаданням"] | None,
     sort_by_name: Literal["А-Я", "Я-А"] | None,
+    sort_by_blocking: Literal["Заблоковані", "Не заблоковані"] | None,
     current_user:dict
 ):
     if current_user["role"] != "admin":
@@ -84,7 +85,11 @@ def get_users(
     elif sort_by_subscription == "Просрочено":
         query = query.join(User.subscription).filter(Subscription.status == "Неактивна")
 
-    
+    if sort_by_blocking == "Не заблоковані":
+        query = query.filter(User.blocking == None)
+    elif sort_by_blocking == "Заблоковані":
+        query = query.filter(User.blocking != None)
+        
     if sort_by_rating == "За зростанням":
         query = query.order_by(asc(User.rating))
     elif sort_by_rating == "За спаданням":
