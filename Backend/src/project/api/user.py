@@ -29,10 +29,11 @@ def get_users(
     sort_by_subscription: Literal["З підписокою", "Без підписки", "Просрочено"] | None = Query(None, description="Фільтрація за наявністю підписки"),
     sort_by_rating: Literal["За зростанням", "За спаданням"] | None = Query(None, description="Фільтраця за рейтингом"),
     sort_by_name:  Literal["А-Я", "Я-А"] | None = Query(None, description="Фільтрація за алфавітом"),
+    sort_by_blocking:  Literal["Заблоковані", "Не заблоковані"] | None = Query(None, description="Фільтрація за blocking"),
     current_user:dict = Depends(get_current_user)
 ):
 
-    return user_rep.get_users(db= db, sort_by_subscription=sort_by_subscription, sort_by_rating=sort_by_rating, sort_by_name=sort_by_name, current_user=current_user)
+    return user_rep.get_users(db= db, sort_by_subscription=sort_by_subscription, sort_by_rating=sort_by_rating, sort_by_name=sort_by_name,sort_by_blocking = sort_by_blocking ,current_user=current_user)
 
 @router.put("/me/", status_code=status.HTTP_200_OK)
 def update_info(
