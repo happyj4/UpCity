@@ -24,9 +24,12 @@ import com.example.upcity.helpers.LoadUtilityCompany;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CreateApplicationPage extends AppCompatActivity {
 
+    private static final String DEFAULT_CITY = "Харків, Україна";
     private String[] UtilityCompanies;
     private File selectedPhoto;
 
@@ -66,7 +69,7 @@ public class CreateApplicationPage extends AppCompatActivity {
         CreateApplicationButton.setOnClickListener(view -> {
 
             String name = NameEditText.getText().toString();
-            String address = AddressEditText.getText().toString();
+            String address = convertAddress(AddressEditText.getText().toString());
             String description = DescriptionEditText.getText().toString();
             String companyName = ((Spinner) findViewById(R.id.SpinnerUtilityCompany)).getSelectedItem().toString();
 
@@ -149,4 +152,57 @@ public class CreateApplicationPage extends AppCompatActivity {
             AddPhotoButton.setImageURI(imageUri);
         }
     }
+
+
+    public static String convertAddress(String address) {
+        if (address == null || address.trim().isEmpty()) {
+            return "";
+        }
+
+        address = address.trim();
+
+        boolean containsCity = address.toLowerCase().contains("харків");
+
+        Pattern pattern = Pattern.compile("(?:((?:[вВ][уУ][лЛ]\\.?|[вВ][уУ][лЛ][иИіІ][цЦ][яЯ])|(?:[пП][рР][оО][сС][пП][еЕ][кК][тТ])|(?:[бБ][уУ][лЛ][ьЬ][вВ][аА][рР]))\\s+)?([\\p{L}\\s]+[\\p{L}])\\s*[,\\s]?\\s*(\\d+(?:[\\-\\/]?\\p{L}*\\d*)?)");
+        Matcher matcher = pattern.matcher(address);
+
+        if (matcher.find()) {
+            String streetType = matcher.group(1);
+            String streetName = matcher.group(2).trim();
+            String streetNumber = matcher.group(3);
+
+            if (streetType == null || streetType.isEmpty() ||
+                    streetType.toLowerCase().startsWith("вул")) {
+                streetType = "вулиця";
+            }
+
+            StringBuilder result = new StringBuilder();
+            result.append(streetType).append(" ").append(streetName).append(", ").append(streetNumber);
+
+            if (!containsCity) {
+                result.append(", ").append(DEFAULT_CITY);
+            } else {
+                int endOfNumberIndex = address.indexOf(streetNumber) + streetNumber.length();
+                if (endOfNumberIndex < address.length()) {
+                    String cityPart = address.substring(endOfNumberIndex).trim();
+                    if (cityPart.startsWith(",")) {
+                        cityPart = cityPart.substring(1).trim();
+                    }
+
+                    if (cityPart.toLowerCase().contains("харків")) {
+                        result.append(", ").append(cityPart);
+                    } else {
+                        result.append(", ").append(DEFAULT_CITY);
+                    }
+                } else {
+                    result.append(", ").append(DEFAULT_CITY);
+                }
+            }
+
+            return result.toString();
+        }
+
+        return address + (!containsCity ? ", " + DEFAULT_CITY : "");
+    }
+
 }
