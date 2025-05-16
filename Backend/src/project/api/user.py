@@ -75,7 +75,7 @@ async def process_payment(
     
     payment_token = payment.paymentToken  
 
-    if payment_token == "test_googlepay_token":
+    if payment_token == "examplePaymentMethodToken":
         # 1. Створюємо підписку
         today = date.today()
         new_sub = Subscription(
