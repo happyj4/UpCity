@@ -10,6 +10,7 @@ import com.example.upcity.utils.ResponseUpdateProfile;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -23,6 +24,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ApiService {
     @GET("/application/all_by_user/")
@@ -74,4 +76,11 @@ public interface ApiService {
             @Part MultipartBody.Part image,
             @Header("Authorization") String token
     );
+
+    @POST("/user/process_payment")
+    Call<ResponseBody> sendPaymentToken(
+            @Header("Authorization") String authHeader,
+            @Body Map<String, String> body
+    );
+
 }
