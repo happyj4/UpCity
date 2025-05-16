@@ -33,7 +33,7 @@
             android:layout_width="315dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="-5dp"
             android:gravity="left"
             android:text="Ями на дорогах"
             android:textSize="16dp"
@@ -45,6 +45,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
+            android:layout_marginTop="5dp"
             android:gravity="center|left">
 
             <ImageView

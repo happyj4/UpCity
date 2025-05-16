@@ -25,6 +25,7 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<RequestCreateApplication> applicationList;
     private int lastPosition = -1;
     private boolean[] animationCompleted;
+    private boolean animationsAlreadyPlayed = false;
 
     public AdapterApplication(List<RequestCreateApplication> applicationList) {
         this.applicationList = applicationList;
@@ -55,7 +56,7 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (holder instanceof ApplicationViewHolder) {
             ApplicationViewHolder appHolder = (ApplicationViewHolder) holder;
-            appHolder.applicationNumber.setText(String.valueOf(requestCreateApplication.getApplicationNumber()));
+            appHolder.applicationNumber.setText("#" + String.valueOf(requestCreateApplication.getApplicationId()));
             appHolder.applicationName.setText(requestCreateApplication.getName());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
@@ -92,10 +93,20 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        recyclerView.postDelayed(() -> {animationsAlreadyPlayed = true;}, 400);
+    }
+
+
     private void setAnimation(View viewToAnimate, int position) {
+        if (animationsAlreadyPlayed) return;
+
         if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), R.anim.item_fade_in);
-            animation.setStartOffset(position * 75);
+            animation.setStartOffset(position * 65);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
