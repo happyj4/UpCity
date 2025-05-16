@@ -33,7 +33,7 @@ public class AllApplicationPage extends AppCompatActivity {
                     .commit();
         }
 
-        // Подключение зависимостей
+        // Подключение зависимостей//
         RecyclerView AllList = findViewById(R.id.AllList);
         Button HomeButton = findViewById(R.id.HomeButton);
 
