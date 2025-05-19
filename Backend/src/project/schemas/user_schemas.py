@@ -8,7 +8,9 @@ from project.schemas.subscription_schemas import SubscriptionOut
 class BlockUser(BaseModel):
     user_id: int
     reason: str
-    
+
+class GoogleAuthRequest(BaseModel):
+    id_token: str
 class BlockingOut(BaseModel):
     reason:str
     
