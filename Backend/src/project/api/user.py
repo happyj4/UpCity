@@ -5,14 +5,20 @@ from fastapi import APIRouter, Depends, status, Query, Path, UploadFile, Form, F
 from sqlalchemy.orm import Session
 from annotated_types import MinLen, MaxLen
 from pydantic import EmailStr
-
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
+from dotenv import load_dotenv
+import os
 
 from project.db.database import get_db
 from project.db.models import Subscription, User
-from project.schemas.user_schemas import UserRegister , UserShowAll , BlockUser, PaymentRequest
+from project.schemas.user_schemas import UserRegister , UserShowAll , BlockUser, PaymentRequest, GoogleAuthRequest
 from project.repository import user_rep
 from project.oauth2 import get_current_user
+from project.jwt_handler import create_access_token
+from project.hashing import Hash
 
+load_dotenv()
 
 router = APIRouter(tags=['Користувач🧔‍♂️'], prefix='/user')
 
@@ -71,7 +77,21 @@ async def process_payment(
     user_id = current_user.get("sub")
     if not user_id:
         raise HTTPException(status_code=401, detail="Не вдалося визначити користувача")
+    
+    
+    
+    user = db.query(User).filter(User.user_id == user_id).outerjoin(User.subscription).first()
 
+    if not user:
+        raise HTTPException(status_code=404, detail="Користувач не знайдений")
+
+    has_active_subscription = (
+        user.subscription is not None and
+        user.subscription.status == "Активна"
+    )
+
+    if has_active_subscription:
+        raise HTTPException(status_code=429, detail="У вас вже є активна підписка.")
     
     payment_token = payment.paymentToken  
 
@@ -111,3 +131,59 @@ async def process_payment(
 @router.post("/block/", status_code=status.HTTP_201_CREATED)
 def block_user(request: BlockUser, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     return user_rep.block_user(request = request, db = db, current_user=current_user)
+
+
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+
+
+@router.post("/auth/google/")
+def google_login(request: GoogleAuthRequest, db: Session = Depends(get_db)):
+    try:
+        
+        idinfo = id_token.verify_oauth2_token(
+            request.id_token,
+            google_requests.Request(),
+            GOOGLE_CLIENT_ID
+        )
+
+        
+        email = idinfo.get("email")
+        name = idinfo.get("given_name", "")
+        surname = idinfo.get("family_name", "")
+
+        if not email:
+            raise HTTPException(status_code=400, detail="Не вдалося отримати email з Google")
+
+        
+        user = db.query(User).filter(User.email == email).first()
+
+        if user:
+            if user.blocking:
+                raise HTTPException(status_code=400, detail="Користувач заблокований")
+        else:
+            
+            user = User(
+                email=email,
+                name=name,
+                surname=surname,
+                password=Hash.bcrypt("google") 
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+
+        access_token = create_access_token(data={"sub": user.user_id, "role": "user"})
+
+        return {
+            "message": "Успішна авторизація через Google",
+            "access_token": access_token,
+            "token_type": "bearer",
+            "user": {
+                "name": user.name,
+                "surname": user.surname,
+                "image": user.image.image_url if user.image else None
+            }
+        }
+
+    except ValueError:
+        raise HTTPException(status_code=401, detail="Невірний Google токен")
