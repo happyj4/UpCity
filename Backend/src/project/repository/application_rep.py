@@ -1,9 +1,12 @@
+from datetime import date
+
 import requests
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException , UploadFile
 from sqlalchemy.orm import Session, joinedload
+from sqlalchemy import func
 
-from project.db.models import Application, UtilityCompany, Report
+from project.db.models import Application, UtilityCompany, Report, User
 from project.repository.image_rep import upload
 
 
@@ -44,6 +47,29 @@ def create(name:str, address:str, description:str, company_name:str, photo: Uplo
     if not user_id:
         raise HTTPException(status_code=401, detail="Не вдалося витягти ідентифікатор користувача")
 
+    
+    user = db.query(User).filter(User.user_id == user_id).outerjoin(User.subscription).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="Користувач не знайдений")
+
+    today = date.today()
+
+    has_active_subscription = (
+        user.subscription is not None and
+        user.subscription.status == "Активна" and
+        user.subscription.start_date <= today <= user.subscription.end_date
+    )
+
+    applications_today = db.query(Application).filter(
+        Application.user_id == user_id,
+        func.date(Application.application_date) == today
+    ).count()
+
+    if not has_active_subscription and applications_today >= 3:
+        raise HTTPException(status_code=429, detail="Ви досягли ліміту заявок на сьогодні. Оформіть підписку для необмеженого доступу.")
+
+        
     
     company = db.query(UtilityCompany).filter(UtilityCompany.name == company_name).first()
     if not company:
