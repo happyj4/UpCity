@@ -25,8 +25,11 @@ public class UpdateUserInfo {
         RequestBody surnamePart = RequestBody.create(MediaType.parse("text/plain"), surname);
         RequestBody emailPart = RequestBody.create(MediaType.parse("text/plain"), email);
 
-        RequestBody photoPart = RequestBody.create(MediaType.parse("multipart/form-data"), photo);
-        MultipartBody.Part photoFile = MultipartBody.Part.createFormData("image", photo.getName(), photoPart);
+        MultipartBody.Part photoFile = null;
+        if (photo != null) {
+            RequestBody photoPart = RequestBody.create(MediaType.parse("multipart/form-data"), photo);
+            photoFile = MultipartBody.Part.createFormData("image", photo.getName(), photoPart);
+        }
 
         Call<ResponseUpdateProfile> call = apiService.updateUser(
                 emailPart,
