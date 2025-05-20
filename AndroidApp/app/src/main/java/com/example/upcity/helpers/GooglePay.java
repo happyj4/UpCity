@@ -11,6 +11,7 @@ import com.example.upcity.utils.ResponseGooglePay;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wallet.*;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -94,9 +95,11 @@ public class GooglePay {
                     } catch (Exception e) {
                         e.printStackTrace();
                         callback.onError("Помилка розбору відповіді сервера");
+
                     }
                 } else {
-                    callback.onError("Сервер повернув помилку: " + response.code());
+                    String errorMessage = parseErrorMessage(response);
+                    callback.onError(errorMessage);
                 }
             }
 
@@ -105,6 +108,22 @@ public class GooglePay {
                 callback.onError("Помилка мережі: " + t.getMessage());
             }
         });
+    }
+
+    private String parseErrorMessage(Response<?> response) {
+        try {
+            String errorBody = response.errorBody().string();
+            JSONObject json = new JSONObject(errorBody);
+            Object detail = json.get("detail");
+
+            if (detail instanceof JSONArray) {
+                return ((JSONArray) detail).getJSONObject(0).getString("msg");
+            }
+
+            return detail.toString();
+        } catch (Exception e) {
+            return "Помилка";
+        }
     }
 
     public interface PaymentCallback {

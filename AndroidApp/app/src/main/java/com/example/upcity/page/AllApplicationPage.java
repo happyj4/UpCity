@@ -3,18 +3,15 @@ package com.example.upcity.page;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.helpers.LoadAllApplication;
 import com.example.upcity.adapters.AdapterApplication;
 import com.example.upcity.R;
 import com.example.upcity.adapters.FragmentToolbar;
 import com.example.upcity.utils.RequestCreateApplication;
-
 import java.util.List;
 
 public class AllApplicationPage extends AppCompatActivity {
@@ -33,7 +30,7 @@ public class AllApplicationPage extends AppCompatActivity {
                     .commit();
         }
 
-        // Подключение зависимостей//
+        // Подключение зависимостей
         RecyclerView AllList = findViewById(R.id.AllList);
         Button HomeButton = findViewById(R.id.HomeButton);
 

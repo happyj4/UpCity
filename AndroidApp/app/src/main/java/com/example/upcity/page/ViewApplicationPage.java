@@ -9,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.upcity.R;
 import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.adapters.FragmentToolbar;
@@ -22,8 +20,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -94,7 +90,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         LoadApplicationInfo.loadApplicationDetails(this, appId, accessToken, new LoadApplicationInfo.ApplicationDetailsCallback() {
             @Override
             public void onApplicationDetailsLoaded(ResponseDetailsApplication app) {
-                IdApplicationText.setText(String.valueOf(app.getApplicationNumber()));
+                IdApplicationText.setText("#" + app.getApplicationId());
                 NameApplicationText.setText(app.getName());
                 AddressApplicationText.setText(app.getAddress());
                 KpApplicationText.setText(app.getUtilityCompany().getName());
