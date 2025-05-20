@@ -6,6 +6,7 @@ import com.example.upcity.utils.ResponseAuthentication;
 import com.example.upcity.utils.ResponseCreateApplication;
 import com.example.upcity.utils.RequestRegister;
 import com.example.upcity.utils.RequestUtilityCompany;
+import com.example.upcity.utils.ResponseGoogleAuthentication;
 import com.example.upcity.utils.ResponseUpdateProfile;
 
 import okhttp3.MultipartBody;
@@ -83,4 +84,6 @@ public interface ApiService {
             @Body Map<String, String> body
     );
 
+    @POST("/user/auth/google/")
+    Call<ResponseGoogleAuthentication> googleLogin(@Body Map<String, String> body);
 }

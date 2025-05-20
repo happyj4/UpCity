@@ -18,6 +18,7 @@ import com.example.upcity.utils.RequestLogin;
 public class LoginPage extends AppCompatActivity {
 
     private GoogleAuthentication googleAuthentication;
+    TextView ErrorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +37,23 @@ public class LoginPage extends AppCompatActivity {
         ImageButton googleButton = findViewById(R.id.GoogleButton);
         EditText emailEditText  = findViewById(R.id.EmailEditText);
         EditText passwordEditText  = findViewById(R.id.PasswordEditText);
+        ErrorMessage = findViewById(R.id.ErrorMessage);
 
         // Авторизация через гугл
         googleAuthentication = new GoogleAuthentication(this);
         googleAuthentication.setOnGoogleAuthListener(new GoogleAuthentication.OnGoogleAuthListener() {
             @Override
-            public void onSuccess(String name, String email) {
-                Toast.makeText(LoginPage.this, "Вибраний акаунт:\nІм'я: " + name + "\nПошта: " + email, Toast.LENGTH_LONG).show();
+            public void onSuccess(String success) {
+                Intent intent = new Intent(LoginPage.this, HomePage.class);
+                intent.putExtra("skipAnimation", true);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_out, 0);
+                finish();
             }
 
             @Override
-            public void onFailure(Exception e) {
-                Toast.makeText(LoginPage.this, "Помилка входу: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(String error) {
+                ErrorMessage.setText("Помилка входу");
             }
         });
 
@@ -67,7 +73,6 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void performLogin(RequestLogin requestLogin) {
-        TextView ErrorMessage   = findViewById(R.id.ErrorMessage);
         HelperLogin helperLogin = new HelperLogin();
 
         helperLogin.login(this, requestLogin, new HelperLogin.LoginCallback() {

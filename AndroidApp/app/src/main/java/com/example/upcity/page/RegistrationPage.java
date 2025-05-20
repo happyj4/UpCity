@@ -7,17 +7,21 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.R;
+import com.example.upcity.helpers.GoogleAuthentication;
 import com.example.upcity.helpers.HelperRegistration;
 import com.example.upcity.utils.RequestRegister;
 
 public class RegistrationPage extends AppCompatActivity {
+
     TextView ErrorMessage;
+    private GoogleAuthentication googleAuthentication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,29 @@ public class RegistrationPage extends AppCompatActivity {
         EditText passwordEditText  = findViewById(R.id.PasswordEditText);
         CheckBox checkBox = findViewById(R.id.checkbox);
         ErrorMessage = findViewById(R.id.ErrorMessage);
+        ImageButton googleButton = findViewById(R.id.GoogleButton);
+
+        // Авторизация через гугл
+        googleAuthentication = new GoogleAuthentication(this);
+        googleAuthentication.setOnGoogleAuthListener(new GoogleAuthentication.OnGoogleAuthListener() {
+            @Override
+            public void onSuccess(String success) {
+                Intent intent = new Intent(RegistrationPage.this, HomePage.class);
+                intent.putExtra("skipAnimation", true);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_out, 0);
+                finish();
+            }
+
+            @Override
+            public void onFailure(String error) {
+                ErrorMessage.setText("Помилка входу");
+            }
+        });
 
         // Подключение кнопок
+        googleButton.setOnClickListener(view -> googleAuthentication.signIn());
+
         loginButton.setOnClickListener(view -> {
             AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, LoginPage.class, null);
         });
@@ -86,5 +111,11 @@ public class RegistrationPage extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        googleAuthentication.handleActivityResult(requestCode, resultCode, data);
     }
 }

@@ -1,16 +1,33 @@
 package com.example.upcity.helpers;
 
+import static com.example.upcity.helpers.HelperLogin.saveUser;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.example.upcity.R;
+import com.example.upcity.network.ApiService;
+import com.example.upcity.network.RetrofitClient;
+import com.example.upcity.utils.ResponseGoogleAuthentication;
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Response;
+
 public class GoogleAuthentication {
+    private final ApiService apiService = RetrofitClient.getInstance();
+
     private final Activity activity;
     private final GoogleSignInClient googleSignInClient;
     private static final int RC_SIGN_IN = 9001;
@@ -44,18 +61,64 @@ public class GoogleAuthentication {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null && authListener != null) {
-                    authListener.onSuccess(account.getDisplayName(), account.getEmail());
+                    String idToken = account.getIdToken();
+                    Log.d("GoogleAuthToken", "Token: " + idToken);
+
+                    Map<String, String> body = new HashMap<>();
+                    body.put("id_token", idToken);
+
+                    apiService.googleLogin(body).enqueue(new retrofit2.Callback<ResponseGoogleAuthentication>() {
+                        @Override
+                        public void onResponse(Call<ResponseGoogleAuthentication> call, retrofit2.Response<ResponseGoogleAuthentication> response) {
+                            if (response.isSuccessful() && response.body() != null) {
+                                ResponseGoogleAuthentication responseBody = response.body();
+                                authListener.onSuccess("Успішно");
+
+                                String name = responseBody.user.name;
+                                String surname = responseBody.user.surname;
+                                String email =  account.getEmail();
+                                String access_token = responseBody.access_token;
+                                String image = responseBody.user.image;
+
+                                saveUser(activity, email, name, surname, access_token, image);
+                            } else {
+                                String errorMessage = parseErrorMessage(response);
+                                authListener.onFailure(errorMessage);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseGoogleAuthentication> call, Throwable t) {
+                            authListener.onFailure("Network error: " + t.getMessage());
+                        }
+                    });
                 }
             } catch (ApiException e) {
                 if (authListener != null) {
-                    authListener.onFailure(e);
+                    authListener.onFailure(e.getMessage());
                 }
             }
         }
     }
 
+    private String parseErrorMessage(Response<?> response) {
+        try {
+            String errorBody = response.errorBody().string();
+            JSONObject json = new JSONObject(errorBody);
+            Object detail = json.get("detail");
+
+            if (detail instanceof JSONArray) {
+                return ((JSONArray) detail).getJSONObject(0).getString("msg");
+            }
+
+            return detail.toString();
+        } catch (Exception e) {
+            return "Помилка";
+        }
+    }
+
     public interface OnGoogleAuthListener {
-        void onSuccess(String name, String email);
-        void onFailure(Exception e);
+        void onSuccess(String success);
+        void onFailure(String error);
     }
 }
