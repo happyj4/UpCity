@@ -1,17 +1,39 @@
 from datetime import date
+from typing import Annotated, Literal
 
 import requests
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException , UploadFile
 from sqlalchemy.orm import Session, joinedload
-from sqlalchemy import func
+from sqlalchemy import func, asc ,desc
 
 from project.db.models import Application, UtilityCompany, Report, User
 from project.repository.image_rep import upload
 
 
-def all(db:Session):
-    applications = db.query(Application).all()
+def all(
+        db:Session,
+        sort_by_name:Literal["А-Я", "Я-А"] | None, 
+        sort_by_date:Literal["За зростанням", "За спаданням"] | None,
+        sort_by_status:Literal["В роботі", "Виконано", "Відхилено"] | None
+        ):
+        
+    query = db.query(Application)  # 🔥 створюємо базовий запит
+    
+    if sort_by_name == "А-Я":
+        query = query.order_by(asc(Application.name))
+    elif sort_by_name == "Я-А":
+        query = query.order_by(desc(Application.name))
+    
+    if sort_by_date == "За зростанням":
+        query = query.order_by(asc(Application.application_date))
+    elif sort_by_date == "За спаданням":
+        query = query.order_by(desc(Application.application_date))
+    
+    if sort_by_status:
+        query = query.filter(Application.status == sort_by_status)
+    
+    applications = query.all()
     return applications
 
 def geocode_address(address: str):
