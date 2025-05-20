@@ -60,23 +60,19 @@ def geocode_address(address: str):
     return None, None
 
 
-def create(name:str, address:str, description:str, company_name:str, photo: UploadFile, db:Session, current_user:dict):
+def create(name: str, address: str, description: str, company_name: str, photo: UploadFile, db: Session, current_user: dict):
     if current_user["role"] != "user":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
-    
     
     user_id = current_user.get("sub")
     if not user_id:
         raise HTTPException(status_code=401, detail="Не вдалося витягти ідентифікатор користувача")
 
-    
     user = db.query(User).filter(User.user_id == user_id).outerjoin(User.subscription).first()
-
     if not user:
         raise HTTPException(status_code=404, detail="Користувач не знайдений")
 
     today = date.today()
-
     has_active_subscription = (
         user.subscription is not None and
         user.subscription.status == "Активна" and
@@ -91,29 +87,17 @@ def create(name:str, address:str, description:str, company_name:str, photo: Uplo
     if not has_active_subscription and applications_today >= 3:
         raise HTTPException(status_code=429, detail="Ви досягли ліміту заявок на сьогодні. Оформіть підписку для необмеженого доступу.")
 
-        
-    
     company = db.query(UtilityCompany).filter(UtilityCompany.name == company_name).first()
     if not company:
         raise HTTPException(status_code=404, detail="Компанія не знайдена")
 
-   
     lat, lon = geocode_address(address)
-
-    
     upload_data = upload(photo)
     image_id = upload_data["image_id"]
 
-   
-    report = Report(image_id=image_id)
-    db.add(report)
-    db.flush()
-
-    
     max_number = db.query(Application.application_number).order_by(Application.application_number.desc()).first()
     new_number = (max_number[0] + 1) if max_number else 1
 
-    
     application = Application(
         name=name,
         address=address,
@@ -125,7 +109,7 @@ def create(name:str, address:str, description:str, company_name:str, photo: Uplo
         user_id=user_id,
         ut_company_id=company.ut_company_id,
         img_id=image_id,
-        report_id=report.report_id
+        report_id=None  # не прив'язуємо репорт
     )
 
     db.add(application)
@@ -136,6 +120,7 @@ def create(name:str, address:str, description:str, company_name:str, photo: Uplo
         "message": "Заявку успішно створено",
         "application_id": application.application_id
     }
+
 
 
 def application_review(app_id:int, db:Session, current_user:dict):
