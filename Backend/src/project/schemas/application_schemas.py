@@ -33,6 +33,7 @@ class ApplicationReview(BaseModel):
     description: str
     status: str
     application_date: datetime
+    user_rating: float
     longitude: Optional[float] = None
     latitude: Optional[float] = None
     image: ImageOut
