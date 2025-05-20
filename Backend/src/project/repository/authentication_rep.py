@@ -28,7 +28,7 @@ def login(db: Session, request: LoginAdminCompany):
         if not Hash.verify(request.password, company.password):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Невірний пароль для КП")
         
-        access_token = create_access_token(data={"sub": company.email, "role": "company"})
+        access_token = create_access_token(data={"sub": company.ut_company_id, "role": "company"})
         return {
             "message": "Успішний вхід COMPANY",
             "company_name": company.name,

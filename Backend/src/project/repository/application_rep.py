@@ -152,13 +152,18 @@ def application_review(app_id:int, db:Session, current_user:dict):
 
     return application
 
-def all_by_user(db: Session, current_user:dict):
-    if current_user["role"] != "user":
+def all_by_user(db: Session, current_user: dict):
+    if current_user["role"] not in ["user", "company"]:
         raise HTTPException(status_code=403, detail="Недостатньо прав")
     
     user_id = current_user.get("sub")
+
     if not user_id:
         raise HTTPException(status_code=401, detail="Не вдалося витягти ідентифікатор користувача")
 
-    applications = db.query(Application).filter(Application.user_id == user_id).all()
+    if current_user["role"] == "company":
+        applications = db.query(Application).filter(Application.ut_company_id == user_id).all()
+    else:  # role == "user"
+        applications = db.query(Application).filter(Application.user_id == user_id).all()
+
     return applications
