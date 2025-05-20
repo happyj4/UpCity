@@ -19,6 +19,11 @@ class ShowApp(BaseModel):
     class Config():
         orm_mode = True
 
+class ReportOut(BaseModel):
+    report_id: int
+    execution_date: datetime
+    image: Optional[ImageOut] = None
+
 class ApplicationReview(BaseModel):
     application_id: int
     application_number: int
@@ -31,6 +36,7 @@ class ApplicationReview(BaseModel):
     longitude: Optional[float] = None
     latitude: Optional[float] = None
     image: ImageOut
+    report: Optional[ReportOut]  # додано звіт
 
     class Config:
         orm_mode = True
