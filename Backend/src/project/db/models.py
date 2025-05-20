@@ -9,7 +9,8 @@ from sqlalchemy import (
     DECIMAL, 
     CheckConstraint, 
     func, 
-    Double
+    Double,
+    Float
 ) 
 from sqlalchemy.orm import relationship
 
@@ -102,6 +103,7 @@ class Application(Base):
     ut_company_id = Column(Integer, ForeignKey("utility_company.ut_company_id", ondelete="CASCADE"))
     img_id = Column(Integer, ForeignKey("image.image_id", ondelete="SET NULL"))
     report_id = Column(Integer, ForeignKey("report.report_id", ondelete="SET NULL"))
+    user_rating = Column(Float)
 
     __table_args__ = (
         CheckConstraint("status IN ('В роботі', 'Виконано', 'Відхилено')", name="check_application_status"),
