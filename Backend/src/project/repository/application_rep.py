@@ -147,8 +147,8 @@ def all_by_user(db: Session, current_user: dict):
         raise HTTPException(status_code=401, detail="Не вдалося витягти ідентифікатор користувача")
 
     if current_user["role"] == "company":
-        applications = db.query(Application).filter(Application.ut_company_id == user_id).all()
+        applications = db.query(Application).filter(Application.ut_company_id == user_id).order_by(desc(Application.application_date))
     else:  # role == "user"
-        applications = db.query(Application).filter(Application.user_id == user_id).all()
+        applications = db.query(Application).filter(Application.user_id == user_id).order_by(desc(Application.application_date))
 
     return applications
