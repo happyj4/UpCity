@@ -1,7 +1,7 @@
 package com.example.upcity.network;
 
 import com.example.upcity.utils.ResponseDetailsApplication;
-import com.example.upcity.utils.RequestCreateApplication;
+import com.example.upcity.utils.ResponseApplication;
 import com.example.upcity.utils.ResponseAuthentication;
 import com.example.upcity.utils.ResponseCreateApplication;
 import com.example.upcity.utils.RequestRegister;
@@ -28,10 +28,10 @@ import java.util.Map;
 
 public interface ApiService {
     @GET("/application/all_by_user/")
-    Call<List<RequestCreateApplication>> getUserApplications(@Header("Authorization") String authorization);
+    Call<List<ResponseApplication>> getUserApplications(@Header("Authorization") String authorization);
 
     @GET("/application/")
-    Call<List<RequestCreateApplication>> getApplications();
+    Call<List<ResponseApplication>> getApplications();
 
     @GET("/utility_company/")
     Call<List<RequestUtilityCompany>> getUtilityCompany(@Header("Authorization") String authorization);

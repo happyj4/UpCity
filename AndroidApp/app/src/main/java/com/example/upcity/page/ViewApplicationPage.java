@@ -37,6 +37,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
     private TextView DateApplicationText;
     private ImageView сlientPhoto;
     private ImageView statusApplication;
+    boolean MapPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,12 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
 
         Button HomeButton = findViewById(R.id.HomeButton);
         HomeButton.setOnClickListener(view -> {
-            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+            if (MapPage == true) {
+                AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, MapPage.class, null);
+            }
+            else {
+                AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+            }
         });
 
         // Подключение зависимостей
@@ -75,6 +81,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         // Полчайем ID заявки
         Intent intent = getIntent();
         int applicationId = intent.getIntExtra("applicationId", -1);
+        MapPage = intent.getBooleanExtra("MapPage", false);
 
         if (applicationId != -1) {
             loadApplicationDetails(applicationId);

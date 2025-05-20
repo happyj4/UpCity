@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.upcity.R;
 import com.example.upcity.page.CreateApplicationPage;
 import com.example.upcity.page.ViewApplicationPage;
-import com.example.upcity.utils.RequestCreateApplication;
+import com.example.upcity.utils.ResponseApplication;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -22,12 +22,12 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int TYPE_EMPTY = 0;
     private static final int TYPE_APPLICATION = 1;
 
-    private List<RequestCreateApplication> applicationList;
+    private List<ResponseApplication> applicationList;
     private int lastPosition = -1;
     private boolean[] animationCompleted;
     private boolean animationsAlreadyPlayed = false;
 
-    public AdapterApplication(List<RequestCreateApplication> applicationList) {
+    public AdapterApplication(List<ResponseApplication> applicationList) {
         this.applicationList = applicationList;
         animationCompleted = new boolean[applicationList.size()];
     }
@@ -52,19 +52,19 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        RequestCreateApplication requestCreateApplication = applicationList.get(position);
+        ResponseApplication responseApplication = applicationList.get(position);
 
         if (holder instanceof ApplicationViewHolder) {
             ApplicationViewHolder appHolder = (ApplicationViewHolder) holder;
-            appHolder.applicationNumber.setText("#" + requestCreateApplication.getApplicationId());
-            appHolder.applicationName.setText(requestCreateApplication.getName());
+            appHolder.applicationNumber.setText("#" + responseApplication.getApplicationId());
+            appHolder.applicationName.setText(responseApplication.getName());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-            appHolder.applicationDate.setText(dateFormat.format(requestCreateApplication.getApplicationDate()));
+            appHolder.applicationDate.setText(dateFormat.format(responseApplication.getApplicationDate()));
 
-            appHolder.applicationUtilityCompany.setText(String.valueOf(requestCreateApplication.getUtilityCompany().getName()));
+            appHolder.applicationUtilityCompany.setText(String.valueOf(responseApplication.getUtilityCompany().getName()));
 
-            switch (requestCreateApplication.getStatus()) {
+            switch (responseApplication.getStatus()) {
                 case "Виконано":
                     appHolder.applicationStatus.setImageResource(R.drawable.completed_application);
                     break;
@@ -78,9 +78,10 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (requestCreateApplication != null) {
+            if (responseApplication != null) {
                 Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
-                intent.putExtra("applicationId", requestCreateApplication.getApplicationId());
+                intent.putExtra("applicationId", responseApplication.getApplicationId());
+                intent.putExtra("MapPage",false);
                 AdapterAnimation.animateAndNavigate((Activity) v.getContext(), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
             } else {
                 AdapterAnimation.animateAndNavigate((Activity) v.getContext(), R.id.linearLayout, R.anim.slide_out_left, CreateApplicationPage.class, null);

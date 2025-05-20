@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.helpers.LoadAllApplication;
 import com.example.upcity.helpers.LoadUserApplications;
-import com.example.upcity.utils.RequestCreateApplication;
+import com.example.upcity.utils.ResponseApplication;
 import com.example.upcity.adapters.AdapterApplication;
 import com.example.upcity.R;
 import com.example.upcity.adapters.FragmentToolbar;
@@ -70,7 +70,7 @@ public class HomePage extends AppCompatActivity {
 
         loadUserApplications.getUserApplications(this, new LoadUserApplications.ApplicationCallback() {
             @Override
-            public void onSuccess(List<RequestCreateApplication> applications) {
+            public void onSuccess(List<ResponseApplication> applications) {
                 AdapterApplication adapter = new AdapterApplication(applications);
                 MyList.setAdapter(adapter);
             }
@@ -88,7 +88,7 @@ public class HomePage extends AppCompatActivity {
         loadAllApplication = new LoadAllApplication();
         loadAllApplication.loadApplications(this, new LoadAllApplication.ApplicationCallback() {
             @Override
-            public void onSuccess(List<RequestCreateApplication> applications) {
+            public void onSuccess(List<ResponseApplication> applications) {
                 AdapterApplication adapter = new AdapterApplication(applications);
                 AllList.setAdapter(adapter);
             }

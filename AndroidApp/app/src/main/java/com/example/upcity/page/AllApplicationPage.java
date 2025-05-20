@@ -11,7 +11,7 @@ import com.example.upcity.helpers.LoadAllApplication;
 import com.example.upcity.adapters.AdapterApplication;
 import com.example.upcity.R;
 import com.example.upcity.adapters.FragmentToolbar;
-import com.example.upcity.utils.RequestCreateApplication;
+import com.example.upcity.utils.ResponseApplication;
 import java.util.List;
 
 public class AllApplicationPage extends AppCompatActivity {
@@ -46,7 +46,7 @@ public class AllApplicationPage extends AppCompatActivity {
         loadAllApplication = new LoadAllApplication();
         loadAllApplication.loadApplications(this, new LoadAllApplication.ApplicationCallback() {
             @Override
-            public void onSuccess(List<RequestCreateApplication> applications) {
+            public void onSuccess(List<ResponseApplication> applications) {
                 AdapterApplication adapter = new AdapterApplication(applications);
                 AllList.setAdapter(adapter);
             }

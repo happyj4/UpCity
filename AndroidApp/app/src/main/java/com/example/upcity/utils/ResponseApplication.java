@@ -3,12 +3,15 @@ package com.example.upcity.utils;
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
-public class RequestCreateApplication {
+public class ResponseApplication {
     @SerializedName("application_id")
     private int applicationId;
 
     private String name;
     private String status;
+
+    private double longitude;
+    private double latitude;
 
     @SerializedName("application_date")
     private Date applicationDate;
@@ -37,6 +40,14 @@ public class RequestCreateApplication {
 
     public Date getApplicationDate() {
         return applicationDate;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
     }
 
     public int getApplicationNumber() {
