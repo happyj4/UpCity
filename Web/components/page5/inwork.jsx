@@ -172,6 +172,7 @@ export function Inwork() {
           </div>
           <div className="w-362 h-auto mt-8 flex flex-wrap gap-4">
             {appealEnded.map((item, index) => (
+              <Link href={`http://localhost:3000/kpEnded#${item.application_id}`}>
               <div
                 key={index}
                 className="w-56 h-35 bg-white rounded-lg flex-col py-2 px-2 drop-shadow-xl mb-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
@@ -201,6 +202,7 @@ export function Inwork() {
                   КП «{item.utility_company.name}»
                 </span>
               </div>
+              </Link>
             ))}
           </div>
           <div className="w-full h-auto flex justify-center mt-5 mb-40">
