@@ -23,6 +23,10 @@ class ReportOut(BaseModel):
     report_id: int
     execution_date: datetime
     image: Optional[ImageOut] = None
+    
+class UserOut(BaseModel):
+    name: str
+    surname:str
 
 class ApplicationReview(BaseModel):
     application_id: int
@@ -37,6 +41,7 @@ class ApplicationReview(BaseModel):
     longitude: Optional[float] = None
     latitude: Optional[float] = None
     image: ImageOut
+    user: Optional[UserOut]
     report: Optional[ReportOut]  # додано звіт
 
     class Config:

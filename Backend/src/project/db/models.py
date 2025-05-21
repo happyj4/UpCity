@@ -80,7 +80,7 @@ class Report(Base):
     __tablename__ = 'report'
 
     report_id = Column(Integer, primary_key=True, index=True)
-    image_id = Column(Integer, ForeignKey("image.image_id", ondelete="CASCADE"))
+    image_id = Column(Integer, ForeignKey("image.image_id", ondelete="CASCADE"), nullable=True)
     execution_date = Column(TIMESTAMP, server_default=func.now())
 
     image = relationship("Image", back_populates="reports")

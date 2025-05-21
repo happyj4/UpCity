@@ -72,7 +72,7 @@ async def complete_application(
     app_id: int,
     rating: Optional[int] = Form(None),
     status: str = Form(...),
-    image: UploadFile = File(...),
+    image: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db),
     current_user: dict = Depends(get_current_user)
 ):
@@ -86,41 +86,39 @@ async def complete_application(
     if status not in ["Виконано", "Відхилено"]:
         raise HTTPException(status_code=400, detail="Некоректний статус")
 
-    # Завантажуємо зображення
-    uploaded_image = upload(image)
-    image_id = uploaded_image["image_id"]
-
+    image_id = None
+    if image and image.filename:
+        uploaded_image = upload(image)
+        image_id = uploaded_image["image_id"]
+        
     if application.report_id:
-        # Оновлюємо існуючий звіт
         report = db.query(Report).filter(Report.report_id == application.report_id).first()
         if not report:
             raise HTTPException(status_code=500, detail="Не знайдено звіт для заявки")
 
-        report.image_id = image_id
+        if image_id:
+            report.image_id = image_id
         report.execution_date = datetime.utcnow()
         db.commit()
         db.refresh(report)
     else:
-        # Створюємо новий звіт
         report = Report(
             image_id=image_id,
             execution_date=datetime.utcnow()
         )
         db.add(report)
-        db.flush()  # Щоб отримати report_id
+        db.flush()
 
         application.report_id = report.report_id
         db.commit()
         db.refresh(report)
 
-    # Оновлюємо статус заявки
     application.status = status
     if rating:
         application.user_rating = rating
     db.commit()
     db.refresh(application)
 
-    # Перерахунок рейтингу користувача
     if rating:
         user = db.query(User).filter(User.user_id == application.user_id).first()
         if user:
@@ -137,7 +135,6 @@ async def complete_application(
             user.rating = round(total_ratings / rating_count, 2)
             db.commit()
 
-    # Перерахунок рейтингу компанії
     company_id = application.ut_company_id
     if company_id:
         total_applications = db.query(func.count(Application.application_id)).filter(
@@ -154,15 +151,12 @@ async def complete_application(
             company.rating = round((completed_applications / total_applications) * 100)
             db.commit()
 
-    # Формируем данные для возврата
-    # Получаем URL основного изображения заявки
     main_image = None
     if application.img_id:
         img_obj = db.query(Image).filter(Image.image_id == application.img_id).first()
         if img_obj:
             main_image = {"image_url": img_obj.image_url}
 
-    # Получаем отчет с изображением
     report_out = None
     if report and report.image_id:
         report_img_obj = db.query(Image).filter(Image.image_id == report.image_id).first()
