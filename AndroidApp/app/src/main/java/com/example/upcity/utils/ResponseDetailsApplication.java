@@ -1,39 +1,28 @@
 package com.example.upcity.utils;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Date;
 
 public class ResponseDetailsApplication {
-    @SerializedName("application_id")
-    private int applicationId;
-
-    @SerializedName("application_number")
-    private int applicationNumber;
-
+    private int application_id;
+    private int application_number;
     private String name;
     private String address;
     private String description;
     private String status;
-
-    @SerializedName("application_date")
-    private Date applicationDate;
-
+    private Date application_date;
+    private int user_rating;
     private double longitude;
     private double latitude;
-
-    @SerializedName("utility_company")
-    private UtilityCompany utilityCompany;
-
-    @SerializedName("image")
+    private UtilityCompany utility_company;
     private Image image;
+    private Report report;
 
-    public int getApplicationId() {
-        return applicationId;
+    public int getApplication_id() {
+        return application_id;
     }
 
-    public int getApplicationNumber() {
-        return applicationNumber;
+    public int getApplication_number() {
+        return application_number;
     }
 
     public String getName() {
@@ -52,8 +41,12 @@ public class ResponseDetailsApplication {
         return status;
     }
 
-    public Date getApplicationDate() {
-        return applicationDate;
+    public Date getApplication_date() {
+        return application_date;
+    }
+
+    public int getUser_rating() {
+        return user_rating;
     }
 
     public double getLongitude() {
@@ -64,34 +57,54 @@ public class ResponseDetailsApplication {
         return latitude;
     }
 
-    public UtilityCompany getUtilityCompany() {
-        return utilityCompany;
+    public UtilityCompany getUtility_company() {
+        return utility_company;
     }
 
     public Image getImage() {
         return image;
     }
 
+    public Report getReport() {
+        return report;
+    }
+
     public static class UtilityCompany {
         private String name;
+
         public String getName() {
             return name;
         }
     }
 
     public static class Image {
-        @SerializedName("image_id")
-        private int imageId;
+        private int image_id;
+        private String image_url;
 
-        @SerializedName("image_url")
-        private String imageUrl;
-
-        public int getImageId() {
-            return imageId;
+        public int getImage_id() {
+            return image_id;
         }
 
-        public String getImageUrl() {
-            return imageUrl;
+        public String getImage_url() {
+            return image_url;
+        }
+    }
+
+    public static class Report {
+        private int report_id;
+        private Date execution_date;
+        private Image image;
+
+        public int getReport_id() {
+            return report_id;
+        }
+
+        public Date getExecution_date() {
+            return execution_date;
+        }
+
+        public Image getImage() {
+            return image;
         }
     }
 }

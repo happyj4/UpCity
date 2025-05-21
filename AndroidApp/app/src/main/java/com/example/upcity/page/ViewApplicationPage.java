@@ -3,9 +3,12 @@ package com.example.upcity.page;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -37,7 +40,15 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
     private TextView DateApplicationText;
     private ImageView сlientPhoto;
     private ImageView statusApplication;
+    private ImageView UtilityCompaniePhoto;
     boolean MapPage;
+    LinearLayout UtilityCompanieInfo;
+
+    ImageView star1;
+    ImageView star2;
+    ImageView star3;
+    ImageView star4;
+    ImageView star5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +87,14 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         DescriptionApplicationText = findViewById(R.id.DescriptionApplicationText);
         DateApplicationText = findViewById(R.id.DateApplicationText);
         сlientPhoto = findViewById(R.id.ClientPhoto);
+        UtilityCompaniePhoto = findViewById(R.id.UtilityCompaniePhoto);
         statusApplication = findViewById(R.id.StatusApplication);
+        UtilityCompanieInfo = findViewById(R.id.UtilityCompanieInfo);
+        star1 = findViewById(R.id.Star1);
+        star2 = findViewById(R.id.Star2);
+        star3 = findViewById(R.id.Star3);
+        star4 = findViewById(R.id.Star4);
+        star5 = findViewById(R.id.Star5);
 
         // Полчайем ID заявки
         Intent intent = getIntent();
@@ -97,10 +115,10 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         LoadApplicationInfo.loadApplicationDetails(this, appId, accessToken, new LoadApplicationInfo.ApplicationDetailsCallback() {
             @Override
             public void onApplicationDetailsLoaded(ResponseDetailsApplication app) {
-                IdApplicationText.setText("#" + app.getApplicationId());
+                IdApplicationText.setText("#" + app.getApplication_id());
                 NameApplicationText.setText(app.getName());
                 AddressApplicationText.setText(app.getAddress());
-                KpApplicationText.setText(app.getUtilityCompany().getName());
+                KpApplicationText.setText(app.getUtility_company().getName());
                 DescriptionApplicationText.setText(app.getDescription());
 
                 if (app.getStatus().equals("Виконано")) {
@@ -112,13 +130,33 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
                 }
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-                DateApplicationText.setText(dateFormat.format(app.getApplicationDate()));
+                DateApplicationText.setText(dateFormat.format(app.getApplication_date()));
 
-                String imageUrl = app.getImage().getImageUrl();
+                String imageUrl = app.getImage().getImage_url();
                 if (imageUrl != null && !imageUrl.isEmpty()) {
                     Glide.with(ViewApplicationPage.this)
                             .load(imageUrl)
                             .into(сlientPhoto);
+                }
+
+                String imageUtilityCompanieUrl = app.getReport().getImage().getImage_url();
+                if (imageUtilityCompanieUrl != null && !imageUtilityCompanieUrl.isEmpty()) {
+                    Glide.with(ViewApplicationPage.this)
+                            .load(imageUtilityCompanieUrl)
+                            .into(UtilityCompaniePhoto);
+
+                    ImageView[] stars = {star1, star2, star3, star4, star5};
+                    int rating = app.getUser_rating();
+
+                    for (int i = 0; i < stars.length; i++) {
+                        if (i < rating) {
+                            stars[i].setColorFilter(Color.parseColor("#FFE68C"));
+                        } else {
+                            stars[i].setColorFilter(Color.parseColor("#BCBCBC"));
+                        }
+                    }
+                } else {
+                    UtilityCompanieInfo.setVisibility(View.GONE);
                 }
 
                 applicationLatitude = app.getLatitude();

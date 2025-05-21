@@ -275,7 +275,6 @@
                             android:src="@drawable/empty_photo_application" />
                     </FrameLayout>
 
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -304,7 +303,7 @@
                             android:src="@drawable/star"
                             android:layout_marginLeft="7dp"
                             android:layout_marginRight="7dp"
-                            android:tint="#FFE68C" />
+                            android:tint="#BCBCBC" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/Star2"
@@ -314,7 +313,7 @@
                             android:src="@drawable/star"
                             android:layout_marginLeft="7dp"
                             android:layout_marginRight="7dp"
-                            android:tint="#FFE68C" />
+                            android:tint="#BCBCBC" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/Star3"
@@ -324,7 +323,7 @@
                             android:src="@drawable/star"
                             android:layout_marginLeft="7dp"
                             android:layout_marginRight="7dp"
-                            android:tint="#FFE68C" />
+                            android:tint="#BCBCBC" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/Star4"
@@ -334,7 +333,7 @@
                             android:src="@drawable/star"
                             android:layout_marginLeft="7dp"
                             android:layout_marginRight="7dp"
-                            android:tint="#FFE68C" />
+                            android:tint="#BCBCBC" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/Star5"
@@ -344,7 +343,7 @@
                             android:src="@drawable/star"
                             android:layout_marginLeft="7dp"
                             android:layout_marginRight="7dp"
-                            android:tint="#FFE68C" />
+                            android:tint="#BCBCBC" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
