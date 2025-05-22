@@ -233,9 +233,10 @@
                         android:fontFamily="@font/inter_light" />
 
                     <FrameLayout
-                        android:layout_width="379dp"
-                        android:layout_height="132dp"
+                        android:layout_marginRight="15dp"
                         android:layout_marginLeft="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="132dp"
                         android:background="@drawable/rounded_background_photo_application"
                         android:clipToOutline="true"
                         android:outlineProvider="background">
@@ -267,9 +268,10 @@
                             android:fontFamily="@font/inter_light" />
 
                         <FrameLayout
-                            android:layout_width="379dp"
-                            android:layout_height="132dp"
+                            android:layout_marginRight="15dp"
                             android:layout_marginLeft="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="132dp"
                             android:background="@drawable/rounded_background_photo_application"
                             android:clipToOutline="true"
                             android:outlineProvider="background">
