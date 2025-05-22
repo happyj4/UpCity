@@ -1,5 +1,6 @@
 package com.example.upcity.page;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -56,6 +57,12 @@ public class AllApplicationPage extends AppCompatActivity {
                 Toast.makeText(AllApplicationPage.this, "Ошибка в загрузке всех заявок: " + error, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    //Изменяет кнопку назад
+    @Override
+    public void onBackPressed() {
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
     }
 }
 

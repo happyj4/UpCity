@@ -151,4 +151,10 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
             editor.apply();
         }
     }
+
+    //Изменяет кнопку назад
+    @Override
+    public void onBackPressed() {
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+    }
 }

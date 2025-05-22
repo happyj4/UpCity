@@ -144,4 +144,10 @@ public class EditProfilePage extends AppCompatActivity {
             PhotoImage.setImageURI(imageUri);
         }
     }
+
+    //Изменяет кнопку назад
+    @Override
+    public void onBackPressed() {
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+    }
 }

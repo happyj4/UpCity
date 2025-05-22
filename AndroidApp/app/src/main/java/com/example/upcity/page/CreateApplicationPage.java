@@ -205,4 +205,9 @@ public class CreateApplicationPage extends AppCompatActivity {
         return address + (!containsCity ? ", " + DEFAULT_CITY : "");
     }
 
+    //Изменяет кнопку назад
+    @Override
+    public void onBackPressed() {
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+    }
 }

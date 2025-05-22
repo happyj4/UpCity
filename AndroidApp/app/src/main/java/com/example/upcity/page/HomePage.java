@@ -24,6 +24,8 @@ public class HomePage extends AppCompatActivity {
 
     private LoadAllApplication loadAllApplication;
     private LoadUserApplications loadUserApplications;
+    private long backPressedTime;
+    private Toast backToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,5 +100,19 @@ public class HomePage extends AppCompatActivity {
                 Toast.makeText(HomePage.this, "Ошибка в загрузке всех заявок: " + error, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    //Изменяет кнопку назад
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            if (backToast != null) backToast.cancel();
+            super.onBackPressed();
+            return;
+        } else {
+            backToast = Toast.makeText(getBaseContext(), "Якщо хочеш вийти, натисни ще раз", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 }

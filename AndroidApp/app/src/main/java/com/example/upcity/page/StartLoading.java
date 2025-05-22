@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.widget.Toast;
 import com.example.upcity.R;
 
 
 public class StartLoading extends AppCompatActivity {
+    private long backPressedTime;
+    private Toast backToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,19 @@ public class StartLoading extends AppCompatActivity {
                 finish();
             }
         }, 3000);
+    }
 
+    //Изменяет кнопку назад
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            if (backToast != null) backToast.cancel();
+            super.onBackPressed();
+            return;
+        } else {
+            backToast = Toast.makeText(getBaseContext(), "Якщо хочеш вийти, натисни ще раз", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 }

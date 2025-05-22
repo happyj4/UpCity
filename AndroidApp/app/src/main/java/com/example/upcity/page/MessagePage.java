@@ -43,4 +43,10 @@ public class MessagePage extends AppCompatActivity {
         NameMessageText.setText(oldintent.getStringExtra("name"));
         DescriptionMessageText.setText(oldintent.getStringExtra("description"));
     }
+
+    //Изменяет кнопку назад
+    @Override
+    public void onBackPressed() {
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+    }
 }

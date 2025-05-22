@@ -189,4 +189,10 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
             updateMap();
         }
     }
+
+    //Изменяет кнопку назад
+    @Override
+    public void onBackPressed() {
+        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+    }
 }
