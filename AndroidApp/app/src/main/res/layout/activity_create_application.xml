@@ -2,225 +2,233 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/menu_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:background="@color/white"
-        android:orientation="horizontal"/>
-
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:background="@color/background"
-        android:orientation="vertical"
-        android:gravity="top|left">
-
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="18dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="15dp"
-            android:paddingEnd="20dp">
-
-            <ImageButton
-                android:id="@+id/ListButton"
-                android:layout_width="13dp"
-                android:layout_height="match_parent"
-                android:scaleType="centerInside"
-                android:src="@drawable/home_button"
-                android:background="@null"
-                android:paddingEnd="1dp"/>
-
-            <Button
-                android:id="@+id/HomeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|start"
-                android:layout_marginTop="-1dp"
-                android:layout_marginLeft="5dp"
-                android:text="на головну"
-                android:textColor="#848484"
-                android:background="@android:color/transparent"
-                android:textAllCaps="false"
-                android:textSize="13sp"
-                android:paddingStart="0dp"
-                android:fontFamily="@font/inter_light"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="7dp"
-            android:gravity="center_vertical"
-            android:text="Створення звернення"
-            android:textSize="24dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_semibold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:text="Назва"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
-
-        <EditText
-            android:id="@+id/NameEditText"
-            android:inputType="text"
-            android:hint=""
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:textColor="#848383"
-            android:textSize="13sp"
-            android:layout_width="379dp"
-            android:layout_height="35dp"
-            android:background="@drawable/rounded_background_edittext"
-            android:paddingHorizontal="20dp"
-            android:elevation="3dp"
-            android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical"
-            android:textCursorDrawable="@null"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="13dp"
-            android:gravity="center_vertical"
-            android:text="Адреса"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
-
-        <EditText
-            android:id="@+id/AddressEditText"
-            android:inputType="text"
-            android:hint=""
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:textColor="#848383"
-            android:textSize="13sp"
-            android:layout_width="379dp"
-            android:layout_height="35dp"
-            android:background="@drawable/rounded_background_edittext"
-            android:paddingHorizontal="20dp"
-            android:elevation="3dp"
-            android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical"
-            android:textCursorDrawable="@null"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="13dp"
-            android:gravity="center_vertical"
-            android:text="КП"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
-
-        <Spinner
-            android:id="@+id/SpinnerUtilityCompany"
-            android:layout_width="379dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/rounded_background_edittext"
-            android:popupBackground="@drawable/rounded_background_edittext"
-            android:elevation="3dp"
-            android:paddingHorizontal="20dp"
-            android:spinnerMode="dropdown"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="13dp"
-            android:gravity="center_vertical"
-            android:text="Опис"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
-
-        <EditText
-            android:id="@+id/DescriptionEditText"
-            android:inputType="textMultiLine"
-            android:hint=""
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:textColor="#848383"
-            android:textSize="13sp"
-            android:layout_width="379dp"
-            android:layout_height="70dp"
-            android:background="@drawable/rounded_background_edittext"
-            android:paddingHorizontal="20dp"
-            android:elevation="3dp"
-            android:fontFamily="@font/inter_light"
-            android:paddingTop="10dp"
-            android:gravity="start|top"
-            android:textCursorDrawable="@null"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
-            android:gravity="center_vertical"
-            android:text="Додати фото"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
+        android:orientation="vertical">
 
         <FrameLayout
-            android:layout_width="379dp"
-            android:layout_height="132dp"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/rounded_background_photo_application"
-            android:clipToOutline="true"
-            android:outlineProvider="background">
+            android:id="@+id/menu_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.07"
+            android:background="@color/white"
+            android:orientation="horizontal" />
 
-            <ImageView
-                android:id="@+id/AddPhotoButton"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/background"
+            android:orientation="vertical"
+            android:gravity="top|left">
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/empty_photo_application"
-                android:clickable="true"
-                android:focusable="true" />
-        </FrameLayout>
+                android:layout_height="45dp"
+                android:layout_marginTop="18dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingEnd="20dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/CreateApplicationButton"
-            android:layout_width="379dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="40dp"
-            android:text="СТВОРИТИ ЗВЕРНЕННЯ"
-            android:gravity="center"
-            android:layout_gravity="top|center"
-            android:background="@drawable/rounded_background_button"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:stateListAnimator="@null"
-            android:fontFamily="@font/inter_semibold" />
+                <ImageButton
+                    android:id="@+id/ListButton"
+                    android:layout_width="13dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/home_button"
+                    android:background="@null"
+                    android:paddingEnd="1dp"/>
+
+                <Button
+                    android:id="@+id/HomeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|start"
+                    android:layout_marginTop="-1dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="на головну"
+                    android:textColor="#848484"
+                    android:background="@android:color/transparent"
+                    android:textAllCaps="false"
+                    android:textSize="13sp"
+                    android:paddingStart="0dp"
+                    android:fontFamily="@font/inter_light"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center_vertical"
+                android:text="Створення звернення"
+                android:textSize="24dp"
+                android:textColor="#1E1E1E"
+                android:fontFamily="@font/inter_semibold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:text="Назва"
+                android:textSize="12dp"
+                android:textColor="#1E1E1E"
+                android:fontFamily="@font/inter_light" />
+
+            <EditText
+                android:id="@+id/NameEditText"
+                android:inputType="text"
+                android:hint=""
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#848383"
+                android:textSize="13sp"
+                android:layout_width="379dp"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_background_edittext"
+                android:paddingHorizontal="20dp"
+                android:elevation="3dp"
+                android:fontFamily="@font/inter_light"
+                android:gravity="start|center_vertical"
+                android:textCursorDrawable="@null"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                android:text="Адреса"
+                android:textSize="12dp"
+                android:textColor="#1E1E1E"
+                android:fontFamily="@font/inter_light" />
+
+            <EditText
+                android:id="@+id/AddressEditText"
+                android:inputType="text"
+                android:hint=""
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#848383"
+                android:textSize="13sp"
+                android:layout_width="379dp"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_background_edittext"
+                android:paddingHorizontal="20dp"
+                android:elevation="3dp"
+                android:fontFamily="@font/inter_light"
+                android:gravity="start|center_vertical"
+                android:textCursorDrawable="@null"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                android:text="КП"
+                android:textSize="12dp"
+                android:textColor="#1E1E1E"
+                android:fontFamily="@font/inter_light" />
+
+            <Spinner
+                android:id="@+id/SpinnerUtilityCompany"
+                android:layout_width="379dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/rounded_background_edittext"
+                android:popupBackground="@drawable/rounded_background_edittext"
+                android:elevation="3dp"
+                android:paddingHorizontal="20dp"
+                android:spinnerMode="dropdown"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                android:text="Опис"
+                android:textSize="12dp"
+                android:textColor="#1E1E1E"
+                android:fontFamily="@font/inter_light" />
+
+            <EditText
+                android:id="@+id/DescriptionEditText"
+                android:inputType="textMultiLine"
+                android:hint=""
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#848383"
+                android:textSize="13sp"
+                android:layout_width="379dp"
+                android:layout_height="70dp"
+                android:background="@drawable/rounded_background_edittext"
+                android:paddingHorizontal="20dp"
+                android:elevation="3dp"
+                android:fontFamily="@font/inter_light"
+                android:paddingTop="10dp"
+                android:gravity="start|top"
+                android:textCursorDrawable="@null"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical"
+                android:text="Додати фото"
+                android:textSize="12dp"
+                android:textColor="#1E1E1E"
+                android:fontFamily="@font/inter_light" />
+
+            <FrameLayout
+                android:layout_width="379dp"
+                android:layout_height="132dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/rounded_background_photo_application"
+                android:clipToOutline="true"
+                android:outlineProvider="background">
+
+                <ImageView
+                    android:id="@+id/AddPhotoButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/empty_photo_application"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </FrameLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/CreateApplicationButton"
+                android:layout_width="379dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="40dp"
+                android:text="СТВОРИТИ ЗВЕРНЕННЯ"
+                android:gravity="center"
+                android:layout_gravity="top|center"
+                android:background="@drawable/rounded_background_button"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:stateListAnimator="@null"
+                android:fontFamily="@font/inter_semibold" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

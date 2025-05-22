@@ -2,61 +2,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/menu_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:background="@color/white"
-        android:orientation="horizontal"/>
-
     <LinearLayout
-        android:id="@+id/AlllinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:background="@color/background"
-        android:orientation="vertical"
-        android:gravity="top|left">
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/menu_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.07"
+            android:background="@color/white"
+            android:orientation="horizontal" />
 
         <LinearLayout
-            android:layout_width="110dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="-5dp"
-            android:background="@drawable/rounded_background_edittext"
-            android:gravity="left"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/ListButton"
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/list_button"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@null" />
-
-            <ImageButton
-                android:id="@+id/MapButton"
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/map_button"
-                android:clickable="true"
-                android:focusable="true"
-                android:alpha="0.4"
-                android:background="@null" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/AlllinearLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -65,82 +30,125 @@
             android:gravity="top|left">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="110dp"
                 android:layout_height="45dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="-5dp"
+                android:background="@drawable/rounded_background_edittext"
                 android:gravity="left"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/ListButton"
+                    android:layout_width="32dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:gravity="center_vertical"
-                    android:text="Мої звернення"
-                    android:textSize="24dp"
-                    android:textColor="#1E1E1E"
-                    android:fontFamily="@font/inter_semibold" />
+                    android:layout_marginLeft="20dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/list_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@null" />
 
-                <Button
-                    android:id="@+id/OpenMyButton"
-                    android:layout_width="150dp"
+                <ImageButton
+                    android:id="@+id/MapButton"
+                    android:layout_width="32dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="75dp"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="@font/inter_light"
-                    android:gravity="center"
-                    android:text="ПЕРЕГЛЯНУТИ ВСІ"
-                    android:textColor="#1E1E1E"
-                    android:textSize="10sp" />
-
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/map_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:alpha="0.4"
+                    android:background="@null" />
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/MyList"
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:layout_marginLeft="15dp"
-                android:scrollbars="none"
-                android:orientation="horizontal" />
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="30dp"
-                android:gravity="left"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/background"
+                android:orientation="vertical"
+                android:gravity="top|left">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="Мої звернення"
+                        android:textSize="24dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_semibold" />
+
+                    <Button
+                        android:id="@+id/OpenMyButton"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="75dp"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/inter_light"
+                        android:gravity="center"
+                        android:text="ПЕРЕГЛЯНУТИ ВСІ"
+                        android:textColor="#1E1E1E"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/MyList"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
                     android:layout_marginLeft="15dp"
-                    android:gravity="center_vertical"
-                    android:text="Всі звернення"
-                    android:textSize="24dp"
-                    android:textColor="#1E1E1E"
-                    android:fontFamily="@font/inter_semibold" />
+                    android:scrollbars="none"
+                    android:orientation="horizontal" />
 
-                <Button
-                    android:id="@+id/OpenAllButton"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="75dp"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="@font/inter_light"
-                    android:gravity="center"
-                    android:text="ПЕРЕГЛЯНУТИ ВСІ"
-                    android:textColor="#1E1E1E"
-                    android:textSize="10sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="30dp"
+                    android:gravity="left"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="Всі звернення"
+                        android:textSize="24dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_semibold" />
+
+                    <Button
+                        android:id="@+id/OpenAllButton"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="75dp"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/inter_light"
+                        android:gravity="center"
+                        android:text="ПЕРЕГЛЯНУТИ ВСІ"
+                        android:textColor="#1E1E1E"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/AllList"
+                    android:layout_width="match_parent"
+                    android:layout_height="465dp"
+                    android:layout_marginLeft="15dp"
+                    android:scrollbars="none"
+                    android:orientation="horizontal" />
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/AllList"
-                android:layout_width="match_parent"
-                android:layout_height="465dp"
-                android:layout_marginLeft="15dp"
-                android:scrollbars="none"
-                android:orientation="horizontal" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

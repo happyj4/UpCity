@@ -2,191 +2,199 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/menu_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:background="@color/white"
-        android:orientation="horizontal"/>
-
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:background="@color/background"
-        android:orientation="vertical"
-        android:gravity="top|left">
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/menu_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.07"
+            android:background="@color/white"
+            android:orientation="horizontal" />
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="18dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="15dp"
-            android:paddingEnd="20dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/background"
+            android:orientation="vertical"
+            android:gravity="top|left">
 
-            <ImageButton
-                android:id="@+id/ListButton"
-                android:layout_width="13dp"
-                android:layout_height="match_parent"
-                android:scaleType="centerInside"
-                android:src="@drawable/home_button"
-                android:background="@null"
-                android:paddingEnd="1dp"/>
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="18dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingEnd="20dp">
 
-            <Button
-                android:id="@+id/HomeButton"
-                android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/ListButton"
+                    android:layout_width="13dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/home_button"
+                    android:background="@null"
+                    android:paddingEnd="1dp"/>
+
+                <Button
+                    android:id="@+id/HomeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|start"
+                    android:layout_marginTop="-1dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="на головну"
+                    android:textColor="#848484"
+                    android:background="@android:color/transparent"
+                    android:textAllCaps="false"
+                    android:textSize="13sp"
+                    android:paddingStart="0dp"
+                    android:fontFamily="@font/inter_light"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical|start"
-                android:layout_marginTop="-1dp"
-                android:layout_marginLeft="5dp"
-                android:text="на головну"
-                android:textColor="#848484"
-                android:background="@android:color/transparent"
-                android:textAllCaps="false"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center_vertical"
+                android:text="Редагування профілю"
+                android:textSize="24dp"
+                android:textColor="#1E1E1E"
+                android:fontFamily="@font/inter_semibold" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/PhotoImage"
+                android:layout_width="108dp"
+                android:layout_height="108dp"
+                android:layout_marginTop="40dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/empty_user_photo"
+                android:contentDescription="Photo Button"
+                app:shapeAppearanceOverlay="@style/CustomCircle"/>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/EditPhotoButton"
+                android:layout_width="108dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/edit_photo_button"
+                android:contentDescription="Photo Button"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical"
+                android:text="Пошта"
+                android:textSize="12dp"
+                android:textColor="#1E1E1E"
+                android:fontFamily="@font/inter_light" />
+
+            <EditText
+                android:id="@+id/EmailEditText"
+                android:inputType="text"
+                android:hint=""
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#848383"
                 android:textSize="13sp"
-                android:paddingStart="0dp"
-                android:fontFamily="@font/inter_light"/>
+                android:layout_width="379dp"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_background_edittext"
+                android:paddingHorizontal="20dp"
+                android:elevation="3dp"
+                android:fontFamily="@font/inter_light"
+                android:gravity="start|center_vertical"
+                android:textCursorDrawable="@null"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:text="Імʼя"
+                android:textSize="12dp"
+                android:textColor="#1E1E1E"
+                android:fontFamily="@font/inter_light" />
+
+            <EditText
+                android:id="@+id/NameEditText"
+                android:inputType="text"
+                android:hint=""
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#848383"
+                android:textSize="13sp"
+                android:layout_width="379dp"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_background_edittext"
+                android:paddingHorizontal="20dp"
+                android:elevation="3dp"
+                android:fontFamily="@font/inter_light"
+                android:gravity="start|center_vertical"
+                android:textCursorDrawable="@null"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_light"
+                android:gravity="center_vertical"
+                android:text="Прізвище"
+                android:textColor="#1E1E1E"
+                android:textSize="12dp" />
+
+            <EditText
+                android:id="@+id/SurnameEditText"
+                android:inputType="text"
+                android:hint=""
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#848383"
+                android:textSize="13sp"
+                android:layout_width="379dp"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_background_edittext"
+                android:paddingHorizontal="20dp"
+                android:elevation="3dp"
+                android:fontFamily="@font/inter_light"
+                android:gravity="start|center_vertical"
+                android:textCursorDrawable="@null"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/EditConfirmButton"
+                android:layout_width="379dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="40dp"
+                android:text="ЗБЕРЕГТИ ЗМІНИ"
+                android:gravity="center"
+                android:layout_gravity="top|center"
+                android:background="@drawable/rounded_background_button"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:stateListAnimator="@null"
+                android:fontFamily="@font/inter_semibold" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="7dp"
-            android:gravity="center_vertical"
-            android:text="Редагування профілю"
-            android:textSize="24dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_semibold" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/PhotoImage"
-            android:layout_width="108dp"
-            android:layout_height="108dp"
-            android:layout_marginTop="40dp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center"
-            android:src="@drawable/empty_user_photo"
-            android:contentDescription="Photo Button"
-            app:shapeAppearanceOverlay="@style/CustomCircle"/>
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/EditPhotoButton"
-            android:layout_width="108dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:src="@drawable/edit_photo_button"
-            android:contentDescription="Photo Button"
-            android:clickable="true"
-            android:focusable="true" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
-            android:gravity="center_vertical"
-            android:text="Пошта"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
-
-        <EditText
-            android:id="@+id/EmailEditText"
-            android:inputType="text"
-            android:hint=""
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:textColor="#848383"
-            android:textSize="13sp"
-            android:layout_width="379dp"
-            android:layout_height="35dp"
-            android:background="@drawable/rounded_background_edittext"
-            android:paddingHorizontal="20dp"
-            android:elevation="3dp"
-            android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical"
-            android:textCursorDrawable="@null"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:text="Імʼя"
-            android:textSize="12dp"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/inter_light" />
-
-        <EditText
-            android:id="@+id/NameEditText"
-            android:inputType="text"
-            android:hint=""
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:textColor="#848383"
-            android:textSize="13sp"
-            android:layout_width="379dp"
-            android:layout_height="35dp"
-            android:background="@drawable/rounded_background_edittext"
-            android:paddingHorizontal="20dp"
-            android:elevation="3dp"
-            android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical"
-            android:textCursorDrawable="@null"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/inter_light"
-            android:gravity="center_vertical"
-            android:text="Прізвище"
-            android:textColor="#1E1E1E"
-            android:textSize="12dp" />
-
-        <EditText
-            android:id="@+id/SurnameEditText"
-            android:inputType="text"
-            android:hint=""
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:textColor="#848383"
-            android:textSize="13sp"
-            android:layout_width="379dp"
-            android:layout_height="35dp"
-            android:background="@drawable/rounded_background_edittext"
-            android:paddingHorizontal="20dp"
-            android:elevation="3dp"
-            android:fontFamily="@font/inter_light"
-            android:gravity="start|center_vertical"
-            android:textCursorDrawable="@null"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/EditConfirmButton"
-            android:layout_width="379dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="40dp"
-            android:text="ЗБЕРЕГТИ ЗМІНИ"
-            android:gravity="center"
-            android:layout_gravity="top|center"
-            android:background="@drawable/rounded_background_button"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:stateListAnimator="@null"
-            android:fontFamily="@font/inter_semibold" />
     </LinearLayout>
 </LinearLayout>
