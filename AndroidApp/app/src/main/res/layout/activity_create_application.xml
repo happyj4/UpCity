@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
@@ -95,7 +95,8 @@
                 android:layout_marginTop="5dp"
                 android:textColor="#848383"
                 android:textSize="13sp"
-                android:layout_width="379dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="@drawable/rounded_background_edittext"
                 android:paddingHorizontal="20dp"
@@ -123,7 +124,8 @@
                 android:layout_marginTop="5dp"
                 android:textColor="#848383"
                 android:textSize="13sp"
-                android:layout_width="379dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="@drawable/rounded_background_edittext"
                 android:paddingHorizontal="20dp"
@@ -145,7 +147,8 @@
 
             <Spinner
                 android:id="@+id/SpinnerUtilityCompany"
-                android:layout_width="379dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/rounded_background_edittext"
@@ -177,7 +180,8 @@
                 android:layout_marginTop="5dp"
                 android:textColor="#848383"
                 android:textSize="13sp"
-                android:layout_width="379dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="@drawable/rounded_background_edittext"
                 android:paddingHorizontal="20dp"
@@ -199,7 +203,8 @@
                 android:fontFamily="@font/inter_light" />
 
             <FrameLayout
-                android:layout_width="379dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
                 android:layout_height="132dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/rounded_background_photo_application"
@@ -218,7 +223,9 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/CreateApplicationButton"
-                android:layout_width="379dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="40dp"
                 android:text="СТВОРИТИ ЗВЕРНЕННЯ"
