@@ -5,7 +5,10 @@ from typing import Optional
 from project.schemas.utility_company_schemas import ShowUtilityCompanyID
 from project.schemas.image_schemas import ImageOut
 
-
+class ReportOut(BaseModel):
+    report_id: int
+    execution_date: datetime
+    image: Optional[ImageOut] = None
 class ShowApp(BaseModel):
     application_id:int
     name:str
@@ -15,14 +18,13 @@ class ShowApp(BaseModel):
     longitude: Optional[float] = None
     latitude: Optional[float] = None
     utility_company: ShowUtilityCompanyID
+    image: ImageOut
+    report: Optional[ReportOut]  # додано звіт
 
     class Config():
         orm_mode = True
 
-class ReportOut(BaseModel):
-    report_id: int
-    execution_date: datetime
-    image: Optional[ImageOut] = None
+
     
 class UserOut(BaseModel):
     name: str

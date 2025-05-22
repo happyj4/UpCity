@@ -18,7 +18,7 @@ def all(
         sort_by_status:Literal["В роботі", "Виконано", "Відхилено"] | None
         ):
         
-    query = db.query(Application)  # 🔥 створюємо базовий запит
+    query = db.query(Application)  
     
     if sort_by_name == "А-Я":
         query = query.order_by(asc(Application.name))
