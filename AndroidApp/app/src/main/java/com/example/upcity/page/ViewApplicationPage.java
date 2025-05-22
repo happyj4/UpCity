@@ -139,20 +139,22 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
                             .into(сlientPhoto);
                 }
 
-                String imageUtilityCompanieUrl = app.getReport().getImage().getImage_url();
-                if (imageUtilityCompanieUrl != null && !imageUtilityCompanieUrl.isEmpty()) {
-                    Glide.with(ViewApplicationPage.this)
-                            .load(imageUtilityCompanieUrl)
-                            .into(UtilityCompaniePhoto);
+                if (app.getReport() != null) {
+                    String imageUtilityCompanieUrl = app.getReport().getImage().getImage_url();
+                    if (imageUtilityCompanieUrl != null && !imageUtilityCompanieUrl.isEmpty()) {
+                        Glide.with(ViewApplicationPage.this)
+                                .load(imageUtilityCompanieUrl)
+                                .into(UtilityCompaniePhoto);
 
-                    ImageView[] stars = {star1, star2, star3, star4, star5};
-                    int rating = app.getUser_rating();
+                        ImageView[] stars = {star1, star2, star3, star4, star5};
+                        int rating = app.getUser_rating();
 
-                    for (int i = 0; i < stars.length; i++) {
-                        if (i < rating) {
-                            stars[i].setColorFilter(Color.parseColor("#FFE68C"));
-                        } else {
-                            stars[i].setColorFilter(Color.parseColor("#BCBCBC"));
+                        for (int i = 0; i < stars.length; i++) {
+                            if (i < rating) {
+                                stars[i].setColorFilter(Color.parseColor("#FFE68C"));
+                            } else {
+                                stars[i].setColorFilter(Color.parseColor("#BCBCBC"));
+                            }
                         }
                     }
                 } else {
