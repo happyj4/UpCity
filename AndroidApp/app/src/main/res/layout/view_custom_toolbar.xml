@@ -9,7 +9,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.07"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="6dp"
             android:layout_gravity="bottom"
             android:orientation="horizontal">
 
@@ -46,7 +46,7 @@
             android:id="@+id/PhotoButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="6dp"
             android:layout_marginRight="15dp"
             android:scaleType="centerCrop"
             android:layout_gravity="bottom"
