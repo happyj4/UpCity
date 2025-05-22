@@ -9,11 +9,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.upcity.R;
 import com.example.upcity.page.CreateApplicationPage;
 import com.example.upcity.page.ViewApplicationPage;
 import com.example.upcity.utils.ResponseApplication;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -27,8 +30,11 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
     private boolean[] animationCompleted;
     private boolean animationsAlreadyPlayed = false;
 
-    public AdapterApplication(List<ResponseApplication> applicationList) {
+    private boolean isHorizontal;
+
+    public AdapterApplication(List<ResponseApplication> applicationList, boolean isHorizontal) {
         this.applicationList = applicationList;
+        this.isHorizontal = isHorizontal;
         animationCompleted = new boolean[applicationList.size()];
     }
 
@@ -44,8 +50,14 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .inflate(R.layout.item_empty, parent, false);
             return new EmptyViewHolder(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_application, parent, false);
+            View view;
+            if (isHorizontal) {
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_application_horizontal, parent, false);
+            } else {
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_application, parent, false);
+            }
             return new ApplicationViewHolder(view);
         }
     }
@@ -81,7 +93,7 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (responseApplication != null) {
                 Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
                 intent.putExtra("applicationId", responseApplication.getApplicationId());
-                intent.putExtra("MapPage",false);
+                intent.putExtra("MapPage", false);
                 AdapterAnimation.animateAndNavigate((Activity) v.getContext(), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
             } else {
                 AdapterAnimation.animateAndNavigate((Activity) v.getContext(), R.id.linearLayout, R.anim.slide_out_left, CreateApplicationPage.class, null);
@@ -98,9 +110,8 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
 
-        recyclerView.postDelayed(() -> {animationsAlreadyPlayed = true;}, 400);
+        recyclerView.postDelayed(() -> animationsAlreadyPlayed = true, 400);
     }
-
 
     private void setAnimation(View viewToAnimate, int position) {
         if (animationsAlreadyPlayed) return;

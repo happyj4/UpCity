@@ -73,7 +73,7 @@ public class HomePage extends AppCompatActivity {
         loadUserApplications.getUserApplications(this, new LoadUserApplications.ApplicationCallback() {
             @Override
             public void onSuccess(List<ResponseApplication> applications) {
-                AdapterApplication adapter = new AdapterApplication(applications);
+                AdapterApplication adapter = new AdapterApplication(applications, true);
                 MyList.setAdapter(adapter);
             }
 
@@ -91,7 +91,7 @@ public class HomePage extends AppCompatActivity {
         loadAllApplication.loadApplications(this, new LoadAllApplication.ApplicationCallback() {
             @Override
             public void onSuccess(List<ResponseApplication> applications) {
-                AdapterApplication adapter = new AdapterApplication(applications);
+                AdapterApplication adapter = new AdapterApplication(applications, false);
                 AllList.setAdapter(adapter);
             }
 

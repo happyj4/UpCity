@@ -51,7 +51,7 @@ public class MyApplicationPage extends AppCompatActivity {
             public void onSuccess(List<ResponseApplication> applications) {
                 List<ResponseApplication> applicationList = applications;
                 applications.add(0, null);
-                AdapterApplication adapter = new AdapterApplication(applicationList);
+                AdapterApplication adapter = new AdapterApplication(applicationList, false);
                 AllList.setAdapter(adapter);
             }
 
