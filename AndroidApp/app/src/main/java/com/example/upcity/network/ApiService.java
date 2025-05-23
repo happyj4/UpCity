@@ -1,6 +1,5 @@
 package com.example.upcity.network;
 
-import com.example.upcity.utils.ResponseDetailsApplication;
 import com.example.upcity.utils.ResponseApplication;
 import com.example.upcity.utils.ResponseAuthentication;
 import com.example.upcity.utils.ResponseCreateApplication;
@@ -52,7 +51,7 @@ public interface ApiService {
     );
 
     @GET("/application/{app_id}/")
-    Call<ResponseDetailsApplication> getApplicationDetails(
+    Call<ResponseApplication> getApplicationDetails(
             @Header("Authorization") String token,
             @Path("app_id") int appId
     );

@@ -56,7 +56,7 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
                         .inflate(R.layout.item_application_horizontal, parent, false);
             } else {
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_application, parent, false);
+                        .inflate(R.layout.item_application_vertical, parent, false);
             }
             return new ApplicationViewHolder(view);
         }
@@ -68,13 +68,13 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (holder instanceof ApplicationViewHolder) {
             ApplicationViewHolder appHolder = (ApplicationViewHolder) holder;
-            appHolder.applicationNumber.setText("#" + responseApplication.getApplicationId());
+            appHolder.applicationNumber.setText("#" + responseApplication.getApplication_id());
             appHolder.applicationName.setText(responseApplication.getName());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-            appHolder.applicationDate.setText(dateFormat.format(responseApplication.getApplicationDate()));
+            appHolder.applicationDate.setText(dateFormat.format(responseApplication.getApplication_date()));
 
-            appHolder.applicationUtilityCompany.setText(String.valueOf(responseApplication.getUtilityCompany().getName()));
+            appHolder.applicationUtilityCompany.setText(String.valueOf(responseApplication.getUtility_company().getName()));
 
             switch (responseApplication.getStatus()) {
                 case "Виконано":
@@ -92,7 +92,7 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.itemView.setOnClickListener(v -> {
             if (responseApplication != null) {
                 Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
-                intent.putExtra("applicationId", responseApplication.getApplicationId());
+                intent.putExtra("applicationId", responseApplication.getApplication_id());
                 intent.putExtra("MapPage", false);
                 AdapterAnimation.animateAndNavigate((Activity) v.getContext(), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
             } else {

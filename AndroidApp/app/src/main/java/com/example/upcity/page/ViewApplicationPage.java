@@ -17,7 +17,7 @@ import com.example.upcity.R;
 import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.adapters.FragmentToolbar;
 import com.example.upcity.helpers.LoadApplicationInfo;
-import com.example.upcity.utils.ResponseDetailsApplication;
+import com.example.upcity.utils.ResponseApplication;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -114,7 +114,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
 
         LoadApplicationInfo.loadApplicationDetails(this, appId, accessToken, new LoadApplicationInfo.ApplicationDetailsCallback() {
             @Override
-            public void onApplicationDetailsLoaded(ResponseDetailsApplication app) {
+            public void onApplicationDetailsLoaded(ResponseApplication app) {
                 IdApplicationText.setText("#" + app.getApplication_id());
                 NameApplicationText.setText(app.getName());
                 AddressApplicationText.setText(app.getAddress());
@@ -140,7 +140,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
                 }
 
                 if (app.getReport() != null) {
-                    ResponseDetailsApplication.Image image = app.getReport().getImage();
+                    ResponseApplication.Image image = app.getReport().getImage();
                     if (image != null) {
                         String imageUtilityCompanieUrl = image.getImage_url();
                         if (imageUtilityCompanieUrl != null && !imageUtilityCompanieUrl.isEmpty()) {

@@ -56,6 +56,11 @@
                 android:layout_gravity="center"
                 android:src="@drawable/completed_application" />
 
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/ApplicationDate"
                 android:layout_width="81dp"

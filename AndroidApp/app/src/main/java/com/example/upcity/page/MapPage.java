@@ -6,12 +6,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.R;
 import com.example.upcity.adapters.FragmentToolbar;
@@ -67,10 +66,20 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
                 for (ResponseApplication app : applications) {
                     if (mMap != null) {
                         LatLng position = new LatLng(app.getLatitude(), app.getLongitude());
+
+                        int iconResId;
+                        if (app.getReport() == null) {
+                            iconResId = R.drawable.marker_orange;
+                        } else if (app.getReport().getImage() == null) {
+                            iconResId = R.drawable.marker_gray;
+                        } else {
+                            iconResId = R.drawable.marker_green;
+                        }
+
                         Marker marker = mMap.addMarker(
                                 new MarkerOptions()
                                         .position(position)
-                                        .icon(getBitmapDescriptorFromVector(R.drawable.marker_custom, 100, 100))
+                                        .icon(getBitmapDescriptorFromVector(iconResId, 100, 100))
                         );
 
                         marker.setTag(app);
@@ -83,7 +92,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
                         ResponseApplication responseApplication = (ResponseApplication) tag;
 
                         Intent intent = new Intent(MapPage.this, ViewApplicationPage.class);
-                        intent.putExtra("applicationId", responseApplication.getApplicationId());
+                        intent.putExtra("applicationId", responseApplication.getApplication_id());
                         intent.putExtra("MapPage", true);
 
                         AdapterAnimation.animateAndNavigate(
