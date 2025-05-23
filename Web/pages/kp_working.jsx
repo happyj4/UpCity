@@ -1,7 +1,7 @@
 import { Inwork } from "../components/page5/inwork.jsx";
 import { Footer } from "../components/WebComponents/footer.jsx";
 import { Header } from "../components/WebComponents/headerKp.jsx";
-import Image from "next/image";
+
 
 export default function () {
   return (

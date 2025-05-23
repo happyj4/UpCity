@@ -74,7 +74,7 @@ export function KpAppeals() {
       </div>
       <span className="text-[#3A3A3A] text-base font-light">Користувач</span>
       <h3 className="text-[#3A3A3A] font-normal text-xl mb-3">
-        Денисенко Єлизавета
+        {info.user.name}
       </h3>
       <span className="text-[#3A3A3A] text-base font-light">КП</span>
       <h3 className="text-[#3A3A3A] font-normal text-xl mb-6">
@@ -85,7 +85,7 @@ export function KpAppeals() {
         {info.description}
       </h3>
       <div className="flex gap-4">
-        <div className={` ${info.status === "Виконано" ? "bg-[#EBFFEE]" : "text-[#EDEDED]"} w-18 h-6 flex rounded-md  content-center items-center gap-1 px-1 mb-8`}>
+        <div className={` ${info.status === "Виконано" ? "bg-[#EBFFEE]" : "bg-[#EDEDED]"} w-18 h-6 flex rounded-md  content-center items-center gap-1 px-1 mb-8`}>
           <div className={`${info.status === "Виконано" ? "bg-[#EBFFEE]" : "text-[#EDEDED]"} w-1 h-1 rounded-4xl`}></div>
           <p className={`${(info.status === "Виконано")? "text-[#589D51]": "text-[#848484]"} text-sm font-normal`}>{info.status}</p>
         </div>
@@ -110,7 +110,7 @@ export function KpAppeals() {
         <div className="relative">
           <Image
             className="mt-4"
-            src={info.report.image.image_url || "/images/Fon.png"}
+            src={(info.report.image)? info.report.image.image_url : "/images/Fon.png"}
             alt="fon"
             width={391}
             height={132}
@@ -118,8 +118,8 @@ export function KpAppeals() {
           />
         </div>
       </div>
-      <div className="w-100 bg-[#FBF9F4] p-6 mt-10  flex flex-col items-center">
-        <h2 className="text-xl font-semibold text-[#3A3A3A] mb-4 uppercase">
+      <div className="w-[100%] bg-[#FBF9F4] p-6 mt-5  flex flex-col items-center">
+        <h2 className="text-medium font-semibold text-[#3A3A3A] mb-4 uppercase">
           Якість/Доцільність звернення
         </h2>
 

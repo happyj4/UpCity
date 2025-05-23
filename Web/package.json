@@ -11,13 +11,16 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@react-google-maps/api": "^2.20.6",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4.0.16",
     "@tailwindcss/vite": "^4.0.16",
     "framer-motion": "^12.6.3",
+    "leaflet": "^1.9.4",
     "next": "^15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-leaflet": "^5.0.0",
     "sweetalert2": "^11.21.1"
   },
   "devDependencies": {
