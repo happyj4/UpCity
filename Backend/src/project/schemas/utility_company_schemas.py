@@ -22,8 +22,10 @@ class ShowUtilityCompany(BaseModel):
     address:str
     phone:str
     rating: Optional[int] = 0
-    class Config():
-        orm_mode = True
+    
+    model_config = {
+        "from_attributes": True
+    }
 
 class ShowOneUtilityCompany(BaseModel):
     ut_company_id: int
@@ -36,8 +38,9 @@ class ShowOneUtilityCompany(BaseModel):
 class ShowUtilityCompanyID(BaseModel):
     name:str
 
-    class Config():
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
 
 class LoginAdminCompanyUser(BaseModel):
     email: EmailStr

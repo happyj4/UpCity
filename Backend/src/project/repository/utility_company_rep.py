@@ -9,7 +9,7 @@ from project.schemas.utility_company_schemas import UtilityCompanyAdd, UtilityCo
 from project.hashing import Hash
 
 
-def all(current_user:dict, db: Session, sort_by_rating: Literal["За зростанням", "За спаданням"] | None):
+def get_all(current_user:dict, db: Session, sort_by_rating: Literal["За зростанням", "За спаданням"] | None):
     if current_user["role"] != "admin" and current_user["role"] != "user":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
     query = db.query(UtilityCompany)
@@ -21,6 +21,7 @@ def all(current_user:dict, db: Session, sort_by_rating: Literal["За зрост
 
     return query.all()
 
+
 def get_one(id, db:Session,current_user:dict):
     if current_user["role"] != "admin":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
@@ -29,7 +30,8 @@ def get_one(id, db:Session,current_user:dict):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Компанію за id = {id} не знайдено")
     return company
 
-def create(db: Session, request: UtilityCompanyAdd, current_user:dict):
+
+def create_company(db: Session, request: UtilityCompanyAdd, current_user:dict):
     if current_user["role"] != "admin":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
     existing_company = db.query(UtilityCompany).filter(UtilityCompany.email == request.email).first()
@@ -68,6 +70,7 @@ def update(id, request: UtilityCompanyUpdate, db: Session, current_user: dict):
     db.commit()
     db.refresh(company)
     return company
+
 
 def destroy(id, db:Session, current_user:dict):
     if current_user["role"] != "admin":

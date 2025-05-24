@@ -30,8 +30,9 @@ class UserShowAll(BaseModel):
     subscription: Optional[SubscriptionOut] = None
     blocking: Optional[BlockingOut] = None
 
-    class Config():
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
 
 
 class UserLogin(BaseModel):
