@@ -39,6 +39,6 @@ class ShowUtilityCompanyID(BaseModel):
     class Config():
         orm_mode = True
 
-class LoginAdminCompany(BaseModel):
+class LoginAdminCompanyUser(BaseModel):
     email: EmailStr
     password: str
