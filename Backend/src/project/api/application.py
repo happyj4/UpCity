@@ -34,7 +34,7 @@ def get_applications_for_all_users(
             sort_by_name=sort_by_name, 
             sort_by_date=sort_by_date,
             sort_by_status=sort_by_status
-            )
+    )
 
 
 @router.get(
@@ -49,7 +49,7 @@ def get_all_applications_by_user(
         return application_rep.get_all_by_user(
                 db = db, 
                 current_user = current_user
-                )
+        )
 
 
 @router.get(
@@ -64,7 +64,7 @@ def application_review(
         return application_rep.get_by_id(
                 app_id = app_id, 
                 db = db,
-                )
+        )
 
 
 @router.post("/create/")
@@ -85,7 +85,7 @@ async def create_application(
             photo = photo, 
             db = db, 
             current_user = current_user
-)
+    )
 
 
 @router.put(
@@ -107,7 +107,7 @@ async def complete_application(
             image = image,
             db = db,
             current_user = current_user
-            )
+    )
 
 
 
