@@ -21,8 +21,9 @@ class ShowApp(BaseModel):
     image: ImageOut
     report: Optional[ReportOut]  # додано звіт
 
-    class Config():
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
 
 
     
@@ -46,17 +47,19 @@ class ApplicationReview(BaseModel):
     user: Optional[UserOut]
     report: Optional[ReportOut]  # додано звіт
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
 
 class CreateApp(BaseModel):
     name:str
     application_date: datetime
     application_number: int
     utility_company: ShowUtilityCompanyID
-
-    class Config():
-        orm_mode = True
+    
+    model_config = {
+        "from_attributes": True
+    }
 
 
 
