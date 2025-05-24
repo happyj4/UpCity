@@ -4,17 +4,31 @@ from fastapi.security import  OAuth2PasswordRequestForm
 
 from project.db.database import get_db
 from project.repository import authentication_rep
-from project.schemas import utility_company_schemas
+from project.schemas.utility_company_schemas import LoginAdminCompanyUser
 
 
-router = APIRouter(tags=['Авторизація для | Користувача | Адміна | Кп | 🔓'], prefix="/login")
+router = APIRouter(
+            tags=['Авторизація для | Користувача | Адміна | Кп | 🔓'], 
+            prefix="/login"
+            )
 
 
-@router.post("/", status_code=status.HTTP_200_OK)
-def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    # Email — это username в форме
-    email = request.username
+@router.post(
+    "/", 
+    status_code=status.HTTP_200_OK
+)
+def login(
+    request: OAuth2PasswordRequestForm = Depends(), 
+    db: Session = Depends(get_db)
+):
+    
+    email = request.username # Email —  username in form
     password = request.password
-    # передаём дальше как вручную собранный Pydantic объект
-    login_data = utility_company_schemas.LoginAdminCompany(email=email, password=password)
+
+    login_data = LoginAdminCompanyUser(
+        email=email, 
+        password=password
+    )
+
     return authentication_rep.login(db, login_data)
+

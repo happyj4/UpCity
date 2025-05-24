@@ -3,7 +3,7 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
-from sqlalchemy.ext.declarative import declarative_base #Все таблицы ты описываешь как классы, наследующиеся от этой базы.
+from sqlalchemy.ext.declarative import declarative_base 
 
 
 load_dotenv()

@@ -2,12 +2,12 @@ from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
 from project.db.models import Admin, UtilityCompany, User
-from project.schemas.utility_company_schemas import LoginAdminCompany
+from project.schemas.utility_company_schemas import LoginAdminCompanyUser
 from project.hashing import Hash
 from project.jwt_handler import create_access_token
 
 
-def login(db: Session, request: LoginAdminCompany):
+def login(db: Session, request: LoginAdminCompanyUser):
     # Адмін
     admin = db.query(Admin).filter(Admin.email == request.email).first()
     if admin:
