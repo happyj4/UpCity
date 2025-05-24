@@ -1,17 +1,16 @@
-from datetime import date
-from typing import Annotated, Literal
-
+from datetime import date, datetime
+from typing import  Literal
 import requests
-from fastapi.responses import JSONResponse
+
 from fastapi import HTTPException , UploadFile
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func, asc ,desc
 
-from project.db.models import Application, UtilityCompany, Report, User
+from project.db.models import Application, UtilityCompany, Report, User, Image
 from project.repository.image_rep import upload
 
 
-def all(
+def get_all(
         db:Session,
         sort_by_name:Literal["А-Я", "Я-А"] | None, 
         sort_by_date:Literal["За зростанням", "За спаданням"] | None,
@@ -36,31 +35,37 @@ def all(
     applications = query.all()
     return applications
 
-def geocode_address(address: str):
-    url = "https://nominatim.openstreetmap.org/search"
-    params = {"q": address, "format": "json"}
-    headers = {"User-Agent": "UpCityApp/1.0 (contact@example.com)"}
 
-    try:
-        response = requests.get(url, params=params, headers=headers, timeout=10)
-    except requests.RequestException as e:
-        raise HTTPException(status_code=502, detail=f"Geocoding request failed: {str(e)}")
+def get_by_id(app_id:int, db:Session):
+    application = db.query(Application).options(
+        joinedload(Application.image),
+        joinedload(Application.utility_company)
+    ).filter(Application.application_id == app_id).first()
 
-    if response.status_code != 200:
-        raise HTTPException(status_code=502, detail=f"Geocoding error: {response.status_code} - {response.text}")
+    if not application:
+        raise HTTPException(status_code=404, detail="Заявку не знайдено")
 
-    try:
-        data = response.json()
-    except Exception as e:
-        raise HTTPException(status_code=502, detail=f"Geocoding JSON error: {str(e)}. Response was: {response.text}")
-
-    if data:
-        return float(data[0]["lat"]), float(data[0]["lon"])
-
-    return None, None
+    return application
 
 
-def create(name: str, address: str, description: str, company_name: str, photo: UploadFile, db: Session, current_user: dict):
+def get_all_by_user(db: Session, current_user: dict):
+    if current_user["role"] not in ["user", "company"]:
+        raise HTTPException(status_code=403, detail="Недостатньо прав")
+    
+    user_id = current_user.get("sub")
+
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Не вдалося витягти ідентифікатор користувача")
+
+    if current_user["role"] == "company":
+        applications = db.query(Application).filter(Application.ut_company_id == user_id).order_by(desc(Application.application_date))
+    else:  # role == "user"
+        applications = db.query(Application).filter(Application.user_id == user_id).order_by(desc(Application.application_date))
+
+    return applications
+
+
+def create_app(name: str, address: str, description: str, company_name: str, photo: UploadFile, db: Session, current_user: dict):
     if current_user["role"] != "user":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
     
@@ -122,33 +127,126 @@ def create(name: str, address: str, description: str, company_name: str, photo: 
     }
 
 
+def complete_app(app_id:int,rating:int,status:str, image: UploadFile, db:Session, current_user:dict ):
+    if current_user["role"] != "company":
+        raise HTTPException(status_code=403, detail="Тільки компанія може завершити заявку")
 
-def application_review(app_id:int, db:Session, current_user:dict):
-    if current_user["role"] != "company" and current_user["role"] != "user":
-        raise HTTPException(status_code=403, detail="Недостатньо прав")
-    
-    application = db.query(Application).options(
-        joinedload(Application.image),
-        joinedload(Application.utility_company)
-    ).filter(Application.application_id == app_id).first()
-
+    application = db.query(Application).filter(Application.application_id == app_id).first()
     if not application:
         raise HTTPException(status_code=404, detail="Заявку не знайдено")
 
-    return application
+    if status not in ["Виконано", "Відхилено"]:
+        raise HTTPException(status_code=400, detail="Некоректний статус")
 
-def all_by_user(db: Session, current_user: dict):
-    if current_user["role"] not in ["user", "company"]:
-        raise HTTPException(status_code=403, detail="Недостатньо прав")
-    
-    user_id = current_user.get("sub")
+    image_id = None
+    if image and image.filename:
+        uploaded_image = upload(image)
+        image_id = uploaded_image["image_id"]
+        
+    if application.report_id:
+        report = db.query(Report).filter(Report.report_id == application.report_id).first()
+        if not report:
+            raise HTTPException(status_code=500, detail="Не знайдено звіт для заявки")
 
-    if not user_id:
-        raise HTTPException(status_code=401, detail="Не вдалося витягти ідентифікатор користувача")
+        if image_id:
+            report.image_id = image_id
+        report.execution_date = datetime.utcnow()
+        db.commit()
+        db.refresh(report)
+    else:
+        report = Report(
+            image_id=image_id,
+            execution_date=datetime.utcnow()
+        )
+        db.add(report)
+        db.flush()
 
-    if current_user["role"] == "company":
-        applications = db.query(Application).filter(Application.ut_company_id == user_id).order_by(desc(Application.application_date))
-    else:  # role == "user"
-        applications = db.query(Application).filter(Application.user_id == user_id).order_by(desc(Application.application_date))
+        application.report_id = report.report_id
+        db.commit()
+        db.refresh(report)
 
-    return applications
+    application.status = status
+    if rating:
+        application.user_rating = rating
+    db.commit()
+    db.refresh(application)
+
+    if rating:
+        user = db.query(User).filter(User.user_id == application.user_id).first()
+        if user:
+            total_ratings = db.query(func.sum(Application.user_rating)).filter(
+                Application.user_id == user.user_id,
+                Application.user_rating.isnot(None)
+            ).scalar() or 0
+
+            rating_count = db.query(func.count(Application.application_id)).filter(
+                Application.user_id == user.user_id,
+                Application.user_rating.isnot(None)
+            ).scalar() or 1
+
+            user.rating = round(total_ratings / rating_count, 2)
+            db.commit()
+
+    company_id = application.ut_company_id
+    if company_id:
+        total_applications = db.query(func.count(Application.application_id)).filter(
+            Application.ut_company_id == company_id
+        ).scalar() or 1
+
+        completed_applications = db.query(func.count(Application.application_id)).filter(
+            Application.ut_company_id == company_id,
+            Application.status == "Виконано"
+        ).scalar() or 0
+
+        company = db.query(UtilityCompany).filter(UtilityCompany.ut_company_id == company_id).first()
+        if company:
+            company.rating = round((completed_applications / total_applications) * 100)
+            db.commit()
+
+    main_image = None
+    if application.img_id:
+        img_obj = db.query(Image).filter(Image.image_id == application.img_id).first()
+        if img_obj:
+            main_image = {"image_url": img_obj.image_url}
+
+    report_out = None
+    if report and report.image_id:
+        report_img_obj = db.query(Image).filter(Image.image_id == report.image_id).first()
+        report_out = {
+            "report_id": report.report_id,
+            "execution_date": report.execution_date,
+            "image": {"image_url": report_img_obj.image_url} if report_img_obj else None
+        }
+
+    return {
+        "message": "Заявку оновлено успішно",
+        "application": {
+            "application_id": application.application_id,
+            "status": application.status,
+            "image": main_image,
+            "report": report_out,
+        }
+    }
+
+def geocode_address(address: str):
+    url = "https://nominatim.openstreetmap.org/search"
+    params = {"q": address, "format": "json"}
+    headers = {"User-Agent": "UpCityApp/1.0 (contact@example.com)"}
+
+    try:
+        response = requests.get(url, params=params, headers=headers, timeout=10)
+    except requests.RequestException as e:
+        raise HTTPException(status_code=502, detail=f"Geocoding request failed: {str(e)}")
+
+    if response.status_code != 200:
+        raise HTTPException(status_code=502, detail=f"Geocoding error: {response.status_code} - {response.text}")
+
+    try:
+        data = response.json()
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Geocoding JSON error: {str(e)}. Response was: {response.text}")
+
+    if data:
+        return float(data[0]["lat"]), float(data[0]["lon"])
+
+    return None, None
