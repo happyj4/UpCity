@@ -8,6 +8,9 @@ import Swal from "sweetalert2";
 export function List() {
   const [listi, setListi] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [selectedAlphaSort, setSelectedAlphaSort] = useState("");
+  const [selectedRatingSort, setSelectedRatingSort] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -97,7 +100,8 @@ export function List() {
         </div>
         <button
           className="w-[52px] h-[52px] bg-[#FFBE7D] drop-shadow-lg rounded-md flex items-center justify-center 
-            transition-all duration-200 ease-in-out hover:bg-[#ffcc97] hover:scale-105 cursor-pointer"
+    transition-all duration-200 ease-in-out hover:bg-[#ffcc97] hover:scale-105 cursor-pointer"
+          onClick={() => setIsFilterVisible(true)} // показати фільтр
         >
           <Image
             src="/images/Filter.svg"
@@ -176,6 +180,93 @@ export function List() {
           </motion.div>
         ))}
       </div>
+      {isFilterVisible && (
+        <div className="fixed inset-0 bg-opacity-40 z-50 flex justify-center items-center">
+          <div className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8">
+            {/* Кнопка закриття */}
+            <button
+              className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
+              onClick={() => {
+                setIsFilterVisible(false);
+                setSelectedAlphaSort("");
+                setSelectedRatingSort("");
+              }}
+            >
+              &times;
+            </button>
+
+            {/* Заголовок */}
+            <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
+
+            {/* Алфавіт */}
+            <div className="mb-6">
+              <p className="text-sm text-gray-600 mb-2">Алфавіт</p>
+
+              <button
+                className={`block font-medium cursor-pointer mb-1 ${
+                  selectedAlphaSort === "asc"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedAlphaSort("asc")}
+              >
+                А - Я
+              </button>
+
+              <button
+                className={`block font-medium cursor-pointer ${
+                  selectedAlphaSort === "desc"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedAlphaSort("desc")}
+              >
+                Я - А
+              </button>
+            </div>
+
+            {/* Рейтинг */}
+            <div className="mb-8">
+              <p className="text-sm text-gray-600 mb-2">Рейтинг</p>
+
+              <button
+                className={`block font-medium cursor-pointer mb-1 ${
+                  selectedRatingSort === "asc"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedRatingSort("asc")}
+              >
+                За зростанням
+              </button>
+
+              <button
+                className={`block font-medium cursor-pointer ${
+                  selectedRatingSort === "desc"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedRatingSort("desc")}
+              >
+                За спаданням
+              </button>
+            </div>
+
+            {/* Кнопка застосування */}
+            <button
+              className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
+             hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
+              onClick={() => {
+                setIsFilterVisible(false);
+                setSelectedAlphaSort("");
+                setSelectedRatingSort("");
+              }}
+            >
+              ЗАСТОСУВАТИ ФІЛЬТРИ
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

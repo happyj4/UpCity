@@ -10,6 +10,10 @@ export function Inwork() {
   const [isVisible2, setIsVisible2] = useState(true);
   const [try1, setTry1] = useState(true);
   const [try2, setTry2] = useState(true);
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [selectedAlphaSort, setSelectedAlphaSort] = useState("");
+  const [selectedRatingSort, setSelectedRatingSort] = useState("");
+  const [selectedSubscribe, setSelectedSubscribe] = useState("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("access_token");
@@ -101,7 +105,8 @@ export function Inwork() {
             className="absolute left-4 top-1/2 transform -translate-y-1/2"
           />
         </div>
-        <button className="w-10 h-10 bg-[#FFBE7D] hover:bg-[#f7ad5c] transition-all duration-300 rounded-md place-content-center flex cursor-pointer">
+        <button className="w-10 h-10 bg-[#FFBE7D] hover:bg-[#f7ad5c] transition-all duration-300 rounded-md place-content-center flex cursor-pointer"
+         onClick={() => setIsFilterVisible(true)}>
           <Image
             src="/images/Filter.svg"
             alt="filter"
@@ -233,6 +238,131 @@ export function Inwork() {
           </div>
         </div>
       </div>
+      {isFilterVisible && (
+        <div className="fixed inset-0 bg-opacity-40 z-50 flex justify-center items-center">
+          <div className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8">
+            {/* Кнопка закриття */}
+            <button
+              className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
+              onClick={() => {
+                setIsFilterVisible(false);
+                setSelectedAlphaSort("");
+                setSelectedRatingSort("");
+                setSelectedSubscribe("");
+              }}
+            >
+              &times;
+            </button>
+
+            {/* Заголовок */}
+            <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
+
+            {/* Алфавіт */}
+            <div className="mb-6">
+              <p className="text-sm text-gray-600 mb-2">Алфавіт</p>
+
+              <button
+                className={`block font-medium cursor-pointer mb-1 ${
+                  selectedAlphaSort === "asc"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedAlphaSort("asc")}
+              >
+                А - Я
+              </button>
+
+              <button
+                className={`block font-medium cursor-pointer ${
+                  selectedAlphaSort === "desc"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedAlphaSort("desc")}
+              >
+                Я - А
+              </button>
+            </div>
+
+            {/* Рейтинг */}
+            <div className="mb-8">
+              <p className="text-sm text-gray-600 mb-2">Рейтинг</p>
+
+              <button
+                className={`block font-medium cursor-pointer mb-1 ${
+                  selectedRatingSort === "asc"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedRatingSort("asc")}
+              >
+                За зростанням
+              </button>
+
+              <button
+                className={`block font-medium cursor-pointer ${
+                  selectedRatingSort === "desc"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedRatingSort("desc")}
+              >
+                За спаданням
+              </button>
+            </div>
+
+            <div className="mb-8">
+              <p className="text-sm text-gray-600 mb-2">Статусом</p>
+
+              <button
+                className={`block font-medium cursor-pointer mb-1 ${
+                  selectedSubscribe === "with"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedSubscribe("with")}
+              >
+                В роботі
+              </button>
+
+              <button
+                className={`block font-medium cursor-pointer ${
+                  selectedSubscribe === "without"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedSubscribe("without")}
+              >
+                Виконано
+              </button>
+              <button
+                className={`block font-medium cursor-pointer ${
+                  selectedSubscribe === "late"
+                    ? "text-orange-500"
+                    : "text-black hover:text-orange-500"
+                }`}
+                onClick={() => setSelectedSubscribe("late")}
+              >
+                Відхилено
+              </button>
+            </div>
+
+            {/* Кнопка застосування */}
+            <button
+              className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
+             hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
+              onClick={() => {
+                setIsFilterVisible(false);
+                setSelectedAlphaSort("");
+                setSelectedRatingSort("");
+                setSelectedSubscribe("");
+              }}
+            >
+              ЗАСТОСУВАТИ ФІЛЬТРИ
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

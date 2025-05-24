@@ -48,7 +48,7 @@ export function Map() {
             width: 60,
             height: 60,
             borderRadius: "50%",
-            border: "3px solid red",
+            border: "8px solid red",
             boxShadow: "0 0 10px rgba(0,0,0,0.3)",
             overflow: "hidden",
             transform: "translate(-50%, -50%)", // Центрує маркер
