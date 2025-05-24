@@ -5,7 +5,7 @@ from sqlalchemy import asc, desc
 from sqlalchemy.orm import Session
 
 from project.db.models import UtilityCompany
-from project.schemas.utility_company_schemas import UtilityCompanyAdd, UtilityCompanyUpdate
+from project.schemas.utility_company_schemas import AddUtilityCompany, UtilityCompanyUpdate
 from project.hashing import Hash
 
 
@@ -31,7 +31,7 @@ def get_one(id, db:Session,current_user:dict):
     return company
 
 
-def create_company(db: Session, request: UtilityCompanyAdd, current_user:dict):
+def create_company(db: Session, request: AddUtilityCompany, current_user:dict):
     if current_user["role"] != "admin":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
     existing_company = db.query(UtilityCompany).filter(UtilityCompany.email == request.email).first()

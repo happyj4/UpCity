@@ -10,7 +10,7 @@ from project.schemas.utility_company_schemas import (
     ShowOneUtilityCompany,
     ShowUtilityCompany,
     UtilityCompanyUpdate,
-    UtilityCompanyAdd,
+    AddUtilityCompany,
 )
 
 
@@ -50,7 +50,7 @@ def get_one_company_by_id(
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_a_new_company(
-    request: UtilityCompanyAdd,
+    request: AddUtilityCompany,
     db: Session = Depends(get_db),
     current_user: dict = Depends(get_current_user)
 ):
