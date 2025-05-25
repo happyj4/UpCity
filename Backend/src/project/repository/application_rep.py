@@ -8,6 +8,7 @@ from sqlalchemy import func, asc ,desc
 
 from project.db.models import Application, UtilityCompany, Report, User, Image
 from project.repository.image_rep import upload
+from project.repository.sorting_rep import sorting_user_applications
 
 
 def get_all(
@@ -19,20 +20,14 @@ def get_all(
         
     query = db.query(Application)  
     
-    if sort_by_name == "А-Я":
-        query = query.order_by(asc(Application.name))
-    elif sort_by_name == "Я-А":
-        query = query.order_by(desc(Application.name))
+    query =  sorting_user_applications(
+            query=query,
+            sort_by_name=sort_by_name,
+            sort_by_date=sort_by_date,
+            sort_by_status=sort_by_status
+        )
     
-    if sort_by_date == "За зростанням":
-        query = query.order_by(asc(Application.application_date))
-    elif sort_by_date == "За спаданням":
-        query = query.order_by(desc(Application.application_date))
-    
-    if sort_by_status:
-        query = query.filter(Application.status == sort_by_status)
-    
-    applications = query.all()
+    applications = query.order_by(desc(Application.application_date)).all()
     return applications
 
 
@@ -48,7 +43,14 @@ def get_by_id(app_id:int, db:Session):
     return application
 
 
-def get_all_by_user(db: Session, current_user: dict):
+
+def get_all_by_user(
+    db: Session, 
+    current_user: dict,
+    sort_by_name:Literal["А-Я", "Я-А"] | None, 
+    sort_by_date:Literal["За зростанням", "За спаданням"] | None,
+    sort_by_status:Literal["В роботі", "Виконано", "Відхилено"] | None
+    ):
     if current_user["role"] not in ["user", "company"]:
         raise HTTPException(status_code=403, detail="Недостатньо прав")
     
@@ -57,12 +59,29 @@ def get_all_by_user(db: Session, current_user: dict):
     if not user_id:
         raise HTTPException(status_code=401, detail="Не вдалося витягти ідентифікатор користувача")
 
+    query = db.query(Application)  
+    
     if current_user["role"] == "company":
-        applications = db.query(Application).filter(Application.ut_company_id == user_id).order_by(desc(Application.application_date))
+        query =  sorting_user_applications(
+            query=query,
+            sort_by_name=sort_by_name,
+            sort_by_date=sort_by_date,
+            sort_by_status=sort_by_status
+        )
+        applications = query.filter(Application.ut_company_id == user_id).order_by(desc(Application.application_date))
     else:  # role == "user"
-        applications = db.query(Application).filter(Application.user_id == user_id).order_by(desc(Application.application_date))
-
+        query =  sorting_user_applications(
+            query=query,
+            sort_by_name=sort_by_name,
+            sort_by_date=sort_by_date,
+            sort_by_status=sort_by_status
+        )
+        
+        applications = query.filter(Application.user_id == user_id).order_by(desc(Application.application_date))
+        
     return applications
+
+
 
 
 def create_app(name: str, address: str, description: str, company_name: str, photo: UploadFile, db: Session, current_user: dict):

@@ -44,11 +44,23 @@ def get_applications_for_all_users(
 )
 def get_all_applications_by_user(
         db: Session = Depends(get_db),
-        current_user: dict = Depends(get_current_user)
+        current_user: dict = Depends(get_current_user),
+        sort_by_name: Literal["А-Я", "Я-А"] | None = Query(
+        None, description="Сортування за алфавітом по імені"
+    ),
+        sort_by_date: Literal["За зростанням", "За спаданням"] | None = Query(
+        None, description="Сортування за датою"
+    ),
+        sort_by_status: Literal["В роботі", "Виконано", "Відхилено"] | None = Query(
+        None, description="Фільтрація за статусом"
+        ),
         ):
         return application_rep.get_all_by_user(
                 db = db, 
-                current_user = current_user
+                current_user = current_user,
+                sort_by_name=sort_by_name, 
+                sort_by_date=sort_by_date,
+                sort_by_status=sort_by_status               
         )
 
 
