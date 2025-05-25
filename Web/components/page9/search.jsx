@@ -11,6 +11,7 @@ export function Search() {
   const [selectedAlphaSort, setSelectedAlphaSort] = useState("");
   const [selectedRatingSort, setSelectedRatingSort] = useState("");
   const [selectedSubscribe, setSelectedSubscribe] = useState("");
+  const [selectedBlock, setSelectedBlock] = useState("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("access_token");
@@ -38,6 +39,38 @@ export function Search() {
 
     fetchUsers();
   }, []);
+
+  const fetchApplications = async () => {
+    const token = sessionStorage.getItem("access_token");
+    const params = new URLSearchParams();
+    if (selectedAlphaSort) params.append("sort_by_name", selectedAlphaSort);
+    if (selectedRatingSort) params.append("sort_by_rating", selectedRatingSort);
+    if (selectedSubscribe)
+      params.append("sort_by_subscription", selectedSubscribe);
+    if (selectedBlock) params.append("sort_by_blocking", selectedBlock);
+    console.log(`смотри http://46.101.245.42/application/?${params}`);
+    try {
+      const response = await fetch(`http://46.101.245.42/user/?${params}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Помилка: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setPeople(data);
+      setSelectedAlphaSort("");
+      setSelectedRatingSort("");
+      setSelectedSubscribe("");
+      setSelectedBlock("");
+    } catch (error) {
+      console.error("Не вдалося отримати дані:", error);
+    }
+  };
 
   function deletion(id, index) {
     const token = sessionStorage.getItem("access_token");
@@ -195,6 +228,7 @@ export function Search() {
                   setSelectedAlphaSort("");
                   setSelectedRatingSort("");
                   setSelectedSubscribe("");
+                  setSelectedBlock("");
                 }}
               >
                 &times;
@@ -209,22 +243,22 @@ export function Search() {
 
                 <button
                   className={`block font-medium cursor-pointer mb-1 ${
-                    selectedAlphaSort === "asc"
+                    selectedAlphaSort === "А-Я"
                       ? "text-orange-500"
                       : "text-black hover:text-orange-500"
                   }`}
-                  onClick={() => setSelectedAlphaSort("asc")}
+                  onClick={() => setSelectedAlphaSort("А-Я")}
                 >
                   А - Я
                 </button>
 
                 <button
                   className={`block font-medium cursor-pointer ${
-                    selectedAlphaSort === "desc"
+                    selectedAlphaSort === "Я-А"
                       ? "text-orange-500"
                       : "text-black hover:text-orange-500"
                   }`}
-                  onClick={() => setSelectedAlphaSort("desc")}
+                  onClick={() => setSelectedAlphaSort("Я-А")}
                 >
                   Я - А
                 </button>
@@ -236,22 +270,22 @@ export function Search() {
 
                 <button
                   className={`block font-medium cursor-pointer mb-1 ${
-                    selectedRatingSort === "asc"
+                    selectedRatingSort === "За зростанням"
                       ? "text-orange-500"
                       : "text-black hover:text-orange-500"
                   }`}
-                  onClick={() => setSelectedRatingSort("asc")}
+                  onClick={() => setSelectedRatingSort("За зростанням")}
                 >
                   За зростанням
                 </button>
 
                 <button
                   className={`block font-medium cursor-pointer ${
-                    selectedRatingSort === "desc"
+                    selectedRatingSort === "За спаданням"
                       ? "text-orange-500"
                       : "text-black hover:text-orange-500"
                   }`}
-                  onClick={() => setSelectedRatingSort("desc")}
+                  onClick={() => setSelectedRatingSort("За спаданням")}
                 >
                   За спаданням
                 </button>
@@ -262,34 +296,60 @@ export function Search() {
 
                 <button
                   className={`block font-medium cursor-pointer mb-1 ${
-                    selectedSubscribe === "with"
+                    selectedSubscribe === "З підпискою"
                       ? "text-orange-500"
                       : "text-black hover:text-orange-500"
                   }`}
-                  onClick={() => setSelectedSubscribe("with")}
+                  onClick={() => setSelectedSubscribe("З підпискою")}
                 >
                   З підпискою
                 </button>
 
                 <button
                   className={`block font-medium cursor-pointer ${
-                    selectedSubscribe === "without"
+                    selectedSubscribe === "Без підписки"
                       ? "text-orange-500"
                       : "text-black hover:text-orange-500"
                   }`}
-                  onClick={() => setSelectedSubscribe("without")}
+                  onClick={() => setSelectedSubscribe("Без підписки")}
                 >
                   Без підписки
                 </button>
                 <button
                   className={`block font-medium cursor-pointer ${
-                    selectedSubscribe === "late"
+                    selectedSubscribe === "Просрочено"
                       ? "text-orange-500"
                       : "text-black hover:text-orange-500"
                   }`}
-                  onClick={() => setSelectedSubscribe("late")}
+                  onClick={() => setSelectedSubscribe("Просрочено")}
                 >
                   Просрочено
+                </button>
+              </div>
+
+              <div className="mb-8">
+                <p className="text-sm text-gray-600 mb-2">Блокування</p>
+
+                <button
+                  className={`block font-medium cursor-pointer mb-1 ${
+                    selectedBlock === "Заблоковані"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedBlock("Заблоковані")}
+                >
+                  Заблоковані
+                </button>
+
+                <button
+                  className={`block font-medium cursor-pointer ${
+                    selectedBlock === "Не заблоковані"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedBlock("Не заблоковані")}
+                >
+                  Не заблоковані
                 </button>
               </div>
 
@@ -298,10 +358,8 @@ export function Search() {
                 className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
              hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
                 onClick={() => {
+                  fetchApplications();
                   setIsFilterVisible(false);
-                  setSelectedAlphaSort("");
-                  setSelectedRatingSort("");
-                  setSelectedSubscribe("");
                 }}
               >
                 ЗАСТОСУВАТИ ФІЛЬТРИ

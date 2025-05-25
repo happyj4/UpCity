@@ -8,8 +8,8 @@ export function Appeals() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedAlphaSort, setSelectedAlphaSort] = useState("");
-  const [selectedRatingSort, setSelectedRatingSort] = useState("");
-  const [selectedSubscribe, setSelectedSubscribe] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -35,6 +35,36 @@ export function Appeals() {
 
     fetchApplications();
   }, []);
+
+  const fetchApplications = async () => {
+    const params = new URLSearchParams();
+    if (selectedStatus) params.append("sort_by_status", selectedStatus);
+    if (selectedDate) params.append("sort_by_date", selectedDate);
+    if (selectedAlphaSort) params.append("sort_by_name", selectedAlphaSort);
+    console.log(`смотри http://46.101.245.42/application/?${params}`);
+    try {
+      const response = await fetch(
+        `http://46.101.245.42/application/?${params}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`Помилка: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setApplications(data);
+      setSelectedAlphaSort("");
+      setSelectedDate("");
+      setSelectedStatus("");
+    } catch (error) {
+      console.error("Не вдалося отримати дані:", error);
+    }
+  };
 
   const filteredApplications = applications.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -81,8 +111,10 @@ export function Appeals() {
             className="w-full p-3 pl-10 bg-white rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFBE7D] text-sm"
           />
         </div>
-        <button className="w-10 h-10 bg-[#FFBE7D] hover:bg-[#f7ad5c] transition-all duration-300 rounded-md place-content-center flex cursor-pointer" 
-        onClick={() => setIsFilterVisible(true)}>
+        <button
+          className="w-10 h-10 bg-[#FFBE7D] hover:bg-[#f7ad5c] transition-all duration-300 rounded-md place-content-center flex cursor-pointer"
+          onClick={() => setIsFilterVisible(true)}
+        >
           <Image
             src="/images/Filter.svg"
             alt="filter"
@@ -106,49 +138,57 @@ export function Appeals() {
       >
         {filteredApplications.map((item, index) => {
           return (
-            <Link href={(item.status === "В роботі")? `http://localhost:3000/kp#${item.application_id}`: `http://localhost:3000/kpEnded#${item.application_id}`}>
-            <motion.div
-              key={index}
-              className="w-57 h-35 bg-white rounded-lg flex-col py-2 px-2 drop-shadow-xl mb-4 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer"
-              variants={itemVariants}
+            <Link
+              href={
+                item.status === "В роботі"
+                  ? `http://localhost:3000/kp#${item.application_id}`
+                  : `http://localhost:3000/kpEnded#${item.application_id}`
+              }
             >
-              <p className="text-[#3A3A3A] text-xs font-light">#1-2634</p>
-              <h2 className="text-[#1E1E1E] text-2xl font-semibold mb-5">
-                {item.name}
-              </h2>
-              <div className="flex w-full h-auto px-2 gap-2 mb-2">
-                <div
-                  className={`w-20 h-6 ${
-                    item.status == "В роботі" ? "bg-[#FBF0E5]" : "bg-[#EBFFEE]"
-                  } flex items-center px-1 gap-1 rounded-sm`}
-                >
+              <motion.div
+                key={index}
+                className="w-57 h-35 bg-white rounded-lg flex-col py-2 px-2 drop-shadow-xl mb-4 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer"
+                variants={itemVariants}
+              >
+                <p className="text-[#3A3A3A] text-xs font-light">#1-2634</p>
+                <h2 className="text-[#1E1E1E] text-2xl font-semibold mb-5">
+                  {item.name}
+                </h2>
+                <div className="flex w-full h-auto px-2 gap-2 mb-2">
                   <div
-                    className={`w-2 h-2 rounded-4xl ${
+                    className={`w-20 h-6 ${
                       item.status == "В роботі"
-                        ? "bg-[#957A5E]"
-                        : "bg-[#589D51]"
-                    }`}
-                  ></div>
-                  <span
-                    className={`${
-                      item.status == "В роботі"
-                        ? "text-[#957A5E]"
-                        : "text-[#589D51]"
-                    } font-normal text-sm`}
+                        ? "bg-[#FBF0E5]"
+                        : "bg-[#EBFFEE]"
+                    } flex items-center px-1 gap-1 rounded-sm`}
                   >
-                    {item.status}
-                  </span>
+                    <div
+                      className={`w-2 h-2 rounded-4xl ${
+                        item.status == "В роботі"
+                          ? "bg-[#957A5E]"
+                          : "bg-[#589D51]"
+                      }`}
+                    ></div>
+                    <span
+                      className={`${
+                        item.status == "В роботі"
+                          ? "text-[#957A5E]"
+                          : "text-[#589D51]"
+                      } font-normal text-sm`}
+                    >
+                      {item.status}
+                    </span>
+                  </div>
+                  <div className="w-20 h-6 bg-[#EDEDED] flex items-center px-1 gap-1 rounded-sm">
+                    <span className="text-[#848484] font-normal text-sm">
+                      {item.application_date.split("T")[0]}
+                    </span>
+                  </div>
                 </div>
-                <div className="w-20 h-6 bg-[#EDEDED] flex items-center px-1 gap-1 rounded-sm">
-                  <span className="text-[#848484] font-normal text-sm">
-                    {item.application_date.split("T")[0]}
-                  </span>
-                </div>
-              </div>
-              <span className="text-[#848484] text-xs font-light">
-                КП"{item.utility_company.name}"
-              </span>
-            </motion.div>
+                <span className="text-[#848484] text-xs font-light">
+                  КП"{item.utility_company.name}"
+                </span>
+              </motion.div>
             </Link>
           );
         })}
@@ -162,8 +202,8 @@ export function Appeals() {
               onClick={() => {
                 setIsFilterVisible(false);
                 setSelectedAlphaSort("");
-                setSelectedRatingSort("");
-                setSelectedSubscribe("");
+                setSelectedDate("");
+                setSelectedStatus("");
               }}
             >
               &times;
@@ -178,22 +218,22 @@ export function Appeals() {
 
               <button
                 className={`block font-medium cursor-pointer mb-1 ${
-                  selectedAlphaSort === "asc"
+                  selectedAlphaSort === "А-Я"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedAlphaSort("asc")}
+                onClick={() => setSelectedAlphaSort("А-Я")}
               >
                 А - Я
               </button>
 
               <button
                 className={`block font-medium cursor-pointer ${
-                  selectedAlphaSort === "desc"
+                  selectedAlphaSort === "Я-А"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedAlphaSort("desc")}
+                onClick={() => setSelectedAlphaSort("Я-А")}
               >
                 Я - А
               </button>
@@ -201,26 +241,26 @@ export function Appeals() {
 
             {/* Рейтинг */}
             <div className="mb-8">
-              <p className="text-sm text-gray-600 mb-2">Рейтинг</p>
+              <p className="text-sm text-gray-600 mb-2">Датою</p>
 
               <button
                 className={`block font-medium cursor-pointer mb-1 ${
-                  selectedRatingSort === "asc"
+                  selectedDate === "За зростанням"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedRatingSort("asc")}
+                onClick={() => setSelectedDate("За зростанням")}
               >
                 За зростанням
               </button>
 
               <button
                 className={`block font-medium cursor-pointer ${
-                  selectedRatingSort === "desc"
+                  selectedDate === "За спаданням"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedRatingSort("desc")}
+                onClick={() => setSelectedDate("За спаданням")}
               >
                 За спаданням
               </button>
@@ -231,32 +271,32 @@ export function Appeals() {
 
               <button
                 className={`block font-medium cursor-pointer mb-1 ${
-                  selectedSubscribe === "with"
+                  selectedStatus === "В роботі"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedSubscribe("with")}
+                onClick={() => setSelectedStatus("В роботі")}
               >
                 В роботі
               </button>
 
               <button
                 className={`block font-medium cursor-pointer ${
-                  selectedSubscribe === "without"
+                  selectedStatus === "Виконано"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedSubscribe("without")}
+                onClick={() => setSelectedStatus("Виконано")}
               >
                 Виконано
               </button>
               <button
                 className={`block font-medium cursor-pointer ${
-                  selectedSubscribe === "late"
+                  selectedStatus === "Відхилено"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedSubscribe("late")}
+                onClick={() => setSelectedStatus("Відхилено")}
               >
                 Відхилено
               </button>
@@ -267,10 +307,8 @@ export function Appeals() {
               className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
              hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
               onClick={() => {
+                fetchApplications();
                 setIsFilterVisible(false);
-                setSelectedAlphaSort("");
-                setSelectedRatingSort("");
-                setSelectedSubscribe("");
               }}
             >
               ЗАСТОСУВАТИ ФІЛЬТРИ

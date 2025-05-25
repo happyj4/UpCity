@@ -9,7 +9,6 @@ export function List() {
   const [listi, setListi] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [selectedAlphaSort, setSelectedAlphaSort] = useState("");
   const [selectedRatingSort, setSelectedRatingSort] = useState("");
   const router = useRouter();
 
@@ -36,6 +35,32 @@ export function List() {
   function edit(id) {
     router.push(`/edit_kp#${id}`);
   }
+
+  const fetchApplications = async () => {
+  const token = sessionStorage.getItem("access_token");
+  const params = new URLSearchParams();
+  if (selectedRatingSort) params.append("sort_by_rating", selectedRatingSort);
+    console.log(`смотри http://46.101.245.42/application/?${params}`)
+     try {
+    const response = await fetch(`http://46.101.245.42/utility_company/?${params}`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`, // заміни токен на актуальний, якщо потрібно
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Помилка: ${response.status}`);
+    }
+
+    const data = await response.json();
+    setListi(data);
+    setSelectedRatingSort("");
+  } catch (error) {
+    console.error("Не вдалося отримати дані:", error);
+  }
+};
+
 
   function deletion(id, index) {
     const token = sessionStorage.getItem("access_token");
@@ -188,7 +213,6 @@ export function List() {
               className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
               onClick={() => {
                 setIsFilterVisible(false);
-                setSelectedAlphaSort("");
                 setSelectedRatingSort("");
               }}
             >
@@ -199,31 +223,6 @@ export function List() {
             <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
 
             {/* Алфавіт */}
-            <div className="mb-6">
-              <p className="text-sm text-gray-600 mb-2">Алфавіт</p>
-
-              <button
-                className={`block font-medium cursor-pointer mb-1 ${
-                  selectedAlphaSort === "asc"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedAlphaSort("asc")}
-              >
-                А - Я
-              </button>
-
-              <button
-                className={`block font-medium cursor-pointer ${
-                  selectedAlphaSort === "desc"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedAlphaSort("desc")}
-              >
-                Я - А
-              </button>
-            </div>
 
             {/* Рейтинг */}
             <div className="mb-8">
@@ -231,22 +230,22 @@ export function List() {
 
               <button
                 className={`block font-medium cursor-pointer mb-1 ${
-                  selectedRatingSort === "asc"
+                  selectedRatingSort === "За зростанням"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedRatingSort("asc")}
+                onClick={() => setSelectedRatingSort("За зростанням")}
               >
                 За зростанням
               </button>
 
               <button
                 className={`block font-medium cursor-pointer ${
-                  selectedRatingSort === "desc"
+                  selectedRatingSort === "За спаданням"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedRatingSort("desc")}
+                onClick={() => setSelectedRatingSort("За спаданням")}
               >
                 За спаданням
               </button>
@@ -257,9 +256,8 @@ export function List() {
               className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
              hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
               onClick={() => {
+                fetchApplications(); 
                 setIsFilterVisible(false);
-                setSelectedAlphaSort("");
-                setSelectedRatingSort("");
               }}
             >
               ЗАСТОСУВАТИ ФІЛЬТРИ
