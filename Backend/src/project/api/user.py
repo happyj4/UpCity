@@ -7,6 +7,7 @@ from pydantic import EmailStr
 
 from project.db.database import get_db
 from project.schemas.user_schemas import UserRegister , UserShowAll , BlockUser, PaymentRequest, GoogleAuthRequest
+from project.schemas.subscription_schemas import SubscriptionOut
 from project.repository import user_rep
 from project.oauth2 import get_current_user
 
@@ -44,6 +45,24 @@ def get_all_users(
         sort_by_blocking=sort_by_blocking,
         current_user=current_user
     )
+
+
+
+@router.get(
+    "/subscription/",
+    response_model=SubscriptionOut,
+    status_code=status.HTTP_200_OK
+)
+def get_user_subscription_by_user(
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
+):
+    return user_rep.get_sub(
+        db=db,
+        current_user=current_user
+    )
+
+
 
 
 @router.post(
