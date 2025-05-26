@@ -60,7 +60,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
         });
 
         loadAllApplication = new LoadAllApplication();
-        loadAllApplication.loadApplications(this, new LoadAllApplication.ApplicationCallback() {
+        loadAllApplication.loadApplications(this, null, null, null, new LoadAllApplication.ApplicationCallback() {
             @Override
             public void onSuccess(List<ResponseApplication> applications) {
                 for (ResponseApplication app : applications) {

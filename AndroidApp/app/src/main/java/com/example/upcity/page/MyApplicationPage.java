@@ -1,7 +1,10 @@
 package com.example.upcity.page;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +28,16 @@ public class MyApplicationPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_applications);
-        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+
+        Intent intent = getIntent();
+        boolean skipAnimation = intent.getBooleanExtra("skipAnimation", false);
+        String selectedSortFilter = intent.getStringExtra("selectedSortFilter");
+        String selectedDateFilter = intent.getStringExtra("selectedDateFilter");
+        String selectedStatusFilter = intent.getStringExtra("selectedStatusFilter");
+
+        if (!skipAnimation) {
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -35,9 +47,18 @@ public class MyApplicationPage extends AppCompatActivity {
 
         RecyclerView AllList = findViewById(R.id.AllList);
         Button HomeButton = findViewById(R.id.HomeButton);
+        ImageView OpenFilterButton = findViewById(R.id.OpenFilterButton);
 
         HomeButton.setOnClickListener(view -> {
             AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+        });
+
+        OpenFilterButton.setOnClickListener(view -> {
+            Intent Intent = new Intent(this, FilterPage.class);
+            Intent.putExtra("Activity", MyApplicationPage.class.getSimpleName());
+            startActivity(Intent);
+            overridePendingTransition(R.anim.slide_in_out, 0);
+            finish();
         });
 
         GridLayoutManager gridLayoutManagerAllList = new GridLayoutManager(this, 2);
@@ -46,7 +67,7 @@ public class MyApplicationPage extends AppCompatActivity {
         this.loadUserApplications = new LoadUserApplications();
         LoadUserApplications loadUserApplications = new LoadUserApplications();
 
-        loadUserApplications.getUserApplications(this, new LoadUserApplications.ApplicationCallback() {
+        loadUserApplications.getUserApplications(this, selectedSortFilter, selectedDateFilter, selectedStatusFilter, new LoadUserApplications.ApplicationCallback() {
             @Override
             public void onSuccess(List<ResponseApplication> applications) {
                 List<ResponseApplication> applicationList = applications;

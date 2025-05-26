@@ -14,12 +14,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoadUserApplications {
-    public void getUserApplications(Context context, final ApplicationCallback callback) {
+    public void getUserApplications(Context context, String selectedSortFilter, String selectedDateFilter, String selectedStatusFilter, final ApplicationCallback callback) {
         SharedPreferences prefs = context.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
         String accessToken = prefs.getString("access_token", null);
 
         ApiService apiService = RetrofitClient.getInstance();
-        Call<List<ResponseApplication>> call = apiService.getUserApplications("Bearer " + accessToken);
+        Call<List<ResponseApplication>> call = apiService.getUserApplications(
+                "Bearer " + accessToken,
+                selectedSortFilter,
+                selectedDateFilter,
+                selectedStatusFilter
+        );
 
         call.enqueue(new Callback<List<ResponseApplication>>() {
             @Override

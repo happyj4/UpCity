@@ -1,0 +1,189 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDEDED"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:gravity="center_vertical|start">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="left"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="Фільтрація"
+            android:textSize="24dp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/inter_semibold" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/CloseButton"
+            android:layout_width="13dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/cross_button" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Алфавітом"
+        android:textSize="12dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#3A3A3A"
+        android:fontFamily="@font/inter_light" />
+
+    <TextView
+        android:id="@+id/AZButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="А-Я"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#3A3A3A"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/inter_semibold" />
+
+    <TextView
+        android:id="@+id/ZAButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Я-А"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#3A3A3A"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/inter_semibold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Датою"
+        android:textSize="12dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#3A3A3A"
+        android:fontFamily="@font/inter_light" />
+
+    <TextView
+        android:id="@+id/NewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="За зростанням"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#3A3A3A"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/inter_semibold" />
+
+    <TextView
+        android:id="@+id/OldButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="За спаданням"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#3A3A3A"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/inter_semibold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Статусом"
+        android:textSize="12dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#3A3A3A"
+        android:fontFamily="@font/inter_light" />
+
+    <TextView
+        android:id="@+id/InProgressButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="В роботі"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#3A3A3A"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/inter_semibold" />
+
+    <TextView
+        android:id="@+id/DoneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Виконано"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#3A3A3A"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/inter_semibold" />
+
+    <TextView
+        android:id="@+id/RejectedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Відхилено"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#3A3A3A"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/inter_semibold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ConfirmButton"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="150dp"
+        android:text="Застосувати фільтри"
+        android:gravity="center"
+        android:layout_gravity="top|center"
+        android:background="@drawable/rounded_gray_background_button"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:stateListAnimator="@null"
+        android:fontFamily="@font/inter_semibold" />
+</LinearLayout>

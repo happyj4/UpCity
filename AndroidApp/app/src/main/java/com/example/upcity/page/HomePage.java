@@ -70,7 +70,7 @@ public class HomePage extends AppCompatActivity {
         this.loadUserApplications = new LoadUserApplications();
         LoadUserApplications loadUserApplications = new LoadUserApplications();
 
-        loadUserApplications.getUserApplications(this, new LoadUserApplications.ApplicationCallback() {
+        loadUserApplications.getUserApplications(this, null, null, null, new LoadUserApplications.ApplicationCallback() {
             @Override
             public void onSuccess(List<ResponseApplication> applications) {
                 AdapterApplication adapter = new AdapterApplication(applications, true);
@@ -88,7 +88,7 @@ public class HomePage extends AppCompatActivity {
 
         // Отображение всех заявок
         loadAllApplication = new LoadAllApplication();
-        loadAllApplication.loadApplications(this, new LoadAllApplication.ApplicationCallback() {
+        loadAllApplication.loadApplications(this, null, null, null, new LoadAllApplication.ApplicationCallback() {
             @Override
             public void onSuccess(List<ResponseApplication> applications) {
                 AdapterApplication adapter = new AdapterApplication(applications, false);

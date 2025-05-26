@@ -12,9 +12,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoadAllApplication {
-    public void loadApplications(Context context, final ApplicationCallback callback) {
+    public void loadApplications(Context context, String selectedSortFilter, String selectedDateFilter, String selectedStatusFilter, final ApplicationCallback callback) {
         ApiService apiService = RetrofitClient.getInstance();
-        Call<List<ResponseApplication>> call = apiService.getApplications();
+        Call<List<ResponseApplication>> call = apiService.getApplications(
+                selectedSortFilter,
+                selectedDateFilter,
+                selectedStatusFilter);
 
         call.enqueue(new Callback<List<ResponseApplication>>() {
             @Override

@@ -23,19 +23,27 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import java.util.List;
 import java.util.Map;
 
 public interface ApiService {
     @GET("/application/all_by_user/")
-    Call<List<ResponseApplication>> getUserApplications(@Header("Authorization") String authorization);
+    Call<List<ResponseApplication>> getUserApplications(
+            @Header("Authorization") String authorization,
+            @Query("sort_by_name") String sortByName,
+            @Query("sort_by_date") String sortByDate,
+            @Query("sort_by_status") String sortByStatus);
 
     @GET("user/subscription/")
     Call<ResponseUserSubscription> getUserSubscription(@Header("Authorization") String authorization);
 
     @GET("/application/")
-    Call<List<ResponseApplication>> getApplications();
+    Call<List<ResponseApplication>> getApplications(
+            @Query("sort_by_name") String sortByName,
+            @Query("sort_by_date") String sortByDate,
+            @Query("sort_by_status") String sortByStatus);
 
     @GET("/utility_company/")
     Call<List<RequestUtilityCompany>> getUtilityCompany(@Header("Authorization") String authorization);
