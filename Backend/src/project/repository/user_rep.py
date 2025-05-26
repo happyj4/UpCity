@@ -71,9 +71,13 @@ def get_sub(db:Session, current_user:dict):
     
     user = db.query(User).filter(User.user_id == user_id).outerjoin(User.subscription).first()
     
+    if not user or not user.subscription:
+        return None  
+    
     return user.subscription
     
-    
+
+
 def register(request: UserRegister, db: Session):
     existing_user = db.query(User).filter(User.email == request.email).first()
     
