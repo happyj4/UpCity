@@ -206,7 +206,9 @@
                             android:layout_width="81dp"
                             android:layout_height="32dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/completed_application" />
+                            android:src="@drawable/completed_application"
+                            android:clickable="true"
+                            android:focusable="true"/>
 
                         <TextView
                             android:id="@+id/DateApplicationText"
@@ -233,6 +235,7 @@
                         android:fontFamily="@font/inter_light" />
 
                     <FrameLayout
+                        android:id="@+id/ClientPhotoFrame"
                         android:layout_marginRight="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_width="match_parent"
@@ -268,6 +271,7 @@
                             android:fontFamily="@font/inter_light" />
 
                         <FrameLayout
+                            android:id="@+id/UtilityCompaniePhotoFrame"
                             android:layout_marginRight="15dp"
                             android:layout_marginLeft="15dp"
                             android:layout_width="match_parent"
@@ -281,7 +285,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/empty_photo_application" />
+                                android:src="@drawable/empty_photo_application"
+                                android:clickable="true"
+                                android:focusable="true"/>
                         </FrameLayout>
 
                         <TextView

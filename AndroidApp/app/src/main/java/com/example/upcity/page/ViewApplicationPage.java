@@ -1,12 +1,15 @@
 package com.example.upcity.page;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,23 +35,27 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
     private double applicationLatitude;
     private double applicationLongitude;
 
+    Button HomeButton;
     private TextView IdApplicationText;
     private TextView NameApplicationText;
     private TextView AddressApplicationText;
     private TextView KpApplicationText;
     private TextView DescriptionApplicationText;
     private TextView DateApplicationText;
-    private ImageView сlientPhoto;
-    private ImageView statusApplication;
+    private ImageView ClientPhoto;
+    private ImageView StatusApplication;
     private ImageView UtilityCompaniePhoto;
-    boolean MapPage;
-    LinearLayout UtilityCompanieInfo;
+    private boolean MapPage;
+    private LinearLayout UtilityCompanieInfo;
+    private FrameLayout ClientPhotoFrame;
+    private FrameLayout UtilityCompaniePhotoFrame;
 
-    ImageView star1;
-    ImageView star2;
-    ImageView star3;
-    ImageView star4;
-    ImageView star5;
+
+    private ImageView star1;
+    private ImageView star2;
+    private ImageView star3;
+    private ImageView star4;
+    private ImageView star5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +76,29 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
             mapFragment.getMapAsync(this);
         }
 
-        Button HomeButton = findViewById(R.id.HomeButton);
+        // Подключение зависимостей
+        HomeButton = findViewById(R.id.HomeButton);
+        IdApplicationText = findViewById(R.id.IdApplicationText);
+        NameApplicationText = findViewById(R.id.NameApplicationText);
+        AddressApplicationText = findViewById(R.id.AddressApplicationText);
+        KpApplicationText = findViewById(R.id.KpApplicationText);
+        DescriptionApplicationText = findViewById(R.id.DescriptionApplicationText);
+        DateApplicationText = findViewById(R.id.DateApplicationText);
+        ClientPhoto = findViewById(R.id.ClientPhoto);
+        UtilityCompaniePhoto = findViewById(R.id.UtilityCompaniePhoto);
+        StatusApplication = findViewById(R.id.StatusApplication);
+        UtilityCompanieInfo = findViewById(R.id.UtilityCompanieInfo);
+
+        ClientPhotoFrame = findViewById(R.id.ClientPhotoFrame);
+        UtilityCompaniePhotoFrame = findViewById(R.id.UtilityCompaniePhotoFrame);
+
+        star1 = findViewById(R.id.Star1);
+        star2 = findViewById(R.id.Star2);
+        star3 = findViewById(R.id.Star3);
+        star4 = findViewById(R.id.Star4);
+        star5 = findViewById(R.id.Star5);
+
+        // Подключение КНОПОК
         HomeButton.setOnClickListener(view -> {
             if (MapPage == true) {
                 AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, MapPage.class, null);
@@ -79,22 +108,13 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
             }
         });
 
-        // Подключение зависимостей
-        IdApplicationText = findViewById(R.id.IdApplicationText);
-        NameApplicationText = findViewById(R.id.NameApplicationText);
-        AddressApplicationText = findViewById(R.id.AddressApplicationText);
-        KpApplicationText = findViewById(R.id.KpApplicationText);
-        DescriptionApplicationText = findViewById(R.id.DescriptionApplicationText);
-        DateApplicationText = findViewById(R.id.DateApplicationText);
-        сlientPhoto = findViewById(R.id.ClientPhoto);
-        UtilityCompaniePhoto = findViewById(R.id.UtilityCompaniePhoto);
-        statusApplication = findViewById(R.id.StatusApplication);
-        UtilityCompanieInfo = findViewById(R.id.UtilityCompanieInfo);
-        star1 = findViewById(R.id.Star1);
-        star2 = findViewById(R.id.Star2);
-        star3 = findViewById(R.id.Star3);
-        star4 = findViewById(R.id.Star4);
-        star5 = findViewById(R.id.Star5);
+        ClientPhoto.setOnClickListener(view -> {
+            onPhotoClick(ClientPhotoFrame);
+        });
+
+        UtilityCompaniePhoto.setOnClickListener(view -> {
+            onPhotoClick(UtilityCompaniePhotoFrame);
+        });
 
         // Полчайем ID заявки
         Intent intent = getIntent();
@@ -122,11 +142,11 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
                 DescriptionApplicationText.setText(app.getDescription());
 
                 if (app.getStatus().equals("Виконано")) {
-                    statusApplication.setImageResource(R.drawable.completed_application);
+                    StatusApplication.setImageResource(R.drawable.completed_application);
                 } else if (app.getStatus().equals("В роботі")) {
-                    statusApplication.setImageResource(R.drawable.work_application);
+                    StatusApplication.setImageResource(R.drawable.work_application);
                 } else {
-                    statusApplication.setImageResource(R.drawable.rejected_application);
+                    StatusApplication.setImageResource(R.drawable.rejected_application);
                 }
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
@@ -136,7 +156,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
                 if (imageUrl != null && !imageUrl.isEmpty()) {
                     Glide.with(ViewApplicationPage.this)
                             .load(imageUrl)
-                            .into(сlientPhoto);
+                            .into(ClientPhoto);
                 }
 
                 if (app.getReport() != null) {
@@ -194,6 +214,25 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
             updateMap();
         }
     }
+
+    public void onPhotoClick(FrameLayout frameLayout) {
+        int startHeight = frameLayout.getHeight();
+        float density = frameLayout.getResources().getDisplayMetrics().density;
+        int collapsedHeight = (int)(132 * density);
+        int expandedHeight = (int)(300 * density);
+        int endHeight = (startHeight == collapsedHeight) ? expandedHeight : collapsedHeight;
+
+        ValueAnimator animator = ValueAnimator.ofInt(startHeight, endHeight);
+        animator.setDuration(300);
+        animator.addUpdateListener(animation -> {
+            int val = (Integer) animation.getAnimatedValue();
+            ViewGroup.LayoutParams layoutParams = frameLayout.getLayoutParams();
+            layoutParams.height = val;
+            frameLayout.setLayoutParams(layoutParams);
+        });
+        animator.start();
+    }
+
 
     //Изменяет кнопку назад
     @Override
