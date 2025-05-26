@@ -1,4 +1,4 @@
-from typing import List, Literal, Annotated
+from typing import List, Literal, Annotated, Optional
 
 from fastapi import APIRouter, Depends, status, Query, UploadFile, Form, File
 from sqlalchemy.orm import Session
@@ -50,7 +50,7 @@ def get_all_users(
 
 @router.get(
     "/subscription/",
-    response_model=SubscriptionOut,
+    response_model=Optional[SubscriptionOut],
     status_code=status.HTTP_200_OK
 )
 def get_user_subscription_by_user(
