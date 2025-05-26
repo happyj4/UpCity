@@ -61,7 +61,19 @@ def get_all(
     return users
 
 
+def get_sub(db:Session, current_user:dict):
+    if current_user["role"] != "user":
+        raise HTTPException(status_code=403, detail="Недостатньо прав")
 
+    user_id = current_user.get("sub")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Не вдалося визначити користувача")
+    
+    user = db.query(User).filter(User.user_id == user_id).outerjoin(User.subscription).first()
+    
+    return user.subscription
+    
+    
 def register(request: UserRegister, db: Session):
     existing_user = db.query(User).filter(User.email == request.email).first()
     
