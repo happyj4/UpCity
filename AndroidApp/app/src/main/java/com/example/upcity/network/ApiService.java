@@ -7,6 +7,7 @@ import com.example.upcity.utils.RequestRegister;
 import com.example.upcity.utils.RequestUtilityCompany;
 import com.example.upcity.utils.ResponseGoogleAuthentication;
 import com.example.upcity.utils.ResponseUpdateProfile;
+import com.example.upcity.utils.ResponseUserSubscription;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -30,14 +31,26 @@ public interface ApiService {
     @GET("/application/all_by_user/")
     Call<List<ResponseApplication>> getUserApplications(@Header("Authorization") String authorization);
 
+    @GET("user/subscription/")
+    Call<ResponseUserSubscription> getUserSubscription(@Header("Authorization") String authorization);
+
     @GET("/application/")
     Call<List<ResponseApplication>> getApplications();
 
     @GET("/utility_company/")
     Call<List<RequestUtilityCompany>> getUtilityCompany(@Header("Authorization") String authorization);
 
+    @GET("/application/{app_id}/")
+    Call<ResponseApplication> getApplicationDetails(
+            @Header("Authorization") String token,
+            @Path("app_id") int appId
+    );
+
     @POST("/user/")
     Call<ResponseAuthentication> createUser(@Body RequestRegister user);
+
+    @POST("/user/auth/google/")
+    Call<ResponseGoogleAuthentication> googleLogin(@Body Map<String, String> body);
 
     @FormUrlEncoded
     @POST("/login/")
@@ -50,10 +63,14 @@ public interface ApiService {
             @Field("client_secret") String clientSecret
     );
 
-    @GET("/application/{app_id}/")
-    Call<ResponseApplication> getApplicationDetails(
-            @Header("Authorization") String token,
-            @Path("app_id") int appId
+    @Multipart
+    @PUT("user/me/")
+    Call<ResponseUpdateProfile> updateUser(
+            @Part("email") RequestBody email,
+            @Part("name") RequestBody name,
+            @Part("surname") RequestBody surname,
+            @Part MultipartBody.Part image,
+            @Header("Authorization") String token
     );
 
     @Multipart
@@ -67,22 +84,9 @@ public interface ApiService {
             @Part MultipartBody.Part photo
     );
 
-    @Multipart
-    @PUT("user/me/")
-    Call<ResponseUpdateProfile> updateUser(
-            @Part("email") RequestBody email,
-            @Part("name") RequestBody name,
-            @Part("surname") RequestBody surname,
-            @Part MultipartBody.Part image,
-            @Header("Authorization") String token
-    );
-
     @POST("/user/process_payment")
     Call<ResponseBody> sendPaymentToken(
             @Header("Authorization") String authHeader,
             @Body Map<String, String> body
     );
-
-    @POST("/user/auth/google/")
-    Call<ResponseGoogleAuthentication> googleLogin(@Body Map<String, String> body);
 }

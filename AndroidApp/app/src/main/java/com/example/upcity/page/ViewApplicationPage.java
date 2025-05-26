@@ -129,10 +129,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
     }
 
     private void loadApplicationDetails(int appId) {
-        SharedPreferences prefs = getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
-        String accessToken = prefs.getString("access_token", null);
-
-        LoadApplicationInfo.loadApplicationDetails(this, appId, accessToken, new LoadApplicationInfo.ApplicationDetailsCallback() {
+        LoadApplicationInfo.loadApplicationDetails(this, appId, new LoadApplicationInfo.ApplicationDetailsCallback() {
             @Override
             public void onApplicationDetailsLoaded(ResponseApplication app) {
                 IdApplicationText.setText("#" + app.getApplication_id());

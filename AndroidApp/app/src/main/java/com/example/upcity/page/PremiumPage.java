@@ -15,10 +15,16 @@ import com.example.upcity.adapters.AdapterAnimation;
 import com.example.upcity.R;
 import com.example.upcity.adapters.FragmentToolbar;
 import com.example.upcity.helpers.GooglePay;
+import com.example.upcity.helpers.LoadUserSubscription;
 import com.example.upcity.utils.ResponseGooglePay;
+import com.example.upcity.utils.ResponseUserSubscription;
+import com.google.android.gms.common.api.Response;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.wallet.AutoResolveHelper;
 import com.google.android.gms.wallet.PaymentData;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class PremiumPage extends AppCompatActivity {
 
@@ -53,6 +59,22 @@ public class PremiumPage extends AppCompatActivity {
             googlePay.startPayment(this, LOAD_PAYMENT_DATA_REQUEST_CODE);
         });
 
+        LoadUserSubscription.loadUserSubscription(this, new LoadUserSubscription.UserSubscriptionCallback() {
+            @Override
+            public void onSubscriptionLoaded(ResponseUserSubscription subscription) {
+                String endDate = subscription.getEnd_date();
+                LocalDate date = LocalDate.parse(endDate);
+                String formattedDate = date.format(DateTimeFormatter.ofPattern("dd.MM"));
+
+                BuyPremiumButton.setText("Підписка закінчується " + formattedDate);
+                BuyPremiumButton.setEnabled(false);
+                BuyPremiumButton.setAlpha(0.5f);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+            }
+        });
     }
 
     @Override
