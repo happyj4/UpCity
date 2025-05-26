@@ -200,7 +200,7 @@ export function Search() {
               </p>
 
               <button
-                className="h-10 w-33 cursor-pointer bg-[#DF4720] hover:bg-[#c43818] transition-all duration-300 rounded-xl text-[#FFF] text-xl font-semibold mb-6"
+                className={`h-10 w-33 cursor-pointer ${item.blocking ? 'bg-[#D9D9D9] hover:bg-[#514f4f]' : 'bg-[#DF4720] hover:bg-[#c53d1b]'} transition-all duration-300 rounded-xl text-[#FFF] text-xl font-semibold mb-6`}
                 onClick={() => deletion(item.user_id, index)}
               >
                 {item.blocking ? "Заблоковано" : "Заблокувати"}

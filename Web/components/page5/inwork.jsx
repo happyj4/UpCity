@@ -12,8 +12,8 @@ export function Inwork() {
   const [try2, setTry2] = useState(true);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedAlphaSort, setSelectedAlphaSort] = useState("");
-  const [selectedRatingSort, setSelectedRatingSort] = useState("");
-  const [selectedSubscribe, setSelectedSubscribe] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("access_token");
@@ -46,6 +46,38 @@ export function Inwork() {
     setAppealsWork(inWork.slice(0, 6));
     setAppealEnded(notInWork.slice(0, 12));
   }, [appeal]);
+
+  const fetchApplications = async () => {
+    const token = sessionStorage.getItem("access_token")
+    const params = new URLSearchParams();
+    if (selectedStatus) params.append("sort_by_status", selectedStatus);
+    if (selectedDate) params.append("sort_by_date", selectedDate);
+    if (selectedAlphaSort) params.append("sort_by_name", selectedAlphaSort);
+    console.log(`смотри http://46.101.245.42/application/?${params}`);
+    try {
+      const response = await fetch(
+        `http://46.101.245.42/application/all_by_user/?${params}`,
+        {
+          headers: {
+            Accept: "application/json",
+             Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`Помилка: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setAppeals(data);
+      setSelectedAlphaSort("");
+      setSelectedDate("");
+      setSelectedStatus("");
+    } catch (error) {
+      console.error("Не вдалося отримати дані:", error);
+    }
+  };
 
   const change_status1 = () => {
     if (try1) {
@@ -238,7 +270,7 @@ export function Inwork() {
           </div>
         </div>
       </div>
-      {isFilterVisible && (
+     {isFilterVisible && (
         <div className="fixed inset-0 bg-opacity-40 z-50 flex justify-center items-center">
           <div className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8">
             {/* Кнопка закриття */}
@@ -247,8 +279,8 @@ export function Inwork() {
               onClick={() => {
                 setIsFilterVisible(false);
                 setSelectedAlphaSort("");
-                setSelectedRatingSort("");
-                setSelectedSubscribe("");
+                setSelectedDate("");
+                setSelectedStatus("");
               }}
             >
               &times;
@@ -263,22 +295,22 @@ export function Inwork() {
 
               <button
                 className={`block font-medium cursor-pointer mb-1 ${
-                  selectedAlphaSort === "asc"
+                  selectedAlphaSort === "А-Я"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedAlphaSort("asc")}
+                onClick={() => setSelectedAlphaSort("А-Я")}
               >
                 А - Я
               </button>
 
               <button
                 className={`block font-medium cursor-pointer ${
-                  selectedAlphaSort === "desc"
+                  selectedAlphaSort === "Я-А"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedAlphaSort("desc")}
+                onClick={() => setSelectedAlphaSort("Я-А")}
               >
                 Я - А
               </button>
@@ -286,26 +318,26 @@ export function Inwork() {
 
             {/* Рейтинг */}
             <div className="mb-8">
-              <p className="text-sm text-gray-600 mb-2">Рейтинг</p>
+              <p className="text-sm text-gray-600 mb-2">Датою</p>
 
               <button
                 className={`block font-medium cursor-pointer mb-1 ${
-                  selectedRatingSort === "asc"
+                  selectedDate === "За зростанням"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedRatingSort("asc")}
+                onClick={() => setSelectedDate("За зростанням")}
               >
                 За зростанням
               </button>
 
               <button
                 className={`block font-medium cursor-pointer ${
-                  selectedRatingSort === "desc"
+                  selectedDate === "За спаданням"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedRatingSort("desc")}
+                onClick={() => setSelectedDate("За спаданням")}
               >
                 За спаданням
               </button>
@@ -316,32 +348,32 @@ export function Inwork() {
 
               <button
                 className={`block font-medium cursor-pointer mb-1 ${
-                  selectedSubscribe === "with"
+                  selectedStatus === "В роботі"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedSubscribe("with")}
+                onClick={() => setSelectedStatus("В роботі")}
               >
                 В роботі
               </button>
 
               <button
                 className={`block font-medium cursor-pointer ${
-                  selectedSubscribe === "without"
+                  selectedStatus === "Виконано"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedSubscribe("without")}
+                onClick={() => setSelectedStatus("Виконано")}
               >
                 Виконано
               </button>
               <button
                 className={`block font-medium cursor-pointer ${
-                  selectedSubscribe === "late"
+                  selectedStatus === "Відхилено"
                     ? "text-orange-500"
                     : "text-black hover:text-orange-500"
                 }`}
-                onClick={() => setSelectedSubscribe("late")}
+                onClick={() => setSelectedStatus("Відхилено")}
               >
                 Відхилено
               </button>
@@ -352,10 +384,8 @@ export function Inwork() {
               className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
              hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
               onClick={() => {
+                fetchApplications();
                 setIsFilterVisible(false);
-                setSelectedAlphaSort("");
-                setSelectedRatingSort("");
-                setSelectedSubscribe("");
               }}
             >
               ЗАСТОСУВАТИ ФІЛЬТРИ
