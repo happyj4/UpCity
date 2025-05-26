@@ -81,7 +81,7 @@
 
             <EditText
                 android:id="@+id/PasswordEditText"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:hint="Пароль"
                 android:textColor="#848383"
                 android:textColorHint="#848383"
