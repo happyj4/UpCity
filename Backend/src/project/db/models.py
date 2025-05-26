@@ -67,6 +67,7 @@ class User(Base):
     email = Column(String(255), unique=True, nullable=False)
     password = Column(String(255))
     rating = Column(Double, nullable= False, default=0)
+    fcm_token = Column(Text, nullable=True)
     subscription_id = Column(Integer, ForeignKey("app_subscription.subscription_id", ondelete="SET NULL"))
     image_id = Column(Integer, ForeignKey("image.image_id", ondelete="SET NULL"))
 
