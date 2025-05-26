@@ -15,7 +15,7 @@ def get_all(
         db:Session,
         sort_by_name:Literal["А-Я", "Я-А"] | None, 
         sort_by_date:Literal["За зростанням", "За спаданням"] | None,
-        sort_by_status:Literal["В роботі", "Виконано", "Відхилено"] | None
+        sort_by_status:Literal["В роботі", "Виконано", "Не розглянута","Відхилено"] | None
         ):
         
     query = db.query(Application)  
@@ -49,7 +49,7 @@ def get_all_by_user(
     current_user: dict,
     sort_by_name:Literal["А-Я", "Я-А"] | None, 
     sort_by_date:Literal["За зростанням", "За спаданням"] | None,
-    sort_by_status:Literal["В роботі", "Виконано", "Відхилено"] | None
+    sort_by_status:Literal["В роботі", "Виконано", "Не розглянута" "Відхилено"] | None
     ):
     if current_user["role"] not in ["user", "company"]:
         raise HTTPException(status_code=403, detail="Недостатньо прав")
@@ -128,7 +128,7 @@ def create_app(name: str, address: str, description: str, company_name: str, pho
         description=description,
         longitude=lon,
         latitude=lat,
-        status="В роботі",
+        status="Не розглянута",
         application_number=new_number,
         user_id=user_id,
         ut_company_id=company.ut_company_id,
@@ -269,3 +269,27 @@ def geocode_address(address: str):
         return float(data[0]["lat"]), float(data[0]["lon"])
 
     return None, None
+
+
+def confirm_app(app_id:int, status:str, current_user:dict, db:Session):
+    if current_user["role"] not in ["company"]:
+        raise HTTPException(status_code=403, detail="Недостатньо прав")
+    
+    application = db.query(Application).filter(Application.application_id == app_id).first()
+    if not application:
+        raise HTTPException(status_code=404, detail="Заявку не знайдено")
+    
+    if status not in ["В роботі"]:
+        raise HTTPException(status_code=400, detail="Некоректний статус")
+    
+    application.status = status
+    db.commit()
+    db.refresh(application)
+    
+    return {
+        "message": "Заявку взято в роботу",
+        "application": {
+            "application_id": application.application_id,
+            "status": application.status,
+        }
+    }

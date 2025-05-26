@@ -25,7 +25,7 @@ def get_applications_for_all_users(
     sort_by_date: Literal["За зростанням", "За спаданням"] | None = Query(
         None, description="Сортування за датою"
     ),
-    sort_by_status: Literal["В роботі", "Виконано", "Відхилено"] | None = Query(
+    sort_by_status: Literal["В роботі", "Виконано","Не розглянута","Відхилено"] | None = Query(
         None, description="Фільтрація за статусом"
         ),
     ):
@@ -121,5 +121,19 @@ async def complete_application(
             current_user = current_user
     )
 
-
-
+@router.put(
+    "/{app_id}/confirm/",
+    status_code=200
+)
+async def confirm_application(
+    app_id:int,
+    status:str,
+    current_user: dict = Depends(get_current_user),
+    db:Session = Depends(get_db)
+    ):
+    return application_rep.confirm_app(
+        app_id=app_id,
+        status=status,
+        current_user=current_user,
+        db = db
+    )
