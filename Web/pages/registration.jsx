@@ -50,10 +50,12 @@ export default function RegistrationPage() {
         if (data.message === "Успішний вхід ADMIN") {
           sessionStorage.setItem("admin_surname", data.admin_surname);
           sessionStorage.setItem("access_token", data.access_token);
+          sessionStorage.setItem("Admin", "admin")
           window.location.href = "http://localhost:3000/list_kp";
         } else if(data.message === "Успішний вхід COMPANY") {
           sessionStorage.setItem("KP_surname", data.company_name);
           sessionStorage.setItem("access_token", data.access_token);
+          sessionStorage.setItem("KP", "Кп");
           window.location.href = "http://localhost:3000/kp_working";
         }
       } else {

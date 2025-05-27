@@ -57,30 +57,9 @@ export function Header() {
         >
           <span>звернення громадян</span>
         </Link>
-        <Link
-          href="http://localhost:3000/list_kp"
-          className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
-        >
-          <span>список кп</span>
-        </Link>
-        <Link
-          href="http://localhost:3000/list_people"
-          className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
-        >
-          <span>список громадян</span>
-        </Link>
       </div>
       <div className="place-items-center gap-2 flex">
-        <button className="w-10 h-9.5 cursor-pointer bg-[#FFBE7D] rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-[#dca36b] hover:drop-shadow-2xl hover:scale-105 active:scale-95">
-          <Image
-            src="/images/plusIcon.svg"
-            alt="plus"
-            width={16}
-            height={15}
-            unoptimized
-            quality={100}
-          />
-        </button>
+
         <Link href="http://localhost:3000/registration">
           <button className="w-17 h-9 cursor-pointer place-items-center p-1 rounded-md border text-center border-solid border-[#848484] text-[#848484] transition-all duration-300 hover:border-[#FFBE7D] hover:text-[#FFBE7D] hover:bg-[#fff8f0] hover:shadow-md">
             Увійти

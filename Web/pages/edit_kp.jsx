@@ -1,10 +1,10 @@
 import { Edit } from "../components/page7/edit";
-import { Header } from "../components/WebComponents/headerAdmin";
+import { Headeradmin } from "../components/WebComponents/headerAdmin";
 
 export default function () {
   return (
     <div className="w-screen h-auto bg-[#FBF9F4]">
-      <Header />
+      <Headeradmin />
       <Edit />
     </div>
   );

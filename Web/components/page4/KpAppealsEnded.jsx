@@ -10,6 +10,16 @@ export function KpAppeals() {
   const [showForm, setShowForm] = useState("hidden");
   const fileInputRef = useRef(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [check, setCheck] = useState("")
+
+   useEffect(() => {
+    const isKp = sessionStorage.getItem("KP");
+    if (isKp) {
+      setCheck("kp");
+    } else {
+      setCheck("");
+    }
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("access_token");
@@ -47,7 +57,7 @@ export function KpAppeals() {
     <div className="flex-col w-[35%] h-full px-8  overflow-y-auto bg-[#FBF9F] flex-wrap">
       <div className="w-full h-auto justify-between flex">
         <h4 className="text-[#3A3A3A] text-xl font-light">#1-2634</h4>
-        <Arrows />
+       {check ? <Arrows /> : ""}
       </div>
       <span className="text-[#3A3A3A] text-base font-light">Назва</span>
       <h1 className="text-[#3A3A3A] text-4xl font-semibold mb-3">

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export function Header() {
+export function Headeradmin() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [admin, setAdmin] = useState(null);
 

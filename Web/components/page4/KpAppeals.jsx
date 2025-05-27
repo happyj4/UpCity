@@ -13,6 +13,16 @@ export function KpAppeals() {
   const [showForm, setShowForm] = useState("hidden");
   const fileInputRef = useRef(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [check, setCheck] = useState("")
+
+  useEffect(() => {
+    const isKp = sessionStorage.getItem("KP");
+    if (isKp) {
+      setCheck("kp");
+    } else {
+      setCheck("");
+    }
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("access_token");
@@ -159,7 +169,8 @@ export function KpAppeals() {
         transition={{ delay: 0.1 }}
       >
         <h4 className="text-[#3A3A3A] text-xl font-light">#1-2634</h4>
-        <Arrows />
+        {check ? <Arrows /> : ""}
+        
       </motion.div>
       <motion.span
         className="text-[#3A3A3A] text-base font-light"
@@ -273,11 +284,11 @@ export function KpAppeals() {
         />
       </motion.div>
 
-      <span className="text-[#3A3A3A] text-base font-normal">
+      <span className={`text-[#3A3A3A] ${check ? "block": "hidden"} text-base font-normal`}>
         Додати фотозвіт
       </span>
       <motion.div
-        className="flex cursor-pointer"
+        className={`flex cursor-pointer ${check ? "block" : "hidden"} `}
         onClick={handleClick}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -306,7 +317,7 @@ export function KpAppeals() {
       </motion.div>
 
       <motion.button
-        className="w-[100%] mb-5 h-14 bg-[#FFBE7D]/70 hover:bg-[#FFBE7D] transition-all duration-300 rounded-2xl uppercase text-white text-xl font-bold shadow-md hover:shadow-lg tracking-wide mt-10 transform hover:scale-105 active:scale-95 cursor-pointer"
+        className={`w-[100%] ${check? "block": "hidden"}  mb-5 h-14 bg-[#FFBE7D]/70 hover:bg-[#FFBE7D] transition-all duration-300 rounded-2xl uppercase text-white text-xl font-bold shadow-md hover:shadow-lg tracking-wide mt-10 transform hover:scale-105 active:scale-95 cursor-pointer`}
         onClick={() => setShowForm("block")}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -315,7 +326,7 @@ export function KpAppeals() {
       </motion.button>
 
       <motion.button
-        className="w-[100%] mb-15 h-14 bg-[#FBF9F4] uppercase text-[#3A3A3A] text-lg font-medium cursor-pointer transform transition-transform duration-200 hover:scale-105"
+        className={`w-[100%] ${check ? "block": "hidden"} mb-15 h-14 bg-[#FBF9F4] uppercase text-[#3A3A3A] text-lg font-medium cursor-pointer transform transition-transform duration-200 hover:scale-105`}
         onClick={() => canceling()}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
