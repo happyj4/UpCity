@@ -84,15 +84,25 @@
                     android:layout_marginTop="250dp"
                     android:gravity="center"
                     android:text="null"
-                    android:textSize="36dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:textColor="#1E1E1E"
-                    android:fontFamily="@font/inter_semibold" />
+                    android:fontFamily="@font/inter_semibold"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="16sp"
+                    android:autoSizeMaxTextSize="36sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:textSize="36sp" />
 
                 <TextView
                     android:id="@+id/DescriptionMessageText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="305dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:gravity="center"
                     android:text="null null null"
                     android:textSize="12dp"
