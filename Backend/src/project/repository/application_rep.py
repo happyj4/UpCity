@@ -293,3 +293,30 @@ def confirm_app(app_id:int, status:str, current_user:dict, db:Session):
             "status": application.status,
         }
     }
+    
+    
+def destroy_app(
+    app_id: int,
+    current_user: dict,
+    db: Session
+):
+    if current_user["role"] not in ["user"]:
+        raise HTTPException(status_code=403, detail="Недостатньо прав")
+
+    
+    application = db.query(Application).filter(Application.application_id == app_id).first()
+
+    if not application:
+        raise HTTPException(status_code=404, detail="Заявку не знайдено")
+
+    
+    if application.status in ["В роботі", "Виконано", "Відхилено"]:
+        raise HTTPException(status_code=400, detail="Неможливо видалити заявку")
+
+    
+    db.delete(application)
+    db.commit()
+
+    return {
+        "message": "Успішне видалення"
+    }

@@ -137,3 +137,18 @@ async def confirm_application(
         current_user=current_user,
         db = db
     )
+
+@router.delete(
+    "/{app_id}/",
+    status_code=200
+)
+async def delete_application(
+    app_id:int,
+    current_user: dict = Depends(get_current_user),
+    db:Session = Depends(get_db)
+    ):
+    return application_rep.destroy_app(
+        app_id=app_id,
+        current_user=current_user,
+        db = db
+    )
