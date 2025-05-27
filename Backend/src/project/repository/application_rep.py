@@ -1,6 +1,7 @@
 from datetime import date, datetime
 from typing import  Literal
 import requests
+import asyncio
 
 from fastapi import HTTPException , UploadFile
 from sqlalchemy.orm import Session, joinedload
@@ -9,6 +10,7 @@ from sqlalchemy import func, asc ,desc
 from project.db.models import Application, UtilityCompany, Report, User, Image
 from project.repository.image_rep import upload
 from project.repository.sorting_rep import sorting_user_applications
+from project.repository.email_utils import send_email
 
 
 def get_all(
@@ -236,7 +238,13 @@ def complete_app(app_id:int,rating:int,status:str, image: UploadFile, db:Session
             "execution_date": report.execution_date,
             "image": {"image_url": report_img_obj.image_url} if report_img_obj else None
         }
-
+        
+    if status == "Виконано":
+        user = db.query(User).filter(User.user_id == application.user_id).first()
+        if user and user.email:
+            subject = "Ваша заявка виконана"
+            content = f"Заявка №{application.application_id} була виконана. Дякуємо за використання нашого сервісу!"
+            asyncio.create_task(send_email(user.email, subject, content))
     return {
         "message": "Заявку оновлено успішно",
         "application": {
