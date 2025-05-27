@@ -106,7 +106,7 @@ class Application(Base):
     user_rating = Column(Float)
 
     __table_args__ = (
-        CheckConstraint("status IN ('В роботі', 'Виконано', 'Відхилено')", name="check_application_status"),
+        CheckConstraint("status IN ('Не розглянута', 'В роботі', 'Виконано', 'Відхилено')", name="check_application_status"),
     )
 
     user = relationship("User", back_populates="applications")
