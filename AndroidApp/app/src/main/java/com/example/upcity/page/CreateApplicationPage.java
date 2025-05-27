@@ -22,6 +22,8 @@ import com.example.upcity.helpers.CreateApplication;
 import com.example.upcity.helpers.LoadUtilityCompany;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -138,19 +140,38 @@ public class CreateApplicationPage extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
 
-            String[] projection = { MediaStore.Images.Media.DATA };
-            Cursor cursor = getContentResolver().query(imageUri, projection, null, null, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                String filePath = cursor.getString(columnIndex);
-                selectedPhoto = new File(filePath);
-                cursor.close();
+            try {
+                selectedPhoto = createTempImageFile(imageUri);
+
+                ImageView AddPhotoButton = findViewById(R.id.AddPhotoButton);
+                AddPhotoButton.setImageURI(imageUri);
+
+            } catch (Exception e) {
+                Log.e("CreateApplication", "Ошибка при копировании изображения", e);
+                Toast.makeText(this, "Ошибка при загрузке изображения", Toast.LENGTH_SHORT).show();
+                selectedPhoto = null;
+            }
+        }
+    }
+
+    private File createTempImageFile(Uri imageUri) throws Exception {
+        File tempFile = new File(getCacheDir(), "temp_image_" + System.currentTimeMillis() + ".jpg");
+
+        try (InputStream inputStream = getContentResolver().openInputStream(imageUri);
+             FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+
+            if (inputStream == null) {
+                throw new Exception("Не удалось открыть изображение");
             }
 
-
-            ImageView AddPhotoButton = findViewById(R.id.AddPhotoButton);
-            AddPhotoButton.setImageURI(imageUri);
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
         }
+
+        return tempFile;
     }
 
 
@@ -203,6 +224,14 @@ public class CreateApplicationPage extends AppCompatActivity {
         }
 
         return address + (!containsCity ? ", " + DEFAULT_CITY : "");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (selectedPhoto != null && selectedPhoto.exists()) {
+            selectedPhoto.delete();
+        }
     }
 
     //Изменяет кнопку назад

@@ -128,6 +128,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         }
     }
 
+    //Показ деталей заявки
     private void loadApplicationDetails(int appId) {
         LoadApplicationInfo.loadApplicationDetails(this, appId, new LoadApplicationInfo.ApplicationDetailsCallback() {
             @Override
@@ -198,6 +199,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         });
     }
 
+    // Обновление карты
     private void updateMap() {
         LatLng location = new LatLng(applicationLatitude, applicationLongitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17));
@@ -212,12 +214,15 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         }
     }
 
+    // Увеличение фотки при нажатии
     public void onPhotoClick(FrameLayout frameLayout) {
-        int startHeight = frameLayout.getHeight();
         float density = frameLayout.getResources().getDisplayMetrics().density;
         int collapsedHeight = (int)(132 * density);
         int expandedHeight = (int)(300 * density);
-        int endHeight = (startHeight == collapsedHeight) ? expandedHeight : collapsedHeight;
+
+        boolean isExpanded = frameLayout.getTag() != null && (boolean) frameLayout.getTag();
+        int startHeight = frameLayout.getHeight();
+        int endHeight = isExpanded ? collapsedHeight : expandedHeight;
 
         ValueAnimator animator = ValueAnimator.ofInt(startHeight, endHeight);
         animator.setDuration(300);
@@ -228,8 +233,8 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
             frameLayout.setLayoutParams(layoutParams);
         });
         animator.start();
+        frameLayout.setTag(!isExpanded);
     }
-
 
     //Изменяет кнопку назад
     @Override

@@ -7,8 +7,11 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.upcity.adapters.AdapterAnimation;
@@ -17,6 +20,8 @@ import com.example.upcity.adapters.FragmentToolbar;
 import com.example.upcity.helpers.UpdateUserInfo;
 import com.google.android.material.imageview.ShapeableImageView;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 public class EditProfilePage extends AppCompatActivity {
 
@@ -132,16 +137,44 @@ public class EditProfilePage extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
 
-            String[] projection = { MediaStore.Images.Media.DATA };
-            Cursor cursor = getContentResolver().query(imageUri, projection, null, null, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                String filePath = cursor.getString(columnIndex);
-                selectedPhoto = new File(filePath);
-                cursor.close();
+            try {
+                selectedPhoto = createTempImageFile(imageUri);
+
+                PhotoImage.setImageURI(imageUri);
+
+            } catch (Exception e) {
+                Log.e("EditProfile", "Ошибка при копировании изображения", e);
+                Toast.makeText(this, "Ошибка при загрузке изображения", Toast.LENGTH_SHORT).show();
+                selectedPhoto = null;
+            }
+        }
+    }
+
+    private File createTempImageFile(Uri imageUri) throws Exception {
+        File tempFile = new File(getCacheDir(), "temp_profile_image_" + System.currentTimeMillis() + ".jpg");
+
+        try (InputStream inputStream = getContentResolver().openInputStream(imageUri);
+             FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+
+            if (inputStream == null) {
+                throw new Exception("Не удалось открыть изображение");
             }
 
-            PhotoImage.setImageURI(imageUri);
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }
+
+        return tempFile;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (selectedPhoto != null && selectedPhoto.exists()) {
+            selectedPhoto.delete();
         }
     }
 
