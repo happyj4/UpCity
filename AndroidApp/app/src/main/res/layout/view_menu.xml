@@ -5,28 +5,31 @@
     android:gravity="center"
     android:layout_marginBottom="10dp"
     android:layout_marginRight="10dp"
+    android:clipToOutline="true"
     android:background="@drawable/rounded_background_menu">
 
-    <Button
+    <TextView
         android:id="@+id/EditProfileButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Редагувати профіль"
         android:textColor="#1E1E1E"
         android:layout_marginTop="9dp"
-        android:layout_marginLeft="0dp"
+        android:padding="6dp"
         android:gravity="center_vertical"
         android:background="@android:color/transparent"
         android:textAllCaps="false"
         android:textSize="13sp"
         android:minHeight="32dp"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/inter_light" />
 
-    <Button
+    <TextView
         android:id="@+id/MyApplicationButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
+        android:padding="6dp"
         android:gravity="center_vertical"
         android:text="Мої звернення"
         android:textColor="#1E1E1E"
@@ -34,13 +37,15 @@
         android:textAllCaps="false"
         android:textSize="13sp"
         android:minHeight="32dp"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/inter_light" />
 
-    <Button
+    <TextView
         android:id="@+id/AllApplicationButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
+        android:padding="6dp"
         android:gravity="center_vertical"
         android:text="Всі звернення"
         android:textColor="#1E1E1E"
@@ -48,13 +53,15 @@
         android:textAllCaps="false"
         android:textSize="13sp"
         android:minHeight="32dp"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/inter_light" />
 
-    <Button
+    <TextView
         android:id="@+id/PremiumButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
+        android:padding="6dp"
         android:gravity="center_vertical"
         android:text="Преміум-підписка"
         android:textColor="#1E1E1E"
@@ -62,6 +69,8 @@
         android:textAllCaps="false"
         android:textSize="13sp"
         android:minHeight="32dp"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/inter_light" />
 
     <View
@@ -70,16 +79,18 @@
         android:layout_marginTop="3dp"
         android:background="#868686" />
 
-    <Button
+    <TextView
         android:id="@+id/ExitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="3dp"
+        android:padding="6dp"
+        android:layout_marginTop="0dp"
         android:gravity="center_vertical"
         android:text="Вийти"
         android:textColor="#1E1E1E"
         android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
         android:textAllCaps="false"
         android:textSize="13sp"
         android:minHeight="32dp"

@@ -110,5 +110,11 @@
             android:exported="false">
         </activity>
 
+        <activity
+            android:name=".page.DeleteApplicationPage"
+            android:theme="@style/Theme.Filter"
+            android:exported="false">
+        </activity>
+
     </application>
 </manifest>

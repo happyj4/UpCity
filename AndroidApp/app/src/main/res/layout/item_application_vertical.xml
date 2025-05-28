@@ -53,7 +53,7 @@
                 android:layout_height="29dp"
                 android:layout_marginLeft="8dp"
                 android:layout_gravity="center"
-                android:src="@drawable/completed_application" />
+                android:src="@drawable/status_waiting" />
 
             <Space
                 android:layout_width="0dp"

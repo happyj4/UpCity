@@ -37,7 +37,7 @@ public class LoadApplicationInfo {
     }
 
     public interface ApplicationDetailsCallback {
-        void onApplicationDetailsLoaded(ResponseApplication applicationDetails);
+        void onApplicationDetailsLoaded(ResponseApplication responseApplication);
         void onError(String errorMessage);
     }
 }

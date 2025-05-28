@@ -1,6 +1,5 @@
 package com.example.upcity.utils;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class ResponseApplication {
@@ -14,9 +13,10 @@ public class ResponseApplication {
     private int user_rating;
     private double longitude;
     private double latitude;
-    private ResponseApplication.UtilityCompany utility_company;
-    private ResponseApplication.Image image;
-    private ResponseApplication.Report report;
+    private UtilityCompany utility_company;
+    private Image image;
+    private Report report;
+    private User user;
 
     public int getApplication_id() {
         return application_id;
@@ -58,16 +58,20 @@ public class ResponseApplication {
         return latitude;
     }
 
-    public ResponseApplication.UtilityCompany getUtility_company() {
+    public UtilityCompany getUtility_company() {
         return utility_company;
     }
 
-    public ResponseApplication.Image getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public ResponseApplication.Report getReport() {
+    public Report getReport() {
         return report;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public static class UtilityCompany {
@@ -94,7 +98,7 @@ public class ResponseApplication {
     public static class Report {
         private int report_id;
         private Date execution_date;
-        private ResponseApplication.Image image;
+        private Image image;
 
         public int getReport_id() {
             return report_id;
@@ -104,8 +108,26 @@ public class ResponseApplication {
             return execution_date;
         }
 
-        public ResponseApplication.Image getImage() {
+        public Image getImage() {
             return image;
+        }
+    }
+
+    public static class User {
+        private int user_id;
+        private String name;
+        private String surname;
+
+        public int getUser_id() {
+            return user_id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getSurname() {
+            return surname;
         }
     }
 }

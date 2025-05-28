@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,13 +66,20 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
                     if (mMap != null) {
                         LatLng position = new LatLng(app.getLatitude(), app.getLongitude());
 
+                        String status = app.getStatus();
                         int iconResId;
-                        if (app.getReport() == null) {
-                            iconResId = R.drawable.marker_orange;
-                        } else if (app.getReport().getImage() == null) {
-                            iconResId = R.drawable.marker_gray;
-                        } else {
+
+                        if (status.equals("Виконано")) {
                             iconResId = R.drawable.marker_green;
+
+                        } else if (status.equals("Не розглянута")) {
+                            iconResId = R.drawable.marker_gray;
+
+                        } else if (status.equals("В роботі")) {
+                            iconResId = R.drawable.marker_orange;
+
+                        } else {
+                            iconResId = R.drawable.marker_red;
                         }
 
                         Marker marker = mMap.addMarker(
@@ -93,7 +99,7 @@ public class MapPage extends AppCompatActivity implements OnMapReadyCallback {
 
                         Intent intent = new Intent(MapPage.this, ViewApplicationPage.class);
                         intent.putExtra("applicationId", responseApplication.getApplication_id());
-                        intent.putExtra("MapPage", true);
+                        intent.putExtra("activity", "MapPage");
 
                         AdapterAnimation.animateAndNavigate(
                                 MapPage.this,

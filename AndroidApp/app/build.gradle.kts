@@ -54,6 +54,8 @@ dependencies {
 
     implementation ("com.google.android.gms:play-services-wallet:19.0.0")
 
+    implementation ("com.auth0:java-jwt:4.2.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="А-Я"
+        android:text="А - Я"
         android:textSize="18dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="Я-А"
+        android:text="Я - А"
         android:textSize="18dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
@@ -130,6 +130,20 @@
         android:fontFamily="@font/inter_light" />
 
     <TextView
+        android:id="@+id/WaitingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Очікує"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#3A3A3A"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/inter_semibold" />
+
+    <TextView
         android:id="@+id/InProgressButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -177,7 +191,7 @@
         android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="130dp"
         android:text="Застосувати фільтри"
         android:gravity="center"
         android:layout_gravity="top|center"

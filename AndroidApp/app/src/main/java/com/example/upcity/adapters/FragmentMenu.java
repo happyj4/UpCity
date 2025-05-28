@@ -3,17 +3,18 @@ package com.example.upcity.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-
+import android.widget.TextView;
 import com.example.upcity.R;
 import com.example.upcity.page.AllApplicationPage;
-import com.example.upcity.page.LoginPage;
-import com.example.upcity.page.PremiumPage;
 import com.example.upcity.page.EditProfilePage;
+import com.example.upcity.page.LoginPage;
 import com.example.upcity.page.MyApplicationPage;
+import com.example.upcity.page.PremiumPage;
 
 public class FragmentMenu {
 
@@ -23,40 +24,55 @@ public class FragmentMenu {
         View popupView = LayoutInflater.from(context).inflate(R.layout.view_menu, null);
 
         popupWindow = new PopupWindow(popupView, 490, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-
         popupWindow.setElevation(7);
         popupWindow.showAsDropDown(anchorView, -390, 50);
 
-        popupView.findViewById(R.id.EditProfileButton).setOnClickListener(v -> {
+        String currentActivity = context.getClass().getSimpleName();
+
+        TextView editBtn = popupView.findViewById(R.id.EditProfileButton);
+        TextView myAppBtn = popupView.findViewById(R.id.MyApplicationButton);
+        TextView allAppBtn = popupView.findViewById(R.id.AllApplicationButton);
+        TextView premiumBtn = popupView.findViewById(R.id.PremiumButton);
+        TextView exitBtn = popupView.findViewById(R.id.ExitButton);
+
+        int selectedColor = Color.parseColor("#FBF0E5");
+        int defaultColor = Color.parseColor("#FFFFFF");
+
+        editBtn.setBackgroundColor("EditProfilePage".equals(currentActivity) ? selectedColor : defaultColor);
+        myAppBtn.setBackgroundColor("MyApplicationPage".equals(currentActivity) ? selectedColor : defaultColor);
+        allAppBtn.setBackgroundColor("AllApplicationPage".equals(currentActivity) ? selectedColor : defaultColor);
+        premiumBtn.setBackgroundColor("PremiumPage".equals(currentActivity) ? selectedColor : defaultColor);
+
+        editBtn.setOnClickListener(v -> {
             popupWindow.dismiss();
             if (context instanceof Activity) {
                 AdapterAnimation.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, EditProfilePage.class, null);
             }
         });
 
-        popupView.findViewById(R.id.MyApplicationButton).setOnClickListener(v -> {
+        myAppBtn.setOnClickListener(v -> {
             popupWindow.dismiss();
             if (context instanceof Activity) {
                 AdapterAnimation.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, MyApplicationPage.class, null);
             }
         });
 
-        popupView.findViewById(R.id.AllApplicationButton).setOnClickListener(v -> {
+        allAppBtn.setOnClickListener(v -> {
             popupWindow.dismiss();
             if (context instanceof Activity) {
                 AdapterAnimation.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, AllApplicationPage.class, null);
             }
         });
-        popupView.findViewById(R.id.PremiumButton).setOnClickListener(v -> {
+
+        premiumBtn.setOnClickListener(v -> {
             popupWindow.dismiss();
             if (context instanceof Activity) {
                 AdapterAnimation.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, PremiumPage.class, null);
             }
         });
 
-        popupView.findViewById(R.id.ExitButton).setOnClickListener(v -> {
+        exitBtn.setOnClickListener(v -> {
             popupWindow.dismiss();
-
             if (context instanceof Activity) {
                 Activity activity = (Activity) context;
                 Intent intent = new Intent(activity, LoginPage.class);
@@ -66,6 +82,5 @@ public class FragmentMenu {
                 activity.finish();
             }
         });
-
     }
 }

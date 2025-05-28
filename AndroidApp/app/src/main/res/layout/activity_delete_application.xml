@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDEDED"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:gravity="center_vertical|start">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/CancleButton"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="ВІДМІНИТИ"
+        android:gravity="center"
+        android:layout_gravity="top|center"
+        android:background="@drawable/rounded_gray_background_button"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:stateListAnimator="@null"
+        android:fontFamily="@font/inter_semibold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/DeleteButton"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:text="ВИДАЛИТИ ЗАЯВУ"
+        android:gravity="center"
+        android:layout_gravity="top|center"
+        android:background="@drawable/rounded_red_background_button"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:stateListAnimator="@null"
+        android:fontFamily="@font/inter_semibold" />
+</LinearLayout>

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.upcity.R;
@@ -26,6 +29,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONObject;
+
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -45,11 +52,12 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
     private ImageView ClientPhoto;
     private ImageView StatusApplication;
     private ImageView UtilityCompaniePhoto;
-    private boolean MapPage;
     private LinearLayout UtilityCompanieInfo;
     private FrameLayout ClientPhotoFrame;
     private FrameLayout UtilityCompaniePhotoFrame;
-
+    private Button DeleteApplicationButton;
+    private int applicationId;
+    private String activity;
 
     private ImageView star1;
     private ImageView star2;
@@ -62,7 +70,13 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_application);
 
-        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        boolean skipAnimation = getIntent().getBooleanExtra("skipAnimation", false);
+        activity = getIntent().getStringExtra("activity");
+
+        if (!skipAnimation) {
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        };
+
         AdapterAnimation.animateAndNavigate(this, R.id.MaplinearLayout, R.anim.fade_out, null, null);
 
         if (savedInstanceState == null) {
@@ -88,7 +102,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         UtilityCompaniePhoto = findViewById(R.id.UtilityCompaniePhoto);
         StatusApplication = findViewById(R.id.StatusApplication);
         UtilityCompanieInfo = findViewById(R.id.UtilityCompanieInfo);
-
+        DeleteApplicationButton = findViewById(R.id.DeleteApplicationButton);
         ClientPhotoFrame = findViewById(R.id.ClientPhotoFrame);
         UtilityCompaniePhotoFrame = findViewById(R.id.UtilityCompaniePhotoFrame);
 
@@ -98,13 +112,24 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
         star4 = findViewById(R.id.Star4);
         star5 = findViewById(R.id.Star5);
 
-        // Подключение КНОПОК
+        // Подключение кнопок
         HomeButton.setOnClickListener(view -> {
-            if (MapPage == true) {
-                AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, MapPage.class, null);
-            }
-            else {
-                AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+            try {
+                String className = "com.example.upcity.page." + activity;
+                Class<?> clazz = Class.forName(className);
+                Intent Intent = new Intent(this, clazz);
+                Intent.putExtra("skipAnimation", true);
+                Intent.putExtra("applicationId", applicationId);
+                startActivity(Intent);
+                overridePendingTransition(R.anim.slide_in_out, 0);
+                finish();
+            } catch (ClassNotFoundException e) {
+                Intent Intent = new Intent(this, HomePage.class);
+                Intent.putExtra("skipAnimation", true);
+                Intent.putExtra("applicationId", applicationId);
+                startActivity(Intent);
+                overridePendingTransition(R.anim.slide_in_out, 0);
+                finish();
             }
         });
 
@@ -116,10 +141,18 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
             onPhotoClick(UtilityCompaniePhotoFrame);
         });
 
+        DeleteApplicationButton.setOnClickListener(view -> {
+            Intent Intent = new Intent(this, DeleteApplicationPage.class);
+            Intent.putExtra("applicationId", applicationId);
+            Intent.putExtra("activity", activity);
+            startActivity(Intent);
+            overridePendingTransition(R.anim.slide_in_out, 0);
+            finish();
+        });
+
         // Полчайем ID заявки
         Intent intent = getIntent();
-        int applicationId = intent.getIntExtra("applicationId", -1);
-        MapPage = intent.getBooleanExtra("MapPage", false);
+        applicationId = intent.getIntExtra("applicationId", -1);
 
         if (applicationId != -1) {
             loadApplicationDetails(applicationId);
@@ -130,35 +163,51 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
 
     //Показ деталей заявки
     private void loadApplicationDetails(int appId) {
+        SharedPreferences prefs = this.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE);
+        String accessToken = prefs.getString("access_token", null);
+        String userId = getUserIdFromToken(accessToken);
+
         LoadApplicationInfo.loadApplicationDetails(this, appId, new LoadApplicationInfo.ApplicationDetailsCallback() {
             @Override
-            public void onApplicationDetailsLoaded(ResponseApplication app) {
-                IdApplicationText.setText("#" + app.getApplication_id());
-                NameApplicationText.setText(app.getName());
-                AddressApplicationText.setText(app.getAddress());
-                KpApplicationText.setText(app.getUtility_company().getName());
-                DescriptionApplicationText.setText(app.getDescription());
+            public void onApplicationDetailsLoaded(ResponseApplication responseApplication) {
+                IdApplicationText.setText("#" + responseApplication.getApplication_id());
+                NameApplicationText.setText(responseApplication.getName());
+                AddressApplicationText.setText(responseApplication.getAddress());
+                KpApplicationText.setText(responseApplication.getUtility_company().getName());
+                DescriptionApplicationText.setText(responseApplication.getDescription());
 
-                if (app.getStatus().equals("Виконано")) {
-                    StatusApplication.setImageResource(R.drawable.completed_application);
-                } else if (app.getStatus().equals("В роботі")) {
-                    StatusApplication.setImageResource(R.drawable.work_application);
+                if (responseApplication.getStatus().equals("Виконано")) {
+                    DeleteApplicationButton.setVisibility(View.GONE);
+                    StatusApplication.setImageResource(R.drawable.status_complete);
+                } else if (responseApplication.getStatus().equals("В роботі")) {
+                    DeleteApplicationButton.setVisibility(View.GONE);
+                    StatusApplication.setImageResource(R.drawable.status_work);
+                    UtilityCompanieInfo.setVisibility(View.GONE);
+                } else if (responseApplication.getStatus().equals("Не розглянута")) {
+                    StatusApplication.setImageResource(R.drawable.status_waiting);
+                    UtilityCompanieInfo.setVisibility(View.GONE);
+
+                    if (userId != null && !userId.equals(String.valueOf(responseApplication.getUser().getUser_id()))) {
+                        DeleteApplicationButton.setVisibility(View.GONE);
+                    }
                 } else {
-                    StatusApplication.setImageResource(R.drawable.rejected_application);
+                    DeleteApplicationButton.setVisibility(View.GONE);
+                    UtilityCompanieInfo.setVisibility(View.GONE);
+                    StatusApplication.setImageResource(R.drawable.status_rejected);
                 }
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-                DateApplicationText.setText(dateFormat.format(app.getApplication_date()));
+                DateApplicationText.setText(dateFormat.format(responseApplication.getApplication_date()));
 
-                String imageUrl = app.getImage().getImage_url();
+                String imageUrl = responseApplication.getImage().getImage_url();
                 if (imageUrl != null && !imageUrl.isEmpty()) {
                     Glide.with(ViewApplicationPage.this)
                             .load(imageUrl)
                             .into(ClientPhoto);
                 }
 
-                if (app.getReport() != null) {
-                    ResponseApplication.Image image = app.getReport().getImage();
+                if (responseApplication.getReport() != null) {
+                    ResponseApplication.Image image = responseApplication.getReport().getImage();
                     if (image != null) {
                         String imageUtilityCompanieUrl = image.getImage_url();
                         if (imageUtilityCompanieUrl != null && !imageUtilityCompanieUrl.isEmpty()) {
@@ -167,7 +216,7 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
                                     .into(UtilityCompaniePhoto);
 
                             ImageView[] stars = {star1, star2, star3, star4, star5};
-                            int rating = app.getUser_rating();
+                            int rating = responseApplication.getUser_rating();
 
                             for (int i = 0; i < stars.length; i++) {
                                 if (i < rating) {
@@ -177,15 +226,11 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
                                 }
                             }
                         }
-                    } else {
-                        UtilityCompanieInfo.setVisibility(View.GONE);
                     }
-                } else {
-                    UtilityCompanieInfo.setVisibility(View.GONE);
                 }
 
-                applicationLatitude = app.getLatitude();
-                applicationLongitude = app.getLongitude();
+                applicationLatitude = responseApplication.getLatitude();
+                applicationLongitude = responseApplication.getLongitude();
 
                 if (mMap != null) {
                     updateMap();
@@ -197,6 +242,21 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
                 Toast.makeText(ViewApplicationPage.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    // Получение id с токена
+    public static String getUserIdFromToken(String jwtToken) {
+        try {
+            String[] parts = jwtToken.split("\\.");
+            if (parts.length < 2) return null;
+
+            String payload = new String(Base64.decode(parts[1], Base64.URL_SAFE), StandardCharsets.UTF_8);
+            JSONObject jsonObject = new JSONObject(payload);
+            return jsonObject.getString("sub");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // Обновление карты
@@ -239,6 +299,22 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
     //Изменяет кнопку назад
     @Override
     public void onBackPressed() {
-        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, null);
+        try {
+            String className = "com.example.upcity.page." + activity;
+            Class<?> clazz = Class.forName(className);
+            Intent Intent = new Intent(this, clazz);
+            Intent.putExtra("skipAnimation", true);
+            Intent.putExtra("applicationId", applicationId);
+            startActivity(Intent);
+            overridePendingTransition(R.anim.slide_in_out, 0);
+            finish();
+        } catch (ClassNotFoundException e) {
+            Intent Intent = new Intent(this, HomePage.class);
+            Intent.putExtra("skipAnimation", true);
+            Intent.putExtra("applicationId", applicationId);
+            startActivity(Intent);
+            overridePendingTransition(R.anim.slide_in_out, 0);
+            finish();
+        }
     }
 }

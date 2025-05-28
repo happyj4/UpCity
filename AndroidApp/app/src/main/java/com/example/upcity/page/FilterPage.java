@@ -1,26 +1,13 @@
 package com.example.upcity.page;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.upcity.R;
-import com.example.upcity.adapters.AdapterAnimation;
-import com.example.upcity.adapters.AdapterApplication;
-import com.example.upcity.adapters.FragmentToolbar;
-import com.example.upcity.helpers.LoadAllApplication;
-import com.example.upcity.utils.ResponseApplication;
-
-import java.util.List;
 
 public class FilterPage extends AppCompatActivity {
 
@@ -36,6 +23,7 @@ public class FilterPage extends AppCompatActivity {
     private TextView InProgressButton;
     private TextView DoneButton;
     private TextView RejectedButton;
+    private TextView WaitingButton;
 
     private String activity;
 
@@ -65,6 +53,7 @@ public class FilterPage extends AppCompatActivity {
         InProgressButton = findViewById(R.id.InProgressButton);
         DoneButton = findViewById(R.id.DoneButton);
         RejectedButton = findViewById(R.id.RejectedButton);
+        WaitingButton = findViewById(R.id.WaitingButton);
 
         CloseButton.setOnClickListener(view -> {
             if ("AllApplicationPage".equals(activity)) {
@@ -120,15 +109,24 @@ public class FilterPage extends AppCompatActivity {
         InProgressButton.setOnClickListener(v -> toggleFilter(InProgressButton, "status", selectedStatusFilter));
         DoneButton.setOnClickListener(v -> toggleFilter(DoneButton, "status", selectedStatusFilter));
         RejectedButton.setOnClickListener(v -> toggleFilter(RejectedButton, "status", selectedStatusFilter));
+        WaitingButton.setOnClickListener(v -> toggleFilter(WaitingButton, "status", selectedStatusFilter));
 
         // Изначально все серые
         setButtonsColor("#3A3A3A", AZButton, ZAButton);
         setButtonsColor("#3A3A3A", NewButton, OldButton);
-        setButtonsColor("#3A3A3A", InProgressButton, DoneButton, RejectedButton);
+        setButtonsColor("#3A3A3A", InProgressButton, DoneButton, RejectedButton, WaitingButton);
     }
 
     private void toggleFilter(TextView clickedButton, String filterType, String currentSelected) {
         String clickedText = clickedButton.getText().toString();
+
+        if (clickedText.equals("А - Я")) {
+            clickedText = "А-Я";
+        } else if (clickedText.equals("Я - А")) {
+            clickedText = "Я-А";
+        } else if (clickedText.equals("Очікує")) {
+            clickedText = "Не розглянута";
+        }
 
         if (clickedText.equals(currentSelected)) {
             setButtonsColor("#3A3A3A", getButtonsByFilterType(filterType));
@@ -163,7 +161,7 @@ public class FilterPage extends AppCompatActivity {
             case "date":
                 return new TextView[]{NewButton, OldButton};
             case "status":
-                return new TextView[]{InProgressButton, DoneButton, RejectedButton};
+                return new TextView[]{InProgressButton, DoneButton, RejectedButton, WaitingButton};
             default:
                 return new TextView[]{};
         }

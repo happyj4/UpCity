@@ -2,6 +2,7 @@ package com.example.upcity.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,13 +79,16 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             switch (responseApplication.getStatus()) {
                 case "Виконано":
-                    appHolder.applicationStatus.setImageResource(R.drawable.completed_application);
+                    appHolder.applicationStatus.setImageResource(R.drawable.status_complete);
                     break;
                 case "В роботі":
-                    appHolder.applicationStatus.setImageResource(R.drawable.work_application);
+                    appHolder.applicationStatus.setImageResource(R.drawable.status_work);
+                    break;
+                case "Не розглянута":
+                    appHolder.applicationStatus.setImageResource(R.drawable.status_waiting);
                     break;
                 default:
-                    appHolder.applicationStatus.setImageResource(R.drawable.rejected_application);
+                    appHolder.applicationStatus.setImageResource(R.drawable.status_rejected);
                     break;
             }
         }
@@ -93,7 +97,7 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (responseApplication != null) {
                 Intent intent = new Intent(v.getContext(), ViewApplicationPage.class);
                 intent.putExtra("applicationId", responseApplication.getApplication_id());
-                intent.putExtra("MapPage", false);
+                intent.putExtra("activity", v.getContext().getClass().getSimpleName());
                 AdapterAnimation.animateAndNavigate((Activity) v.getContext(), R.id.linearLayout, R.anim.slide_out_left, ViewApplicationPage.class, intent);
             } else {
                 AdapterAnimation.animateAndNavigate((Activity) v.getContext(), R.id.linearLayout, R.anim.slide_out_left, CreateApplicationPage.class, null);

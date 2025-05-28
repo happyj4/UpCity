@@ -81,7 +81,6 @@
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="50dp"
                 android:scrollbars="none"
                 android:fillViewport="true">
 
@@ -206,7 +205,7 @@
                             android:layout_width="81dp"
                             android:layout_height="32dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/completed_application"
+                            android:src="@drawable/status_work"
                             android:clickable="true"
                             android:focusable="true"/>
 
@@ -361,6 +360,22 @@
                                 android:tint="#BCBCBC" />
                         </LinearLayout>
                     </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/DeleteApplicationButton"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:text="ВИДАЛИТИ ЗВЕРНЕННЯ"
+                        android:gravity="center"
+                        android:layout_gravity="top|center"
+                        android:background="@drawable/rounded_red_background_button"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:stateListAnimator="@null"
+                        android:fontFamily="@font/inter_semibold" />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

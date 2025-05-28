@@ -14,6 +14,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -96,5 +97,11 @@ public interface ApiService {
     Call<ResponseBody> sendPaymentToken(
             @Header("Authorization") String authHeader,
             @Body Map<String, String> body
+    );
+
+    @DELETE("/application/{app_id}/")
+    Call<ResponseBody> deleteApplication(
+            @Header("Authorization") String token,
+            @Path("app_id") int appId
     );
 }
