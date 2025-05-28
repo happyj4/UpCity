@@ -300,20 +300,26 @@ def destroy_app(
     current_user: dict,
     db: Session
 ):
-    if current_user["role"] not in ["user"]:
+    if current_user["role"] != "user":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
 
-    
+    user_id = current_user.get("sub")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Користувача не знайдено")
+
     application = db.query(Application).filter(Application.application_id == app_id).first()
 
     if not application:
         raise HTTPException(status_code=404, detail="Заявку не знайдено")
 
     
-    if application.status in ["В роботі", "Виконано", "Відхилено"]:
-        raise HTTPException(status_code=400, detail="Неможливо видалити заявку")
+    if application.user_id != user_id:
+        raise HTTPException(status_code=403, detail="Ви не можете видалити чужу заявку")
 
     
+    if application.status in ["В роботі", "Виконано", "Відхилено"]:
+        raise HTTPException(status_code=400, detail="Неможливо видалити заявку зі статусом «{}»".format(application.status))
+
     db.delete(application)
     db.commit()
 
