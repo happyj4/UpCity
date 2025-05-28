@@ -17,6 +17,7 @@ class ShowApp(BaseModel):
     application_number: int
     longitude: Optional[float] = None
     latitude: Optional[float] = None
+    user_id:int
     utility_company: ShowUtilityCompanyID
     image: ImageOut
     report: Optional[ReportOut]  # додано звіт
