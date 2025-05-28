@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
-from project.api import utility_company, user, authentication ,application
+from project.api import utility_company, user, authentication ,application, notification
 
 
 app = FastAPI(
@@ -25,6 +25,7 @@ app.include_router(utility_company.router)
 app.include_router(user.router)
 app.include_router(authentication.router)
 app.include_router(application.router)
+app.include_router(notification.router)
 
 
 
