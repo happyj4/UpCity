@@ -17,7 +17,6 @@ class ShowApp(BaseModel):
     application_number: int
     longitude: Optional[float] = None
     latitude: Optional[float] = None
-    user_id:int
     utility_company: ShowUtilityCompanyID
     image: ImageOut
     report: Optional[ReportOut]  # додано звіт
@@ -29,6 +28,7 @@ class ShowApp(BaseModel):
 
     
 class UserOut(BaseModel):
+    user_id:int
     name: str
     surname:str
 
