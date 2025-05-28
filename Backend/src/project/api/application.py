@@ -51,7 +51,7 @@ def get_all_applications_by_user(
         sort_by_date: Literal["За зростанням", "За спаданням"] | None = Query(
         None, description="Сортування за датою"
     ),
-        sort_by_status: Literal["В роботі", "Виконано", "Відхилено"] | None = Query(
+        sort_by_status: Literal["В роботі", "Виконано", "Не розглянута", "Відхилено"] | None = Query(
         None, description="Фільтрація за статусом"
         ),
         ):
