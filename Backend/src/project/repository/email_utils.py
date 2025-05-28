@@ -1,6 +1,6 @@
 import os
-from email.message import EmailMessage
-import aiosmtplib
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 from fastapi import HTTPException
 from pydantic import EmailStr
 from dotenv import load_dotenv
@@ -8,29 +8,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Берём данные из .env
-SMTP_USER = os.getenv("SMTP_USER")
-SMTP_PASS = os.getenv("SMTP_PASS")
-SMTP_HOST = "smtp.gmail.com"
-SMTP_PORT = 587
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
+FROM_EMAIL = os.getenv("FROM_EMAIL")
 
 async def send_email(to_email: EmailStr, subject: str, content: str):
-    message = EmailMessage()
-    message["From"] = SMTP_USER
-    message["To"] = to_email
-    message["Subject"] = subject
-    message.set_content(content)
+    message = Mail(
+        from_email=FROM_EMAIL,
+        to_emails=to_email,
+        subject=subject,
+        plain_text_content=content
+    )
 
     try:
-        await aiosmtplib.send(
-            message,
-            hostname=SMTP_HOST,
-            port=SMTP_PORT,
-            username=SMTP_USER,
-            password=SMTP_PASS,
-            start_tls=True
-        )
-    except aiosmtplib.errors.SMTPAuthenticationError:
-        raise HTTPException(status_code=500, detail="SMTP authentication failed")
-    except Exception:
-        raise HTTPException(status_code=500, detail="Internal server error while sending email")
+        sg = SendGridAPIClient(SENDGRID_API_KEY)
+        response = sg.send(message)
+        if response.status_code >= 400:
+            raise HTTPException(status_code=500, detail="Failed to send email via SendGrid")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"SendGrid error: {str(e)}")
