@@ -242,9 +242,18 @@ def complete_app(app_id:int,rating:int,status:str, image: UploadFile, db:Session
     if status == "Виконано":
         user = db.query(User).filter(User.user_id == application.user_id).first()
         if user and user.email:
-            subject = "Ваша заявка виконана"
-            content = f"Заявка №{application.application_id} була виконана. Дякуємо за використання нашого сервісу!"
+            subject = f"✅ Виконано: {application.name or 'Ваша заявка'}"
+            
+            content = (
+                f"Шановний(а) {user.full_name if 'full_name' in user.__dict__ and user.full_name else 'користувачу'},\n\n"
+                f"Ми раді повідомити, що ваша заявка «{application.name}» (№{application.application_id}) була успішно виконана компанією.\n\n"
+                f"Дякуємо за довіру до нашого сервісу!\n\n"
+                f"З найкращими побажаннями,\n"
+                f"Команда підтримки"
+            )
+
             asyncio.create_task(send_email(user.email, subject, content))
+
     return {
         "message": "Заявку оновлено успішно",
         "application": {
