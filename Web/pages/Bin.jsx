@@ -4,10 +4,6 @@ import { Footer } from "../components/WebComponents/footer";
 
 export default function () {
   return (
-    <div className="w-screen h-auto bg-[#FBF9F4]">
-      <Header />
       <List/>
-      <Footer/>
-    </div>
   );
 }

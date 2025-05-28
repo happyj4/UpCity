@@ -1,197 +1,564 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { use, useState } from "react";
 
 export function List() {
-  const [items, setItems] = useState([]);
-  const [error, setError] = useState(null);
-  const isEmpty = !items || items.length === 0;
+  const [passport, setPassport] = useState("");
+  const [phone, setPhone] = useState("");
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+  const [text, setText] = useState("");
+  const [fixGrammar, setFixGrammar] = useState("");
+  const [email, setEmail] = useState("");
+  const [html, setHtml] = useState("");
+  const [textHTML, setTextHTML] = useState("");
+  const [name, setName] = useState("");
+  const [users, setUsers] = useState("")
 
-  useEffect(() => {
-    fetch("https://718b-46-150-17-217.ngrok-free.app/cart/", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "ngrok-skip-browser-warning": "true",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Не вдалося завантажити кошик");
-        }
-        return res.json();
-      })
-      .then((data) => setItems(data))
-      .catch((err) => setError(err.message));
-  }, []);
+  const handleOkClick = async () => {
+    try {
+      const res = await fetch(
+        "https://69c0-46-150-17-217.ngrok-free.app/check-password",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({ password: passport }),
+        },
+      );
 
-  function deleteAll() {
-    fetch("https://718b-46-150-17-217.ngrok-free.app/cart/", {
-      method: "DELETE",
-      headers: { Accept: "*/*" },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(data.detail || "Помилка при очищенні кошика");
-          });
-        }
-        setItems([]);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  function minus(index) {
-    const newItems = [...items];
-    if (newItems[index].quantity > 0) {
-      newItems[index].quantity -= 1;
-      setItems(newItems);
+      const data = await res.json();
+      alert(data.message);
+    } catch (error) {
+      alert("Помилка з'єднання з сервером (пароль)");
     }
-  }
+  };
 
-  function plus(index) {
-    const newItems = [...items];
-    newItems[index].quantity += 1;
-    setItems(newItems);
-  }
+  const phoneOnClick = async () => {
+    try {
+      const res = await fetch(
+        "https://69c0-46-150-17-217.ngrok-free.app/check-phone",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({ phone }),
+        },
+      );
 
-  const total = items
-    .reduce((sum, item) => {
-      return sum + Number(item.price) * Number(item.quantity);
-    }, 0)
-    .toFixed(2);
+      const data = await res.json();
+      alert(data.message);
+    } catch (error) {
+      alert("Помилка з'єднання з сервером (телефон)");
+    }
+  };
 
-  function deletion(index, id) {
-    fetch(`https://718b-46-150-17-217.ngrok-free.app/cart/${id}/`, {
-      method: "DELETE",
-      headers: {
-        Accept: "*/*",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(data.detail || "Помилка при видаленні");
-          });
-        }
-        setItems((prevItems) => prevItems.filter((_, i) => i !== index));
-        console.log(`Товар з id=${id} успішно видалено`);
-      })
-      .catch((error) => {
-        console.error("Помилка:", error.message);
+  const dateOnClick = async () => {
+    try {
+      const query = new URLSearchParams({ day, month, year }).toString();
+      const res = await fetch(
+        `https://69c0-46-150-17-217.ngrok-free.app/weekday?${query}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        },
+      );
+
+      const data = await res.json();
+      alert(`День тижня: ${data.weekday}`);
+    } catch (error) {
+      alert("Помилка з'єднання з сервером (дата)");
+    }
+  };
+
+  const grammarOnClick = async () => {
+    try {
+      const res = await fetch(
+        "https://69c0-46-150-17-217.ngrok-free.app/check",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text }),
+        },
+      );
+
+      const data = await res.json();
+      console.log(data);
+      alert(data.errors[0].error ? data.errors[0].error : "Все добре");
+    } catch (error) {
+      alert("Помилка з'єднання з сервером (граматика)");
+    }
+  };
+
+  const fixingGrammar = async () => {
+    try {
+      const res = await fetch("https://69c0-46-150-17-217.ngrok-free.app/fix", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: fixGrammar }),
       });
+
+      const data = await res.json();
+      console.log(data);
+      alert(data.fixed_text ? data.fixed_text : "Все добре");
+    } catch (error) {
+      alert("Помилка з'єднання з сервером (граматика)");
+    }
+  };
+
+  const checkDbStatus = async () => {
+    try {
+      const res = await fetch(
+        "https://69c0-46-150-17-217.ngrok-free.app/db-status",
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        },
+      );
+
+      const text = await res.text();
+      try {
+        const data = JSON.parse(text);
+        console.log(data);
+        alert(`Статус БД: ${JSON.stringify(data)}`);
+      } catch (e) {
+        console.error("Не JSON:", text);
+        alert("Сервер повернув неочікувану відповідь");
+      }
+    } catch (error) {
+      alert("Помилка при отриманні статусу бази даних");
+    }
+  };
+
+ const checkusers = async () => {
+  try {
+    const res = await fetch(
+      "https://69c0-46-150-17-217.ngrok-free.app/users",
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      },
+    );
+
+    if (!res.ok) {
+      // Якщо статус відповіді не успішний
+      throw new Error(`HTTP помилка: ${res.status}`);
+    }
+
+    try {
+      const data = await res.json(); // Парсинг JSON
+      console.log(data);
+    } catch (e) {
+      console.error("Не JSON:", e.message);
+      alert("Сервер повернув неочікувану відповідь");
+    }
+  } catch (error) {
+    console.error("Помилка:", error.message);
+    alert("Помилка при отриманні статусу бази даних");
   }
+};
+
+
+  const checkEmail = async () => {
+    try {
+      const res = await fetch(
+        "https://69c0-46-150-17-217.ngrok-free.app/check_email",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        },
+      );
+
+      const data = await res.json();
+      console.log(data);
+      alert(data.message || "Перевірка пройшла успішно");
+    } catch (error) {
+      console.error("Помилка:", error);
+      alert("Не вдалося перевірити email");
+    }
+  };
+
+  const convertHtmlToText = async () => {
+    try {
+      const response = await fetch(
+        "https://69c0-46-150-17-217.ngrok-free.app/html_to_text",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({ text: html }),
+        },
+      );
+
+      const data = await response.json();
+      console.log(data);
+      alert(data.result);
+    } catch (error) {
+      alert("Щось не так: " + error.message);
+    }
+  };
+
+  const convertTextToHtml = async () => {
+    try {
+      const response = await fetch(
+        "https://69c0-46-150-17-217.ngrok-free.app/text_to_html_paragraphs",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({ text: textHTML }),
+        },
+      );
+
+      const data = await response.json();
+      console.log(data);
+      alert(data.result);
+    } catch (error) {
+      alert("Щось не так: " + error.message);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        "https://69c0-46-150-17-217.ngrok-free.app/add_user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+          }),
+        },
+      );
+
+      const result = await response.json();
+      alert("Користувача додано успішно!\n" + JSON.stringify(result));
+    } catch (error) {
+      alert("Помилка при надсиланні: " + error.message);
+    }
+  };
 
   return (
-    <div>
+    <div className="w-full max-w-md mx-auto mt-10 p-4 bg-white rounded-lg shadow-md space-y-6">
+      {/* Пароль */}
       <div>
-        <div className="w-full h-auto flex justify-between pt-40 px-20">
-          <h1 className="text-[#000] text-4xl font-light uppercase">кошик</h1>
-          <button
-            className="w-46 h-10 border cursor-pointer border-[#848484] p-4 rounded-3xl flex items-center justify-center text-[#848484] uppercase text-base font-light transition-all duration-300 hover:bg-[#848484] hover:text-white hover:shadow-md active:scale-95"
-            onClick={() => deleteAll()}
-          >
-            очистити кошик
-          </button>
-        </div>
-        <div
-          className={`${isEmpty ? "hidden" : "block"} w-full h-auto flex text-[#000] text-base font-light uppercase gap-10 mt-12 pl-100`}
+        <label
+          htmlFor="password"
+          className="block text-gray-700 text-sm font-semibold mb-2"
         >
-          <span>товар</span>
-          <span className="pl-82">ціна</span>
-          <span className="pl-38 pr-45">кількість</span>
-          <span>вартість</span>
-        </div>
+          Введіть пароль
+        </label>
+        <input
+          id="password"
+          type="password"
+          value={passport}
+          onChange={(e) => setPassport(e.target.value)}
+          className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="******"
+          required
+        />
+        <button
+          type="button"
+          onClick={handleOkClick}
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Перевірити пароль
+        </button>
       </div>
-      <h1
-        className={` ${isEmpty ? "block" : "hidden"} uppercase text-[#848484] text-4xl font-bold flex justify-center mt-6 mb-60`}
-      >
-        покищо тут пусто
-      </h1>
-      <div className="w-full h-auto mt-5 px-20">
-        <ul className={`${isEmpty ? "hidden" : "block"}`}>
-          {items.map((item, index) => {
-            return (
-              <li key={index}>
-                <div className="w-full h-32 flex border-t border-b border-[#EDEDED] items-center hover:bg-[#F9F9F9] hover:shadow-md transition-all duration-300 cursor-pointer rounded-xl px-4">
-                  <div className="w-29 h-auto">
-                    <Image
-                      src="/images/czegla.jpg"
-                      alt="loop"
-                      width={116}
-                      height={66}
-                      unoptimized
-                    />
-                  </div>
-                  <div className="w-auto h-full place-content-center flex flex-col ml-8">
-                    <h3 className="text-black text-xl font-medium mb-8">
-                      {item.name}
-                    </h3>
-                    <span
-                      className="text-[#848484] text-base font-light underline hover:text-black active:scale-95 transition-all duration-200"
-                      onClick={() => deletion(index, item.id)}
-                    >
-                      Видалити
-                    </span>
-                  </div>
-                  <p className="text-black text-xl font-medium ml-55">
-                    {item.price} грн/шт
-                  </p>
-                  <div className="flex h-full place-content-center items-center gap-2 ml-35">
-                    <div
-                      className="w-4 h-[10px] place-content-center cursor-pointer hover:opacity-80 transition duration-200"
-                      onClick={() => minus(index)}
-                    >
-                      <Image
-                        src="/images/minus_shop.png"
-                        alt="loop"
-                        width={16}
-                        height={1}
-                        unoptimized
-                      />
-                    </div>
-                    <button className="w-11 h-7 rounded-3xl flex items-center place-content-center bg-[#EAEAEA] text-[#3A3A3A] text-base font-light">
-                      {item.quantity}
-                    </button>
-                    <div
-                      className="w-4 h-[14px] cursor-pointer hover:opacity-80 transition duration-200"
-                      onClick={() => plus(index)}
-                    >
-                      <Image
-                        src="/images/plus_shop.png"
-                        alt="loop"
-                        width={16}
-                        height={1}
-                        unoptimized
-                      />
-                    </div>
-                    <span className="text-black text-xl font-medium ml-40">
-                      {(items[index].price * items[index].quantity).toFixed(2)}{" "}
-                      грн
-                    </span>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-        <div className="w-full h-auto flex mt-10 gap-10 items-center mb-40">
-          <button className="w-78 h-13 cursor-pointer bg-[#E2B98F] text-white uppercase font-semibold text-xl flex items-center justify-center rounded-3xl transition-all duration-300 hover:bg-[#d1a974] hover:shadow-lg active:scale-95">
-            оформити замовлення
-          </button>
-          <Link href="http://localhost:3000/shop">
-          <button className="w-78 h-13 cursor-pointer border border-[#848484] text-[#B7B7B7] uppercase font-semibold text-xl flex items-center justify-center rounded-3xl transition-all duration-300 hover:border-[#6e6e6e] hover:text-[#6e6e6e] hover:shadow-md active:scale-95">
-            продовжити покупки
-          </button>
-          </Link>
 
-          <span className="text-[#000] text-2xl font-semibold uppercase pl-50">
-            Вартість замовлення: {total}грн
-          </span>
-        </div>
+      {/* Телефон */}
+      <div>
+        <label
+          htmlFor="phone"
+          className="block text-gray-700 text-sm font-semibold mb-2"
+        >
+          Номер телефону
+        </label>
+        <input
+          id="phone"
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="+380997102399"
+          required
+        />
+        <button
+          type="button"
+          onClick={phoneOnClick}
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Перевірити телефон
+        </button>
       </div>
+
+      {/* Дата народження */}
+      <div>
+        <label className="block text-gray-700 text-sm font-semibold mb-2">
+          Введіть дату народження
+        </label>
+        <div className="flex space-x-2 mb-2">
+          <input
+            type="number"
+            placeholder="День"
+            value={day}
+            onChange={(e) => setDay(e.target.value)}
+            className="w-1/3 border border-gray-300 rounded-md px-3 py-2"
+          />
+          <input
+            type="number"
+            placeholder="Місяць"
+            value={month}
+            onChange={(e) => setMonth(e.target.value)}
+            className="w-1/3 border border-gray-300 rounded-md px-3 py-2"
+          />
+          <input
+            type="number"
+            placeholder="Рік"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            className="w-1/3 border border-gray-300 rounded-md px-3 py-2"
+          />
+        </div>
+        <button
+          type="button"
+          onClick={dateOnClick}
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Визначити день тижня
+        </button>
+      </div>
+
+      {/* Граматика */}
+      <div>
+        <label
+          htmlFor="grammar"
+          className="block text-gray-700 text-sm font-semibold mb-2"
+        >
+          Виправлення граматики
+        </label>
+        <input
+          id="grammarfix"
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Введіть речення українською"
+          required
+        />
+        <button
+          type="button"
+          onClick={grammarOnClick}
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Перевірити граматику
+        </button>
+      </div>
+
+      <div>
+        <label
+          htmlFor="grammar"
+          className="block text-gray-700 text-sm font-semibold mb-2"
+        >
+          Введіть речення для перевірки граматики
+        </label>
+        <input
+          id="grammarfix"
+          type="text"
+          value={fixGrammar}
+          onChange={(e) => setFixGrammar(e.target.value)}
+          className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Введіть речення українською"
+          required
+        />
+        <button
+          type="button"
+          onClick={fixingGrammar}
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Перевірити граматику
+        </button>
+
+        <button
+          type="button"
+          onClick={checkDbStatus}
+          className="w-full mt-10 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Створити БД
+        </button>
+      </div>
+
+      <div>
+        <label
+          htmlFor="phone"
+          className="block text-gray-700 text-sm font-semibold mb-2"
+        >
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="kukulenko.denis@gmail.com"
+          required
+        />
+        <button
+          type="button"
+          onClick={checkEmail}
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Перевірити пошту
+        </button>
+      </div>
+
+      <div>
+        <label
+          htmlFor="phone"
+          className="block text-gray-700 text-sm font-semibold mb-2"
+        >
+          HTML в текст
+        </label>
+        <input
+          id="text"
+          type="text"
+          value={html}
+          onChange={(e) => setHtml(e.target.value)}
+          className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="HTML"
+          required
+        />
+        <button
+          type="button"
+          onClick={convertHtmlToText}
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Перевірити пошту
+        </button>
+      </div>
+
+      <div>
+        <label
+          htmlFor="phone"
+          className="block text-gray-700 text-sm font-semibold mb-2"
+        >
+          Текст в HTML
+        </label>
+        <input
+          id="text"
+          type="text"
+          value={textHTML}
+          onChange={(e) => setTextHTML(e.target.value)}
+          className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Текст"
+          required
+        />
+        <button
+          type="button"
+          onClick={convertTextToHtml}
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Перевірити пошту
+        </button>
+      </div>
+
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4">
+        <div className="mb-4">
+          <label
+            htmlFor="name"
+            className="block text-gray-700 text-sm font-semibold mb-2"
+          >
+            Ім’я
+          </label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Введіть ім’я"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="email"
+            className="block text-gray-700 text-sm font-semibold mb-2"
+          >
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="example@email.com"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Надіслати
+        </button>
+      </form>
+
+      <div className="max-w-md mx-auto mt-6">
+      <h2 className="text-lg font-bold mb-4">Список користувачів</h2>
+      {users.length === 0 ? (
+        <p>Немає користувачів.</p>
+      ) : (
+        <ul className="space-y-2">
+          {users.map((user, index) => (
+            <li key={index} className="p-3 border rounded shadow-sm">
+              <p><strong>Ім’я:</strong> {user.name}</p>
+              <p><strong>Email:</strong> {user.email}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+          onClick={checkusers}
+        >
+          Показати нових користувачів
+        </button>
     </div>
   );
 }
