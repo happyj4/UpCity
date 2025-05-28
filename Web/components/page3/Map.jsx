@@ -7,21 +7,28 @@ const containerStyle = {
   height: "100%",
 };
 
+function Loader({ text = "Завантаження..." }) {
+  return (
+    <div className="flex flex-col items-center justify-center h-full w-full">
+      <div className="border-8 border-t-8 border-gray-200 border-t-orange-500 rounded-full w-16 h-16 animate-spin mb-4"></div>
+      <span className="text-gray-700 text-lg">{text}</span>
+    </div>
+  );
+}
+
 export function Map() {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDmgMdEuinNPIzozKfxgfC1Fw189zH1AWs", // ⚠️ не використовуй у проді відкрито
+    googleMapsApiKey: "AIzaSyDmgMdEuinNPIzozKfxgfC1Fw189zH1AWs",
   });
 
   useEffect(() => {
     const fetchApplications = async () => {
       try {
         const response = await fetch("http://46.101.245.42/application", {
-          headers: {
-            Accept: "application/json",
-          },
+          headers: { Accept: "application/json" },
         });
         const data = await response.json();
         setApplications(data);
@@ -35,9 +42,14 @@ export function Map() {
     fetchApplications();
   }, []);
 
-  if (!isLoaded) return <div>Завантаження карти…</div>;
-  if (loading) return <div>Завантаження заявок…</div>;
-  if (applications.length === 0) return <div>Немає заявок для відображення</div>;
+  if (!isLoaded) return <Loader text="Завантаження карти…" />;
+  if (loading) return <Loader text="Завантаження заявок…" />;
+  if (applications.length === 0)
+    return (
+      <div className="flex items-center justify-center h-full text-gray-500">
+        Немає заявок для відображення
+      </div>
+    );
 
   const defaultCenter = {
     lat: applications[0]?.latitude || 50.4501,
@@ -57,17 +69,25 @@ export function Map() {
               position={position}
               mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
             >
-              <Link href={(app.status === "В роботі")? `http://localhost:3000/kp#${app.application_id}`: `http://localhost:3000/kpEnded#${app.application_id}`}>
-              <div
-                className={`w-[60px] h-[60px] rounded-full border-[8px] ${(app.status === "В роботі")? "border-red-500" : (app.status === "Виконано")? "border-green-500": "border border-gray-500"} shadow-md overflow-hidden transform -translate-x-1/2 -translate-y-1/2 cursor-pointer`}
-                title={app.name}
+              <Link
+                href={
+                  app.status === "В роботі"
+                    ? `http://localhost:3000/kp#${app.application_id}`
+                    : `http://localhost:3000/kpEnded#${app.application_id}`
+                }
               >
-                <img
-                  src={imageUrl}
-                  alt={app.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+                <div
+                  className={`w-[60px] h-[60px] rounded-full border-[8px] ${
+                    app.status === "В роботі"
+                      ? "border-red-500"
+                      : app.status === "Виконано"
+                      ? "border-green-500"
+                      : "border border-gray-500"
+                  } shadow-md overflow-hidden transform -translate-x-1/2 -translate-y-1/2 cursor-pointer`}
+                  title={app.name}
+                >
+                  <img src={imageUrl} alt={app.name} className="w-full h-full object-cover" />
+                </div>
               </Link>
             </OverlayView>
           );

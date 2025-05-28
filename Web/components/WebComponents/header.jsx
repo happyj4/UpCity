@@ -61,7 +61,7 @@ export function Header() {
       <div className="place-items-center gap-2 flex">
 
         <Link href="http://localhost:3000/registration">
-          <button className="w-17 h-9 cursor-pointer place-items-center p-1 rounded-md border text-center border-solid border-[#848484] text-[#848484] transition-all duration-300 hover:border-[#FFBE7D] hover:text-[#FFBE7D] hover:bg-[#fff8f0] hover:shadow-md">
+          <button className="w-35 h-12 cursor-pointer place-items-center p-1 rounded-md border font-semibold text-lg text-center border-solid border-[#848484] text-[#848484] transition-all duration-300 hover:border-[#FFBE7D] hover:text-[#FFBE7D] hover:bg-[#fff8f0] hover:shadow-md">
             Увійти
           </button>
         </Link>

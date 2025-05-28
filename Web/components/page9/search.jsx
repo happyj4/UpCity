@@ -45,8 +45,7 @@ export function Search() {
     const params = new URLSearchParams();
     if (selectedAlphaSort) params.append("sort_by_name", selectedAlphaSort);
     if (selectedRatingSort) params.append("sort_by_rating", selectedRatingSort);
-    if (selectedSubscribe)
-      params.append("sort_by_subscription", selectedSubscribe);
+    if (selectedSubscribe)  params.append("sort_by_subscription", selectedSubscribe);
     if (selectedBlock) params.append("sort_by_blocking", selectedBlock);
     console.log(`смотри http://46.101.245.42/application/?${params}`);
     try {
@@ -108,6 +107,27 @@ export function Search() {
   );
 
   console.log(people);
+
+  const backdropVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
+
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.9, y: -20 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.9,
+      y: 20,
+      transition: { duration: 0.2, ease: "easeIn" },
+    },
+  };
 
   return (
     <motion.div
@@ -200,7 +220,7 @@ export function Search() {
               </p>
 
               <button
-                className={`h-10 w-33 cursor-pointer ${item.blocking ? 'bg-[#D9D9D9] hover:bg-[#514f4f]' : 'bg-[#DF4720] hover:bg-[#c53d1b]'} transition-all duration-300 rounded-xl text-[#FFF] text-xl font-semibold mb-6`}
+                className={`h-10 w-33 cursor-pointer ${item.blocking ? "bg-[#D9D9D9] hover:bg-[#514f4f]" : "bg-[#DF4720] hover:bg-[#c53d1b]"} transition-all duration-300 rounded-xl text-[#FFF] text-xl font-semibold mb-6`}
                 onClick={() => deletion(item.user_id, index)}
               >
                 {item.blocking ? "Заблоковано" : "Заблокувати"}
@@ -211,161 +231,173 @@ export function Search() {
                 <button
                   className={`w-8 h-8 ${item.subscription} rounded-xl flex justify-center items-center`}
                 >
-                  <Strike />
+                  <div
+                    className={`w-8 h-8 flex justify-center items-center rounded-lg ${item.subscription ? "bg-[#C2F1C8]" : "bg-[#D9D9D9]"}`}
+                  >
+                    <Strike color={item.subscription ? "#589D51" : "#808080"} />
+                  </div>
                 </button>
               </div>
             </div>
           </motion.div>
         ))}
         {isFilterVisible && (
-          <div className="fixed inset-0 bg-opacity-40 z-50 flex justify-center items-center">
-            <div className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8">
-              {/* Кнопка закриття */}
-              <button
-                className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
-                onClick={() => {
-                  setIsFilterVisible(false);
-                  setSelectedAlphaSort("");
-                  setSelectedRatingSort("");
-                  setSelectedSubscribe("");
-                  setSelectedBlock("");
-                }}
+          <AnimatePresence>
+            <motion.div
+              className="fixed inset-0 z-50 flex justify-center items-center bg-white/10 backdrop-blur-md"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={backdropVariants}
+            >
+              <motion.div
+                className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8 shadow-xl"
+                variants={modalVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
               >
-                &times;
-              </button>
-
-              {/* Заголовок */}
-              <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
-
-              {/* Алфавіт */}
-              <div className="mb-6">
-                <p className="text-sm text-gray-600 mb-2">Алфавіт</p>
-
+                {/* Кнопка закриття */}
                 <button
-                  className={`block font-medium cursor-pointer mb-1 ${
-                    selectedAlphaSort === "А-Я"
-                      ? "text-orange-500"
-                      : "text-black hover:text-orange-500"
-                  }`}
-                  onClick={() => setSelectedAlphaSort("А-Я")}
+                  className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
+                  onClick={() => {
+                    setIsFilterVisible(false);
+                    setSelectedAlphaSort("");
+                    setSelectedRatingSort("");
+                    setSelectedSubscribe("");
+                    setSelectedBlock("");
+                  }}
                 >
-                  А - Я
+                  &times;
                 </button>
 
+                {/* Заголовок */}
+                <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
+
+                {/* Алфавіт */}
+                <div className="mb-6">
+                  <p className="text-sm text-gray-600 mb-2">Алфавіт</p>
+                  <button
+                    className={`block font-medium cursor-pointer mb-1 ${
+                      selectedAlphaSort === "А-Я"
+                        ? "text-orange-500"
+                        : "text-black hover:text-orange-500"
+                    }`}
+                    onClick={() => setSelectedAlphaSort("А-Я")}
+                  >
+                    А - Я
+                  </button>
+                  <button
+                    className={`block font-medium cursor-pointer ${
+                      selectedAlphaSort === "Я-А"
+                        ? "text-orange-500"
+                        : "text-black hover:text-orange-500"
+                    }`}
+                    onClick={() => setSelectedAlphaSort("Я-А")}
+                  >
+                    Я - А
+                  </button>
+                </div>
+
+                {/* Рейтинг */}
+                <div className="mb-8">
+                  <p className="text-sm text-gray-600 mb-2">Рейтинг</p>
+                  <button
+                    className={`block font-medium cursor-pointer mb-1 ${
+                      selectedRatingSort === "За зростанням"
+                        ? "text-orange-500"
+                        : "text-black hover:text-orange-500"
+                    }`}
+                    onClick={() => setSelectedRatingSort("За зростанням")}
+                  >
+                    За зростанням
+                  </button>
+                  <button
+                    className={`block font-medium cursor-pointer ${
+                      selectedRatingSort === "За спаданням"
+                        ? "text-orange-500"
+                        : "text-black hover:text-orange-500"
+                    }`}
+                    onClick={() => setSelectedRatingSort("За спаданням")}
+                  >
+                    За спаданням
+                  </button>
+                </div>
+
+                {/* Підписка */}
+                <div className="mb-8">
+                  <p className="text-sm text-gray-600 mb-2">Підписка</p>
+                  <button
+                    className={`block font-medium cursor-pointer mb-1 ${
+                      selectedSubscribe === "З підписокою"
+                        ? "text-orange-500"
+                        : "text-black hover:text-orange-500"
+                    }`}
+                    onClick={() => setSelectedSubscribe("З підписокою")}
+                  >
+                    З підпискою
+                  </button>
+                  <button
+                    className={`block font-medium cursor-pointer ${
+                      selectedSubscribe === "Без підписки"
+                        ? "text-orange-500"
+                        : "text-black hover:text-orange-500"
+                    }`}
+                    onClick={() => setSelectedSubscribe("Без підписки")}
+                  >
+                    Без підписки
+                  </button>
+                  <button
+                    className={`block font-medium cursor-pointer ${
+                      selectedSubscribe === "Просрочено"
+                        ? "text-orange-500"
+                        : "text-black hover:text-orange-500"
+                    }`}
+                    onClick={() => setSelectedSubscribe("Просрочено")}
+                  >
+                    Просрочено
+                  </button>
+                </div>
+
+                {/* Блокування */}
+                <div className="mb-8">
+                  <p className="text-sm text-gray-600 mb-2">Блокування</p>
+                  <button
+                    className={`block font-medium cursor-pointer mb-1 ${
+                      selectedBlock === "Заблоковані"
+                        ? "text-orange-500"
+                        : "text-black hover:text-orange-500"
+                    }`}
+                    onClick={() => setSelectedBlock("Заблоковані")}
+                  >
+                    Заблоковані
+                  </button>
+                  <button
+                    className={`block font-medium cursor-pointer ${
+                      selectedBlock === "Не заблоковані"
+                        ? "text-orange-500"
+                        : "text-black hover:text-orange-500"
+                    }`}
+                    onClick={() => setSelectedBlock("Не заблоковані")}
+                  >
+                    Не заблоковані
+                  </button>
+                </div>
+
+                {/* Кнопка застосування */}
                 <button
-                  className={`block font-medium cursor-pointer ${
-                    selectedAlphaSort === "Я-А"
-                      ? "text-orange-500"
-                      : "text-black hover:text-orange-500"
-                  }`}
-                  onClick={() => setSelectedAlphaSort("Я-А")}
+                  className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
+          hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
+                  onClick={() => {
+                    fetchApplications();
+                    setIsFilterVisible(false);
+                  }}
                 >
-                  Я - А
+                  ЗАСТОСУВАТИ ФІЛЬТРИ
                 </button>
-              </div>
-
-              {/* Рейтинг */}
-              <div className="mb-8">
-                <p className="text-sm text-gray-600 mb-2">Рейтинг</p>
-
-                <button
-                  className={`block font-medium cursor-pointer mb-1 ${
-                    selectedRatingSort === "За зростанням"
-                      ? "text-orange-500"
-                      : "text-black hover:text-orange-500"
-                  }`}
-                  onClick={() => setSelectedRatingSort("За зростанням")}
-                >
-                  За зростанням
-                </button>
-
-                <button
-                  className={`block font-medium cursor-pointer ${
-                    selectedRatingSort === "За спаданням"
-                      ? "text-orange-500"
-                      : "text-black hover:text-orange-500"
-                  }`}
-                  onClick={() => setSelectedRatingSort("За спаданням")}
-                >
-                  За спаданням
-                </button>
-              </div>
-
-              <div className="mb-8">
-                <p className="text-sm text-gray-600 mb-2">Підписка</p>
-
-                <button
-                  className={`block font-medium cursor-pointer mb-1 ${
-                    selectedSubscribe === "З підпискою"
-                      ? "text-orange-500"
-                      : "text-black hover:text-orange-500"
-                  }`}
-                  onClick={() => setSelectedSubscribe("З підпискою")}
-                >
-                  З підпискою
-                </button>
-
-                <button
-                  className={`block font-medium cursor-pointer ${
-                    selectedSubscribe === "Без підписки"
-                      ? "text-orange-500"
-                      : "text-black hover:text-orange-500"
-                  }`}
-                  onClick={() => setSelectedSubscribe("Без підписки")}
-                >
-                  Без підписки
-                </button>
-                <button
-                  className={`block font-medium cursor-pointer ${
-                    selectedSubscribe === "Просрочено"
-                      ? "text-orange-500"
-                      : "text-black hover:text-orange-500"
-                  }`}
-                  onClick={() => setSelectedSubscribe("Просрочено")}
-                >
-                  Просрочено
-                </button>
-              </div>
-
-              <div className="mb-8">
-                <p className="text-sm text-gray-600 mb-2">Блокування</p>
-
-                <button
-                  className={`block font-medium cursor-pointer mb-1 ${
-                    selectedBlock === "Заблоковані"
-                      ? "text-orange-500"
-                      : "text-black hover:text-orange-500"
-                  }`}
-                  onClick={() => setSelectedBlock("Заблоковані")}
-                >
-                  Заблоковані
-                </button>
-
-                <button
-                  className={`block font-medium cursor-pointer ${
-                    selectedBlock === "Не заблоковані"
-                      ? "text-orange-500"
-                      : "text-black hover:text-orange-500"
-                  }`}
-                  onClick={() => setSelectedBlock("Не заблоковані")}
-                >
-                  Не заблоковані
-                </button>
-              </div>
-
-              {/* Кнопка застосування */}
-              <button
-                className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
-             hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
-                onClick={() => {
-                  fetchApplications();
-                  setIsFilterVisible(false);
-                }}
-              >
-                ЗАСТОСУВАТИ ФІЛЬТРИ
-              </button>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
         )}
       </AnimatePresence>
     </motion.div>

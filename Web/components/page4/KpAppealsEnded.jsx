@@ -2,6 +2,7 @@ import { Arrows } from "./arrows";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRef } from "react";
+import { motion } from "framer-motion";
 
 export function KpAppeals() {
   const [info, setInfo] = useState(null);
@@ -54,94 +55,235 @@ export function KpAppeals() {
   }
 
   return (
-    <div className="flex-col w-[35%] h-full px-8  overflow-y-auto bg-[#FBF9F] flex-wrap">
-      <div className="w-full h-auto justify-between flex">
-        <h4 className="text-[#3A3A3A] text-xl font-light">#1-2634</h4>
-       {check ? <Arrows /> : ""}
+  <motion.div
+    className="flex-col w-[35%] h-full px-8 overflow-y-auto bg-[#FBF9F] flex-wrap"
+    initial={{ opacity: 0, x: -40 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+  >
+    <motion.div
+      className="w-full h-auto justify-between flex"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.1, duration: 0.4 }}
+    >
+      <h4 className="text-[#3A3A3A] text-xl font-light">#1-2634</h4>
+      {check ? <Arrows /> : ""}
+    </motion.div>
+
+    <motion.span
+      className="text-[#3A3A3A] text-base font-light"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2, duration: 0.4 }}
+    >
+      Назва
+    </motion.span>
+
+    <motion.h1
+      className="text-[#3A3A3A] text-4xl font-semibold mb-3"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
+    >
+      {info.name}
+    </motion.h1>
+
+    <motion.span
+      className="text-[#3A3A3A] text-base font-light"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4, duration: 0.4 }}
+    >
+      Адреса
+    </motion.span>
+
+    <motion.h3
+      className="text-[#3A3A3A] font-normal text-xl mb-3"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.45, duration: 0.4 }}
+    >
+      {info.address}
+    </motion.h3>
+
+    <motion.div
+      className="flex gap-8 mb-8"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5, duration: 0.4 }}
+    >
+      <div className="flex-col">
+        <span className="text-[#3A3A3A] text-base font-light">Довгота</span>
+        <h3 className="text-[#3A3A3A] font-normal text-xl">{info.longitude}</h3>
       </div>
-      <span className="text-[#3A3A3A] text-base font-light">Назва</span>
-      <h1 className="text-[#3A3A3A] text-4xl font-semibold mb-3">
-        {info.name}
-      </h1>
-      <span className="text-[#3A3A3A] text-base font-light">Адреса</span>
-      <h3 className="text-[#3A3A3A] font-normal text-xl mb-3">
-        {info.address}
-      </h3>
-      <div className="flex gap-8 mb-8">
-        <div className="flex-col">
-          <span className="text-[#3A3A3A] text-base font-light">Довгота</span>
-          <h3 className="text-[#3A3A3A] font-normal text-xl">
-            {info.longitude}
-          </h3>
-        </div>
-        <div className="w-[1px] h-13 bg-black"></div>
-        <div className="flex-col">
-          <span className="text-[#3A3A3A] text-base font-light">Широта</span>
-          <h3 className="text-[#3A3A3A] font-normal text-xl">
-            {info.latitude}
-          </h3>
-        </div>
+      <div className="w-[1px] h-13 bg-black"></div>
+      <div className="flex-col">
+        <span className="text-[#3A3A3A] text-base font-light">Широта</span>
+        <h3 className="text-[#3A3A3A] font-normal text-xl">{info.latitude}</h3>
       </div>
-      <span className="text-[#3A3A3A] text-base font-light">Користувач</span>
-      <h3 className="text-[#3A3A3A] font-normal text-xl mb-3">
-        {info.user.name}
-      </h3>
-      <span className="text-[#3A3A3A] text-base font-light">КП</span>
-      <h3 className="text-[#3A3A3A] font-normal text-xl mb-6">
-        КП «{info.utility_company.name}»
-      </h3>
-      <span className="text-[#3A3A3A] text-base font-light">Опис</span>
-      <h3 className="text-[#3A3A3A] font-normal text-xl mb-6">
-        {info.description}
-      </h3>
-      <div className="flex gap-4">
-        <div className={` ${info.status === "Виконано" ? "bg-[#EBFFEE]" : "bg-[#EDEDED]"} w-18 h-6 flex rounded-md  content-center items-center gap-1 px-1 mb-8`}>
-          <div className={`${info.status === "Виконано" ? "bg-[#EBFFEE]" : "text-[#EDEDED]"} w-1 h-1 rounded-4xl`}></div>
-          <p className={`${(info.status === "Виконано")? "text-[#589D51]": "text-[#848484]"} text-sm font-normal`}>{info.status}</p>
-        </div>
-        <div className="bg-[#EDEDED] w-22 h-6 flex rounded-md  content-center items-center gap-1 px-1">
-          <p className="text-[#848484] text-sm font-normal">
-            {info.application_date.slice(0, 10)}
-          </p>
-        </div>
-        <div></div>
+    </motion.div>
+
+    <motion.span
+      className="text-[#3A3A3A] text-base font-light"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.55, duration: 0.4 }}
+    >
+      Користувач
+    </motion.span>
+
+    <motion.h3
+      className="text-[#3A3A3A] font-normal text-xl mb-3"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.6, duration: 0.4 }}
+    >
+      {info.user.name}
+    </motion.h3>
+
+    <motion.span
+      className="text-[#3A3A3A] text-base font-light"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.65, duration: 0.4 }}
+    >
+      КП
+    </motion.span>
+
+    <motion.h3
+      className="text-[#3A3A3A] font-normal text-xl mb-6"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.7, duration: 0.4 }}
+    >
+      КП «{info.utility_company.name}»
+    </motion.h3>
+
+    <motion.span
+      className="text-[#3A3A3A] text-base font-light"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.75, duration: 0.4 }}
+    >
+      Опис
+    </motion.span>
+
+    <motion.h3
+      className="text-[#3A3A3A] font-normal text-xl mb-6"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.8, duration: 0.4 }}
+    >
+      {info.description}
+    </motion.h3>
+
+    <motion.div
+      className="flex gap-4"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.85, duration: 0.4 }}
+    >
+      <div
+        className={`${
+          info.status === "Виконано" ? "bg-[#EBFFEE]" : "bg-[#EDEDED]"
+        } w-18 h-6 flex rounded-md content-center items-center gap-1 px-1 mb-8`}
+      >
+        <div
+          className={`${
+            info.status === "Виконано" ? "bg-[#EBFFEE]" : "text-[#EDEDED]"
+          } w-1 h-1 rounded-4xl`}
+        ></div>
+        <p
+          className={`${
+            info.status === "Виконано" ? "text-[#589D51]" : "text-[#848484]"
+          } text-sm font-normal`}
+        >
+          {info.status}
+        </p>
       </div>
-      <span className="text-[#3A3A3A] text-base font-normal">Фото до</span>
+      <div className="bg-[#EDEDED] w-22 h-6 flex rounded-md content-center items-center gap-1 px-1">
+        <p className="text-[#848484] text-sm font-normal">
+          {info.application_date.slice(0, 10)}
+        </p>
+      </div>
+      <div></div>
+    </motion.div>
+
+    <motion.span
+      className="text-[#3A3A3A] text-base font-normal"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.9, duration: 0.4 }}
+    >
+      Фото до
+    </motion.span>
+
+    <motion.div
+      className="mt-4 mb-4"
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.95, duration: 0.5, ease: "easeOut" }}
+    >
       <Image
-        className="mt-4 mb-4"
         src={info.image.image_url}
         alt="fon"
         width={391}
         height={132}
         unoptimized
       />
-      <span className="text-[#3A3A3A] text-base font-normal">Фото після</span>
-      <div className="flex cursor-pointer">
-        <div className="relative">
-          <Image
-            className="mt-4"
-            src={(info.report.image)? info.report.image.image_url : "/images/Fon.png"}
-            alt="fon"
-            width={391}
-            height={132}
-            unoptimized
-          />
-        </div>
-      </div>
-      <div className="w-[100%] bg-[#FBF9F4] p-6 mt-5  flex flex-col items-center">
-        <h2 className="text-medium font-semibold text-[#3A3A3A] mb-4 uppercase">
-          Якість/Доцільність звернення
-        </h2>
+    </motion.div>
 
-        {/* ⭐️ Зірки рейтингу (можеш замінити на компонент або svg) */}
-        <div className="flex gap-2 mb-6">
-          {[1, 2, 3, 4, 5].map((num) => (
-            <span key={num} className="text-6xl text-yellow-400 cursor-pointer">
-              {num <= (selectedStar || hoveredStar) ? "★" : "☆"}
-            </span>
-          ))}
-        </div>
+    <motion.span
+      className="text-[#3A3A3A] text-base font-normal"
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.0, duration: 0.4 }}
+    >
+      Фото після
+    </motion.span>
+
+    <motion.div
+      className="flex cursor-pointer"
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 1.05, duration: 0.5, ease: "easeOut" }}
+    >
+      <div className="relative">
+        <Image
+          src={info.report.image ? info.report.image.image_url : "/images/Fon.png"}
+          alt="fon"
+          width={391}
+          height={132}
+          unoptimized
+        />
       </div>
-    </div>
-  );
+    </motion.div>
+
+    <motion.div
+      className="w-[100%] bg-[#FBF9F4] p-6 mt-5 flex flex-col items-center"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.1, duration: 0.5 }}
+    >
+      <h2 className="text-medium font-semibold text-[#3A3A3A] mb-4 uppercase">
+        Якість/Доцільність звернення
+      </h2>
+
+      {/* ⭐️ Зірки рейтингу (замінено на motion span для анімації) */}
+      <div className="flex gap-2 mb-6">
+        {[1, 2, 3, 4, 5].map((num) => (
+          <motion.span
+            key={num}
+            className="text-6xl text-yellow-400 cursor-pointer select-none"
+            whileHover={{ scale: 1.3, rotate: 10 }}
+            whileTap={{ scale: 0.9, rotate: 0 }}
+          >
+            {num <= (selectedStar || hoveredStar) ? "★" : "☆"}
+          </motion.span>
+        ))}
+      </div>
+    </motion.div>
+  </motion.div>
+);
 }

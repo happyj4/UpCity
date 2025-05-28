@@ -1,19 +1,43 @@
 import Image from "next/image";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
+const imageHover = {
+  hover: {
+    scale: 1.05,
+    rotate: 2,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
 
 export function EndPage() {
   return (
-    <div className="w-screen h-240 flex place-items-center justify-center gap-10">
-      <div className="w-[40%] h-141">
+    <motion.div
+      className="w-screen h-240 flex place-items-center justify-center gap-10 px-10"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      <motion.div className="w-[40%] h-141" whileHover="hover" variants={imageHover}>
         <Image
-          className="mt-12 mb-4"
+          className="mt-12 mb-4 rounded-lg shadow-lg"
           src="/images/city.png"
           alt="city"
           width={579}
           height={567}
           unoptimized
         />
-      </div>
-      <div className="w-[35%] h-141 flex-col py-12">
+      </motion.div>
+      <div className="w-[35%] h-141 flex flex-col py-12">
         <h3 className="uppercase text-[#F58E27] drop-shadow-xl text-sm font-medium mb-3">
           Наша місія та бачення
         </h3>
@@ -37,6 +61,6 @@ export function EndPage() {
           приймаються на основі прозорої аналітики та відкритої взаємодії.
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
 
 export function List() {
@@ -37,30 +37,32 @@ export function List() {
   }
 
   const fetchApplications = async () => {
-  const token = sessionStorage.getItem("access_token");
-  const params = new URLSearchParams();
-  if (selectedRatingSort) params.append("sort_by_rating", selectedRatingSort);
-    console.log(`смотри http://46.101.245.42/application/?${params}`)
-     try {
-    const response = await fetch(`http://46.101.245.42/utility_company/?${params}`, {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`, // заміни токен на актуальний, якщо потрібно
-      },
-    });
+    const token = sessionStorage.getItem("access_token");
+    const params = new URLSearchParams();
+    if (selectedRatingSort) params.append("sort_by_rating", selectedRatingSort);
+    console.log(`смотри http://46.101.245.42/application/?${params}`);
+    try {
+      const response = await fetch(
+        `http://46.101.245.42/utility_company/?${params}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`, // заміни токен на актуальний, якщо потрібно
+          },
+        },
+      );
 
-    if (!response.ok) {
-      throw new Error(`Помилка: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`Помилка: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setListi(data);
+      setSelectedRatingSort("");
+    } catch (error) {
+      console.error("Не вдалося отримати дані:", error);
     }
-
-    const data = await response.json();
-    setListi(data);
-    setSelectedRatingSort("");
-  } catch (error) {
-    console.error("Не вдалося отримати дані:", error);
-  }
-};
-
+  };
 
   function deletion(id, index) {
     const token = sessionStorage.getItem("access_token");
@@ -151,7 +153,6 @@ export function List() {
           </button>
         </Link>
       </div>
-
       <div className="w-full h-auto flex flex-wrap mt-8 px-[120px] gap-[96px] mb-[200px]">
         {filteredList.map((item, index) => (
           <motion.div
@@ -206,64 +207,75 @@ export function List() {
         ))}
       </div>
       {isFilterVisible && (
-        <div className="fixed inset-0 bg-opacity-40 z-50 flex justify-center items-center">
-          <div className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8">
-            {/* Кнопка закриття */}
-            <button
-              className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
-              onClick={() => {
-                setIsFilterVisible(false);
-                setSelectedRatingSort("");
-              }}
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-white/30 backdrop-blur-sm z-50 flex justify-center items-center"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8"
             >
-              &times;
-            </button>
-
-            {/* Заголовок */}
-            <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
-
-            {/* Алфавіт */}
-
-            {/* Рейтинг */}
-            <div className="mb-8">
-              <p className="text-sm text-gray-600 mb-2">Рейтинг</p>
-
+              {/* Кнопка закриття */}
               <button
-                className={`block font-medium cursor-pointer mb-1 ${
-                  selectedRatingSort === "За зростанням"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedRatingSort("За зростанням")}
+                className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
+                onClick={() => {
+                  setIsFilterVisible(false);
+                  setSelectedRatingSort("");
+                }}
               >
-                За зростанням
+                &times;
               </button>
 
-              <button
-                className={`block font-medium cursor-pointer ${
-                  selectedRatingSort === "За спаданням"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedRatingSort("За спаданням")}
-              >
-                За спаданням
-              </button>
-            </div>
+              {/* Заголовок */}
+              <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
 
-            {/* Кнопка застосування */}
-            <button
-              className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
-             hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
-              onClick={() => {
-                fetchApplications(); 
-                setIsFilterVisible(false);
-              }}
-            >
-              ЗАСТОСУВАТИ ФІЛЬТРИ
-            </button>
-          </div>
-        </div>
+              {/* Рейтинг */}
+              <div className="mb-8">
+                <p className="text-sm text-gray-600 mb-2">Рейтинг</p>
+
+                <button
+                  className={`block font-medium cursor-pointer mb-1 ${
+                    selectedRatingSort === "За зростанням"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedRatingSort("За зростанням")}
+                >
+                  За зростанням
+                </button>
+
+                <button
+                  className={`block font-medium cursor-pointer ${
+                    selectedRatingSort === "За спаданням"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedRatingSort("За спаданням")}
+                >
+                  За спаданням
+                </button>
+              </div>
+
+              {/* Кнопка застосування */}
+              <button
+                className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
+          hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
+                onClick={() => {
+                  fetchApplications();
+                  setIsFilterVisible(false);
+                }}
+              >
+                ЗАСТОСУВАТИ ФІЛЬТРИ
+              </button>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
       )}
     </div>
   );

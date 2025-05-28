@@ -6,7 +6,7 @@ import { Footer } from "../components/WebComponents/footer.jsx";
 
 export default function HomePage() {
   return (
-    <div className="w-380 h-auto bg-[#FBF9F4] ">
+    <div className="w-full h-auto bg-[#FBF9F4] ">
       <Header />
       <StartPage />
       <MiddlePage />

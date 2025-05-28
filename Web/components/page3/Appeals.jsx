@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 export function Appeals() {
@@ -156,24 +156,30 @@ export function Appeals() {
                 </h2>
                 <div className="flex w-full h-auto px-2 gap-2 mb-2">
                   <div
-                    className={`w-20 h-6 ${
+                    className={`w-22 h-6 ${
                       item.status == "В роботі"
                         ? "bg-[#FBF0E5]"
-                        : "bg-[#EBFFEE]"
+                        : item.status == "Виконано"
+                          ? "bg-[#EBFFEE]"
+                          : "bg-[#EDEDED]"
                     } flex items-center px-1 gap-1 rounded-sm`}
                   >
                     <div
                       className={`w-2 h-2 rounded-4xl ${
                         item.status == "В роботі"
                           ? "bg-[#957A5E]"
-                          : "bg-[#589D51]"
+                          : item.status == "Виконано"
+                            ? "bg-[#589D51]"
+                            : "bg-[#848484]"
                       }`}
                     ></div>
                     <span
                       className={`${
                         item.status == "В роботі"
                           ? "text-[#957A5E]"
-                          : "text-[#589D51]"
+                          : item.status == "Виконано"
+                            ? "text-[#589D51]"
+                            : "text-[#848484]"
                       } font-normal text-sm`}
                     >
                       {item.status}
@@ -193,129 +199,138 @@ export function Appeals() {
           );
         })}
       </motion.div>
-      {isFilterVisible && (
-        <div className="fixed inset-0 bg-opacity-40 z-50 flex justify-center items-center">
-          <div className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8">
-            {/* Кнопка закриття */}
-            <button
-              className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
-              onClick={() => {
-                setIsFilterVisible(false);
-                setSelectedAlphaSort("");
-                setSelectedDate("");
-                setSelectedStatus("");
-              }}
+
+      <AnimatePresence>
+        {isFilterVisible && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-white/30 backdrop-blur-sm z-50 flex justify-center items-center"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8"
             >
-              &times;
-            </button>
-
-            {/* Заголовок */}
-            <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
-
-            {/* Алфавіт */}
-            <div className="mb-6">
-              <p className="text-sm text-gray-600 mb-2">Алфавіт</p>
-
+              {/* Кнопка закриття */}
               <button
-                className={`block font-medium cursor-pointer mb-1 ${
-                  selectedAlphaSort === "А-Я"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedAlphaSort("А-Я")}
+                className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
+                onClick={() => {
+                  setIsFilterVisible(false);
+                  setSelectedAlphaSort("");
+                  setSelectedDate("");
+                  setSelectedStatus("");
+                }}
               >
-                А - Я
+                &times;
               </button>
 
+              {/* Заголовок */}
+              <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
+
+              {/* Алфавіт */}
+              <div className="mb-6">
+                <p className="text-sm text-gray-600 mb-2">Алфавіт</p>
+                <button
+                  className={`block font-medium cursor-pointer mb-1 ${
+                    selectedAlphaSort === "А-Я"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedAlphaSort("А-Я")}
+                >
+                  А - Я
+                </button>
+                <button
+                  className={`block font-medium cursor-pointer ${
+                    selectedAlphaSort === "Я-А"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedAlphaSort("Я-А")}
+                >
+                  Я - А
+                </button>
+              </div>
+
+              {/* Дата */}
+              <div className="mb-8">
+                <p className="text-sm text-gray-600 mb-2">Датою</p>
+                <button
+                  className={`block font-medium cursor-pointer mb-1 ${
+                    selectedDate === "За зростанням"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedDate("За зростанням")}
+                >
+                  За зростанням
+                </button>
+                <button
+                  className={`block font-medium cursor-pointer ${
+                    selectedDate === "За спаданням"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedDate("За спаданням")}
+                >
+                  За спаданням
+                </button>
+              </div>
+
+              {/* Статус */}
+              <div className="mb-8">
+                <p className="text-sm text-gray-600 mb-2">Статусом</p>
+                <button
+                  className={`block font-medium cursor-pointer mb-1 ${
+                    selectedStatus === "В роботі"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedStatus("В роботі")}
+                >
+                  В роботі
+                </button>
+                <button
+                  className={`block font-medium cursor-pointer ${
+                    selectedStatus === "Виконано"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedStatus("Виконано")}
+                >
+                  Виконано
+                </button>
+                <button
+                  className={`block font-medium cursor-pointer ${
+                    selectedStatus === "Відхилено"
+                      ? "text-orange-500"
+                      : "text-black hover:text-orange-500"
+                  }`}
+                  onClick={() => setSelectedStatus("Відхилено")}
+                >
+                  Відхилено
+                </button>
+              </div>
+
+              {/* Кнопка застосування */}
               <button
-                className={`block font-medium cursor-pointer ${
-                  selectedAlphaSort === "Я-А"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedAlphaSort("Я-А")}
+                className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
+         hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
+                onClick={() => {
+                  fetchApplications();
+                  setIsFilterVisible(false);
+                }}
               >
-                Я - А
+                ЗАСТОСУВАТИ ФІЛЬТРИ
               </button>
-            </div>
-
-            {/* Рейтинг */}
-            <div className="mb-8">
-              <p className="text-sm text-gray-600 mb-2">Датою</p>
-
-              <button
-                className={`block font-medium cursor-pointer mb-1 ${
-                  selectedDate === "За зростанням"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedDate("За зростанням")}
-              >
-                За зростанням
-              </button>
-
-              <button
-                className={`block font-medium cursor-pointer ${
-                  selectedDate === "За спаданням"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedDate("За спаданням")}
-              >
-                За спаданням
-              </button>
-            </div>
-
-            <div className="mb-8">
-              <p className="text-sm text-gray-600 mb-2">Статусом</p>
-
-              <button
-                className={`block font-medium cursor-pointer mb-1 ${
-                  selectedStatus === "В роботі"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedStatus("В роботі")}
-              >
-                В роботі
-              </button>
-
-              <button
-                className={`block font-medium cursor-pointer ${
-                  selectedStatus === "Виконано"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedStatus("Виконано")}
-              >
-                Виконано
-              </button>
-              <button
-                className={`block font-medium cursor-pointer ${
-                  selectedStatus === "Відхилено"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedStatus("Відхилено")}
-              >
-                Відхилено
-              </button>
-            </div>
-
-            {/* Кнопка застосування */}
-            <button
-              className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
-             hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
-              onClick={() => {
-                fetchApplications();
-                setIsFilterVisible(false);
-              }}
-            >
-              ЗАСТОСУВАТИ ФІЛЬТРИ
-            </button>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

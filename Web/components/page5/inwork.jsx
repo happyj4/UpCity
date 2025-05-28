@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Inwork() {
   const [appeal, setAppeals] = useState([]);
@@ -48,7 +49,7 @@ export function Inwork() {
   }, [appeal]);
 
   const fetchApplications = async () => {
-    const token = sessionStorage.getItem("access_token")
+    const token = sessionStorage.getItem("access_token");
     const params = new URLSearchParams();
     if (selectedStatus) params.append("sort_by_status", selectedStatus);
     if (selectedDate) params.append("sort_by_date", selectedDate);
@@ -60,7 +61,7 @@ export function Inwork() {
         {
           headers: {
             Accept: "application/json",
-             Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -119,6 +120,37 @@ export function Inwork() {
     }
   };
 
+  const containerVariants = {
+    hidden: {
+      opacity: 0,
+      maxHeight: 0,
+      overflow: "hidden",
+      transition: { duration: 0.5 },
+    },
+    visible: {
+      opacity: 1,
+      maxHeight: 1000,
+      overflow: "visible",
+      transition: { duration: 0.5, ease: "easeInOut" },
+    },
+  };
+
+  // Анімації для модалки
+  const backdropVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.3 } },
+  };
+
+  const modalVariants = {
+    hidden: { opacity: 0, y: -50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
+  };
+
   return (
     <div>
       <div className="w-[35%] flex gap-3 items-center pl-10">
@@ -137,8 +169,10 @@ export function Inwork() {
             className="absolute left-4 top-1/2 transform -translate-y-1/2"
           />
         </div>
-        <button className="w-10 h-10 bg-[#FFBE7D] hover:bg-[#f7ad5c] transition-all duration-300 rounded-md place-content-center flex cursor-pointer"
-         onClick={() => setIsFilterVisible(true)}>
+        <button
+          className="w-10 h-10 bg-[#FFBE7D] hover:bg-[#f7ad5c] transition-all duration-300 rounded-md place-content-center flex cursor-pointer"
+          onClick={() => setIsFilterVisible(true)}
+        >
           <Image
             src="/images/Filter.svg"
             alt="filter"
@@ -151,12 +185,11 @@ export function Inwork() {
 
       <div className="px-12">
         {/* В роботі */}
-        <div
-          className={`transition-all duration-700 ease-in-out overflow-hidden ${
-            isVisible1
-              ? "opacity-100 max-h-[1000px]"
-              : "opacity-0 max-h-0 pointer-events-none"
-          }`}
+        <motion.div
+          initial="hidden"
+          animate={isVisible1 ? "visible" : "hidden"}
+          variants={containerVariants}
+          className="overflow-hidden"
         >
           <div className="w-full h-auto flex justify-between mt-10">
             <h1 className="text-[#3A3A3A] text-4xl font-semibold">В роботі</h1>
@@ -200,15 +233,14 @@ export function Inwork() {
               </Link>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Архів */}
-        <div
-          className={`transition-all duration-700 ease-in-out overflow-hidden ${
-            isVisible2
-              ? "opacity-100 max-h-[1000px]"
-              : "opacity-0 max-h-0 pointer-events-none"
-          }`}
+        <motion.div
+          initial="hidden"
+          animate={isVisible2 ? "visible" : "hidden"}
+          variants={containerVariants}
+          className="overflow-hidden"
         >
           <div className="w-full h-auto flex justify-between">
             <h1 className="text-[#3A3A3A] text-4xl font-semibold mt-10">
@@ -268,131 +300,113 @@ export function Inwork() {
               {try2 ? "Переглянути всі" : "Згорнути"}
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
-     {isFilterVisible && (
-        <div className="fixed inset-0 bg-opacity-40 z-50 flex justify-center items-center">
-          <div className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8">
-            {/* Кнопка закриття */}
-            <button
-              className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
-              onClick={() => {
-                setIsFilterVisible(false);
-                setSelectedAlphaSort("");
-                setSelectedDate("");
-                setSelectedStatus("");
-              }}
+
+      <AnimatePresence>
+        {isFilterVisible && (
+          <motion.div
+            className="fixed inset-0 z-50 flex justify-center items-center bg-white/10 backdrop-blur-sm"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={backdropVariants}
+          >
+            <motion.div
+              className="relative w-full max-w-[600px] bg-white rounded-xl px-10 py-8 shadow-xl"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={modalVariants}
             >
-              &times;
-            </button>
-
-            {/* Заголовок */}
-            <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
-
-            {/* Алфавіт */}
-            <div className="mb-6">
-              <p className="text-sm text-gray-600 mb-2">Алфавіт</p>
-
+              {/* Кнопка закриття */}
               <button
-                className={`block font-medium cursor-pointer mb-1 ${
-                  selectedAlphaSort === "А-Я"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedAlphaSort("А-Я")}
+                className="absolute top-4 right-4 cursor-pointer text-3xl text-black font-bold hover:text-gray-500 transition-colors duration-200"
+                onClick={() => {
+                  setIsFilterVisible(false);
+                  setSelectedAlphaSort("");
+                  setSelectedDate("");
+                  setSelectedStatus("");
+                }}
               >
-                А - Я
+                &times;
               </button>
 
+              {/* Заголовок */}
+              <h2 className="text-2xl font-semibold mb-6">Фільтрація</h2>
+
+              {/* Алфавіт */}
+              <div className="mb-6">
+                <p className="text-sm text-gray-600 mb-2">Алфавіт</p>
+                <button
+                  className={`block font-medium cursor-pointer mb-1 ${selectedAlphaSort === "А-Я" ? "text-orange-500" : "text-black hover:text-orange-500"}`}
+                  onClick={() => setSelectedAlphaSort("А-Я")}
+                >
+                  А - Я
+                </button>
+                <button
+                  className={`block font-medium cursor-pointer ${selectedAlphaSort === "Я-А" ? "text-orange-500" : "text-black hover:text-orange-500"}`}
+                  onClick={() => setSelectedAlphaSort("Я-А")}
+                >
+                  Я - А
+                </button>
+              </div>
+
+              {/* Дата */}
+              <div className="mb-8">
+                <p className="text-sm text-gray-600 mb-2">Датою</p>
+                <button
+                  className={`block font-medium cursor-pointer mb-1 ${selectedDate === "За зростанням" ? "text-orange-500" : "text-black hover:text-orange-500"}`}
+                  onClick={() => setSelectedDate("За зростанням")}
+                >
+                  За зростанням
+                </button>
+                <button
+                  className={`block font-medium cursor-pointer ${selectedDate === "За спаданням" ? "text-orange-500" : "text-black hover:text-orange-500"}`}
+                  onClick={() => setSelectedDate("За спаданням")}
+                >
+                  За спаданням
+                </button>
+              </div>
+
+              {/* Статус */}
+              <div className="mb-8">
+                <p className="text-sm text-gray-600 mb-2">Статусом</p>
+                <button
+                  className={`block font-medium cursor-pointer mb-1 ${selectedStatus === "В роботі" ? "text-orange-500" : "text-black hover:text-orange-500"}`}
+                  onClick={() => setSelectedStatus("В роботі")}
+                >
+                  В роботі
+                </button>
+                <button
+                  className={`block font-medium cursor-pointer mb-1 ${selectedStatus === "Виконано" ? "text-orange-500" : "text-black hover:text-orange-500"}`}
+                  onClick={() => setSelectedStatus("Виконано")}
+                >
+                  Виконано
+                </button>
+                <button
+                  className={`block font-medium cursor-pointer ${selectedStatus === "Відхилено" ? "text-orange-500" : "text-black hover:text-orange-500"}`}
+                  onClick={() => setSelectedStatus("Відхилено")}
+                >
+                  Відхилено
+                </button>
+              </div>
+
+              {/* Кнопка застосування */}
               <button
-                className={`block font-medium cursor-pointer ${
-                  selectedAlphaSort === "Я-А"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedAlphaSort("Я-А")}
+                className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
+        hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
+                onClick={() => {
+                  fetchApplications();
+                  setIsFilterVisible(false);
+                }}
               >
-                Я - А
+                ЗАСТОСУВАТИ ФІЛЬТРИ
               </button>
-            </div>
-
-            {/* Рейтинг */}
-            <div className="mb-8">
-              <p className="text-sm text-gray-600 mb-2">Датою</p>
-
-              <button
-                className={`block font-medium cursor-pointer mb-1 ${
-                  selectedDate === "За зростанням"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedDate("За зростанням")}
-              >
-                За зростанням
-              </button>
-
-              <button
-                className={`block font-medium cursor-pointer ${
-                  selectedDate === "За спаданням"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedDate("За спаданням")}
-              >
-                За спаданням
-              </button>
-            </div>
-
-            <div className="mb-8">
-              <p className="text-sm text-gray-600 mb-2">Статусом</p>
-
-              <button
-                className={`block font-medium cursor-pointer mb-1 ${
-                  selectedStatus === "В роботі"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedStatus("В роботі")}
-              >
-                В роботі
-              </button>
-
-              <button
-                className={`block font-medium cursor-pointer ${
-                  selectedStatus === "Виконано"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedStatus("Виконано")}
-              >
-                Виконано
-              </button>
-              <button
-                className={`block font-medium cursor-pointer ${
-                  selectedStatus === "Відхилено"
-                    ? "text-orange-500"
-                    : "text-black hover:text-orange-500"
-                }`}
-                onClick={() => setSelectedStatus("Відхилено")}
-              >
-                Відхилено
-              </button>
-            </div>
-
-            {/* Кнопка застосування */}
-            <button
-              className="w-full h-12 cursor-pointer bg-orange-400 rounded-md text-white text-sm font-semibold 
-             hover:bg-orange-300 active:scale-95 transition-all duration-200 ease-in-out"
-              onClick={() => {
-                fetchApplications();
-                setIsFilterVisible(false);
-              }}
-            >
-              ЗАСТОСУВАТИ ФІЛЬТРИ
-            </button>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
