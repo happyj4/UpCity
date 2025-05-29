@@ -160,7 +160,7 @@ export function List() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="w-[588px] h-[296px] bg-[#FFFEFC] px-6 py-4 rounded-lg drop-shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-xl cursor-pointer"
+            className="w-[45%] h-[296px] bg-[#FFFEFC] px-6 py-4 rounded-lg drop-shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-xl cursor-pointer"
           >
             <div className="flex h-auto justify-between items-center">
               <div className="w-[80%] h-auto break-words">

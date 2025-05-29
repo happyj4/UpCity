@@ -33,12 +33,7 @@ export function Footer() {
           >
             <li className="mb-2">звернення громадян</li>
           </Link>
-          <Link
-            href="http://localhost:3000/list_kp"
-            className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
-          >
-            <li>список кп</li>
-          </Link>
+
         </ul>
       </div>
       <div className="flex-col w-[30%] h-[100%] pt-4 text-[#3A3A3A]">
@@ -53,14 +48,14 @@ export function Footer() {
         <p className="mt-5 font-normal text-base">Служба підтримки</p>
         <p className="text-2xl font-semibold">+380 (67) 777 00 77</p>
         <p className="mt-2 font-normal text-base">Email</p>
-        <p className="text-2xl font-semibold">upcity@gmail.com</p>
+        <p className="text-2xl font-semibold">upcity@upcity.live</p>
       </div>
       <div className="flex-col w-[30%] h-[100%] pt-4 text-[#3A3A3A] ">
         <p className="uppercase text-3xl font-semibold pl-12">
           слідкуйте за нами
         </p>
         <Image
-          className="ml-12"
+          className="ml-12 cursor-pointer"
           src="/images/Vector.svg"
           alt="vector"
           width={308}
@@ -69,7 +64,7 @@ export function Footer() {
         />
         <div className="w-[100%] h-auto flex">
           <Image
-            className="pt-16"
+            className="pt-16 cursor-pointer"
             src="/images/Star.svg"
             alt="vector"
             width={80}
@@ -77,7 +72,7 @@ export function Footer() {
             unoptimized
           />
           <Image
-            className="relative right-14 top-8"
+            className="relative right-14 top-8 cursor-pointer"
             src="/images/Telegram.svg"
             alt="telegram"
             width={30}
@@ -85,7 +80,7 @@ export function Footer() {
             unoptimized
           />
           <Image
-            className="pb-10"
+            className="pb-10 cursor-pointer"
             src="/images/Star.svg"
             alt="vector"
             width={65}
@@ -93,7 +88,7 @@ export function Footer() {
             unoptimized
           />
           <Image
-            className="relative right-12 bottom-5"
+            className="relative right-12 bottom-5 cursor-pointer"
             src="/images/Instagram.svg"
             alt="instagram"
             width={31}
@@ -101,7 +96,7 @@ export function Footer() {
             unoptimized
           />
           <Image
-            className="mt-13"
+            className="mt-13 cursor-pointer"
             src="/images/Star.svg"
             alt="vector"
             width={90}
@@ -109,7 +104,7 @@ export function Footer() {
             unoptimized
           />
           <Image
-            className="relative right-16 top-6"
+            className="relative right-16 top-6 cursor-pointer"
             src="/images/Youtube.svg"
             alt="youtube"
             width={40}
@@ -117,7 +112,7 @@ export function Footer() {
             unoptimized
           />
           <Image
-            className=" mb-12"
+            className=" mb-12 cursor-pointer"
             src="/images/Star.svg"
             alt="vector"
             width={90}
@@ -125,7 +120,7 @@ export function Footer() {
             unoptimized
           />
           <Image
-            className="relative right-17 bottom-6"
+            className="relative right-17 bottom-6 cursor-pointer"
             src="/images/Facebook.svg"
             alt="facebook"
             width={54}

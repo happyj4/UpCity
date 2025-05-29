@@ -16,7 +16,7 @@ export default function () {
   }, []);
   
   return (
-    <div className="bg-[#FBF9F4] w-screen h-155">
+    <div className="bg-[#FBF9F4] w-screen h-[90%]">
       {check? <Headeradmin/>: <Header/>}
       <div className="w-screen h-screen flex  bg-[#FBF9F4] px-6">
         <Appeals />

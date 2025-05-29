@@ -136,7 +136,7 @@ export function Appeals() {
         </span>
       </p>
       <motion.div
-        className="w-full max-h-[400px] overflow-y-auto flex mt-10 bg-[#FBF9F] gap-8 flex-wrap"
+        className="w-full max-h-[80%] jus overflow-y-auto flex mt-10 bg-[#FBF9F] gap-[8%] flex-wrap justify-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

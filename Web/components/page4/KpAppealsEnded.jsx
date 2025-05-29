@@ -186,17 +186,17 @@ export function KpAppeals() {
     >
       <div
         className={`${
-          info.status === "Виконано" ? "bg-[#EBFFEE]" : "bg-[#EDEDED]"
-        } w-18 h-6 flex rounded-md content-center items-center gap-1 px-1 mb-8`}
+          info.status === "Виконано" ? "bg-[#EBFFEE]" : "bg-[#EA6464]"
+        } w-[30%] h-6 flex rounded-md content-center items-center gap-1 px-1 mb-8`}
       >
         <div
           className={`${
-            info.status === "Виконано" ? "bg-[#EBFFEE]" : "text-[#EDEDED]"
+            info.status === "Виконано" ? "bg-[#EBFFEE]" : "bg-[#612A2A]"
           } w-1 h-1 rounded-4xl`}
         ></div>
         <p
           className={`${
-            info.status === "Виконано" ? "text-[#589D51]" : "text-[#848484]"
+            info.status === "Виконано" ? "text-[#589D51]" : "text-[#612A2A]"
           } text-sm font-normal`}
         >
           {info.status}

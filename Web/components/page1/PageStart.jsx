@@ -13,7 +13,7 @@ const fadeInUp = {
 
 export function StartPage() {
   return (
-    <div className="w-screen h-150 flex px-8 pt-40">
+    <div className="w-screen h-150 flex px-8 gap-[5%] pt-40">
       <motion.div
         variants={fadeInUp}
         initial="hidden"
@@ -70,7 +70,7 @@ export function StartPage() {
         initial="hidden"
         animate="visible"
         transition={{ delay: 0.6 }}
-        className="w-150 h-auto drop-shadow-2xl"
+        className="w-[40%] h-auto drop-shadow-2xl"
       >
         <Image
           src="/images/ZenBook.png"

@@ -257,7 +257,7 @@ export function KpAppeals() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
       >
-        <div className="bg-[#FBF0E5] w-18 h-6 flex rounded-md content-center items-center gap-1 px-1 mb-8">
+        <div className="bg-[#FBF0E5] w-[25%] h-6 flex rounded-md content-center items-center gap-1 px-1 mb-8">
           <div className="w-1 h-1 rounded-4xl bg-[#957A5E]"></div>
           <p className="text-[#957A5E] text-sm font-normal">{info.status}</p>
         </div>

@@ -9,7 +9,7 @@ const containerStyle = {
 
 function Loader({ text = "Завантаження..." }) {
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full">
+    <div className="flex bg-[#FBF9F4] flex-col items-center justify-center h-full w-full">
       <div className="border-8 border-t-8 border-gray-200 border-t-orange-500 rounded-full w-16 h-16 animate-spin mb-4"></div>
       <span className="text-gray-700 text-lg">{text}</span>
     </div>
@@ -57,7 +57,7 @@ export function Map() {
   };
 
   return (
-    <div className="w-[65%] h-screen pt-30 relative">
+    <div className="w-[65%] bg-[#FBF9F4] h-screen pt-30 relative">
       <GoogleMap mapContainerStyle={containerStyle} center={defaultCenter} zoom={13}>
         {applications.map((app) => {
           const position = { lat: app.latitude, lng: app.longitude };

@@ -13,7 +13,7 @@ export function KpAppeals() {
   const [showForm, setShowForm] = useState("hidden");
   const fileInputRef = useRef(null);
   const [imageUrl, setImageUrl] = useState(null);
-  const [check, setCheck] = useState("")
+  const [check, setCheck] = useState("");
 
   useEffect(() => {
     const isKp = sessionStorage.getItem("KP");
@@ -48,31 +48,33 @@ export function KpAppeals() {
     fileInputRef.current?.click();
   };
 
-  const confirmApplication = async () => {
+  const confirmApplication = async (id) => {
     const token = sessionStorage.getItem("access_token");
-  try {
-    const response = await fetch(
-      'http://46.101.245.42/application/1/confirm/?status=В%20роботі',
-      {
-        method: 'PUT',
-        headers: {
-          'accept': 'application/json',
-          'Authorization': `Bearer ${token}`,
+    try {
+      const response = await fetch(
+        `http://46.101.245.42/application/${id}/confirm/?status=${encodeURIComponent("В роботі")}`,
+        {
+          method: "PUT",
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    );
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      Swal.fire("Успішно!", "Звернення успішно оброблено", "success").then(
+        () => {
+          window.location.href = "http://localhost:3000/kp_working";
+        },
+      );
+    } catch (error) {
+      console.error("Error confirming application:", error);
     }
-
-    const data = await response.json();
-    console.log('Response:', data);
-    
-  } catch (error) {
-    console.error('Error confirming application:', error);
-  }
-};
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -196,7 +198,6 @@ export function KpAppeals() {
       >
         <h4 className="text-[#3A3A3A] text-xl font-light">#1-2634</h4>
         {check ? <Arrows /> : ""}
-        
       </motion.div>
       <motion.span
         className="text-[#3A3A3A] text-base font-light"
@@ -283,9 +284,9 @@ export function KpAppeals() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
       >
-        <div className="bg-[#FBF0E5] w-18 h-6 flex rounded-md content-center items-center gap-1 px-1 mb-8">
-          <div className="w-1 h-1 rounded-4xl bg-[#957A5E]"></div>
-          <p className="text-[#957A5E] text-sm font-normal">{info.status}</p>
+        <div className="bg-[#EDEDED] w-[35%] h-6 flex rounded-md content-center items-center gap-1 px-1 mb-8">
+          <div className="w-1 h-1 rounded-4xl bg-[#848484]"></div>
+          <p className="text-[#848484] text-sm font-normal">{info.status}</p>
         </div>
         <div className="bg-[#EDEDED] w-22 h-6 flex rounded-md content-center items-center gap-1 px-1">
           <p className="text-[#848484] text-sm font-normal">
@@ -310,11 +311,9 @@ export function KpAppeals() {
         />
       </motion.div>
 
-      
-
       <motion.button
-        className={`w-[100%] ${check? "block": "hidden"}  mb-5 h-14 bg-[#FFBE7D]/70 hover:bg-[#FFBE7D] transition-all duration-300 rounded-2xl uppercase text-white text-xl font-bold shadow-md hover:shadow-lg tracking-wide mt-10 transform hover:scale-105 active:scale-95 cursor-pointer`}
-        onClick={confirmApplication}
+        className={`w-[100%] ${check ? "block" : "hidden"}  mb-5 h-14 bg-[#FFBE7D]/70 hover:bg-[#FFBE7D] transition-all duration-300 rounded-2xl uppercase text-white text-xl font-bold shadow-md hover:shadow-lg tracking-wide mt-10 transform hover:scale-105 active:scale-95 cursor-pointer`}
+        onClick={() => confirmApplication(info.application_id)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -322,7 +321,7 @@ export function KpAppeals() {
       </motion.button>
 
       <motion.button
-        className={`w-[100%] ${check ? "block": "hidden"} mb-15 h-14 bg-[#FBF9F4] uppercase text-[#3A3A3A] text-lg font-medium cursor-pointer transform transition-transform duration-200 hover:scale-105`}
+        className={`w-[100%] ${check ? "block" : "hidden"} mb-15 h-14 bg-[#FBF9F4] uppercase text-[#3A3A3A] text-lg font-medium cursor-pointer transform transition-transform duration-200 hover:scale-105`}
         onClick={() => canceling()}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
