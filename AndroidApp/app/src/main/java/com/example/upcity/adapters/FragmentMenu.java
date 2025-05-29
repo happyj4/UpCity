@@ -45,28 +45,28 @@ public class FragmentMenu {
 
         editBtn.setOnClickListener(v -> {
             popupWindow.dismiss();
-            if (context instanceof Activity) {
+            if (context instanceof Activity && !"EditProfilePage".equals(currentActivity)) {
                 AdapterAnimation.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, EditProfilePage.class, null);
             }
         });
 
         myAppBtn.setOnClickListener(v -> {
             popupWindow.dismiss();
-            if (context instanceof Activity) {
+            if (context instanceof Activity && !"MyApplicationPage".equals(currentActivity)) {
                 AdapterAnimation.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, MyApplicationPage.class, null);
             }
         });
 
         allAppBtn.setOnClickListener(v -> {
             popupWindow.dismiss();
-            if (context instanceof Activity) {
+            if (context instanceof Activity && !"AllApplicationPage".equals(currentActivity)) {
                 AdapterAnimation.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, AllApplicationPage.class, null);
             }
         });
 
         premiumBtn.setOnClickListener(v -> {
             popupWindow.dismiss();
-            if (context instanceof Activity) {
+            if (context instanceof Activity && !"PremiumPage".equals(currentActivity)) {
                 AdapterAnimation.animateAndNavigate((Activity) context, R.id.linearLayout, R.anim.slide_out_left, PremiumPage.class, null);
             }
         });

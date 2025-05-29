@@ -37,4 +37,16 @@
         android:textSize="16sp"
         android:stateListAnimator="@null"
         android:fontFamily="@font/inter_semibold" />
+
+    <TextView
+        android:id="@+id/ErrorMessage"
+        android:layout_width="320dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="0dp"
+        android:gravity="top|center"
+        android:layout_gravity="top|center"
+        android:text=""
+        android:textSize="11dp"
+        android:textColor="#D54343"
+        android:fontFamily="@font/inter_light" />
 </LinearLayout>

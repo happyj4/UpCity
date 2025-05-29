@@ -25,6 +25,7 @@ public class DeleteApplicationPage extends AppCompatActivity {
     private Button CancleButton;
     private Button DeleteButton;
     private int applicationId;
+    private TextView ErrorMessage;
     private String activity = "HomePage";
 
     @Override
@@ -40,6 +41,7 @@ public class DeleteApplicationPage extends AppCompatActivity {
         // Подключение зависимостей
         CancleButton = findViewById(R.id.CancleButton);
         DeleteButton = findViewById(R.id.DeleteButton);
+        ErrorMessage = findViewById(R.id.ErrorMessage);
 
         // Подключение кнопок
         CancleButton.setOnClickListener(view -> {
@@ -81,13 +83,13 @@ public class DeleteApplicationPage extends AppCompatActivity {
                             finish();
                         }
                     } else {
-                        Log.e("DELETE", "Помилка: " + response.code());
+                        ErrorMessage.setText("Помилка, спробуйте ще раз");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.e("DELETE", "Помилка: " + t.getMessage());
+                    ErrorMessage.setText("Помилка, спробуйте пізніше");
                 }
             });
         });
