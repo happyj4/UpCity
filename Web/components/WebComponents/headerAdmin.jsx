@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from 'next/router'
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +7,8 @@ import Link from "next/link";
 export function Headeradmin() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [admin, setAdmin] = useState(null);
+  const [open, setOpen] = useState(false);
+  const router = useRouter()
 
   useEffect(() => {
     const storedAdmin = sessionStorage.getItem("admin_surname");
@@ -25,6 +27,13 @@ export function Headeradmin() {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  function closing(){
+    sessionStorage.setItem("access_token", "")
+    sessionStorage.setItem("admin_surname", "")
+    sessionStorage.setItem("Admin", "")
+    router.push('/registration') // або інший маршрут
+  }
 
   return (
     <div
@@ -64,11 +73,26 @@ export function Headeradmin() {
           <span>список громадян</span>
         </Link>
       </div>
-      <div className="place-items-center gap-2 flex">
-        <button className="w-47 h-15 flex flex-col cursor-pointer bg-[#FFBE7D] rounded-lg  items-center justify-center transition-all duration-300 hover:bg-[#dca36b] hover:drop-shadow-2xl hover:scale-105 active:scale-95">
+      <div className="relative inline-block text-left">
+        {/* Головна кнопка */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="w-47 h-15 flex flex-col cursor-pointer bg-[#FFBE7D] rounded-lg items-center justify-center transition-all duration-300 hover:bg-[#dca36b] hover:drop-shadow-2xl hover:scale-105 active:scale-95 px-4 py-3"
+        >
           <h2 className="text-[#FFF] text-xl font-semibold">Адміністратор</h2>
           <p className="text-[#FFF] font-normal text-base">{admin}</p>
         </button>
+
+        {open && (
+          <div className="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-xl z-10 p-2">
+            <button
+              onClick={()=>closing()}
+              className="w-full cursor-pointer bg-red-500 text-white text-center text-md font-bold px-4 py-2 rounded-md transition-all duration-200 hover:bg-red-600 hover:shadow-md active:scale-95"
+            >
+              Вийти
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

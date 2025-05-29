@@ -41,7 +41,7 @@ export function Inwork() {
   }, []);
 
   useEffect(() => {
-    const inWork = appeal.filter((item) => item.status === "В роботі");
+    const inWork = appeal.filter((item) => item.status === "В роботі" || "Не розглянуто");
     const notInWork = appeal.filter((item) => item.status !== "В роботі");
 
     setAppealsWork(inWork.slice(0, 6));
@@ -151,6 +151,7 @@ export function Inwork() {
     },
   };
 
+  console.log(appeal)
   return (
     <div>
       <div className="w-[35%] flex gap-3 items-center pl-10">
