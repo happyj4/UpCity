@@ -2,6 +2,8 @@ package com.example.upcity.page;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,6 +34,7 @@ import java.util.regex.Pattern;
 public class CreateApplicationPage extends AppCompatActivity {
 
     private static final String DEFAULT_CITY = "Харків, Україна";
+    private boolean deletePhoto = true;
     private String[] UtilityCompanies;
     private File selectedPhoto;
 
@@ -39,7 +42,23 @@ public class CreateApplicationPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_application);
-        AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+
+        Intent OldIntent = getIntent();
+        if (OldIntent != null && (OldIntent.hasExtra("input_name") || OldIntent.hasExtra("input_address") ||
+                OldIntent.hasExtra("input_description") || OldIntent.hasExtra("input_company") ||
+                OldIntent.hasExtra("input_photo_path"))) {
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_left, null, null);
+
+            String name = OldIntent.getStringExtra("input_name");
+            String address = OldIntent.getStringExtra("input_address");
+            String description = OldIntent.getStringExtra("input_description");
+            String company = OldIntent.getStringExtra("input_company");
+            String photoPath = OldIntent.getStringExtra("input_photo_path");
+
+            restoreInputData(name, address, description, company, photoPath);
+        } else {
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -88,9 +107,17 @@ public class CreateApplicationPage extends AppCompatActivity {
 
                     @Override
                     public void onError(String errorMessage) {
+                        deletePhoto = false;
+
                         Intent intent = new Intent(CreateApplicationPage.this, MessagePage.class);
                         intent.putExtra("name", "Помилка!");
                         intent.putExtra("description", errorMessage);
+
+                        intent.putExtra("input_name", name);
+                        intent.putExtra("input_address", AddressEditText.getText().toString());
+                        intent.putExtra("input_description", description);
+                        intent.putExtra("input_company", companyName);
+                        intent.putExtra("input_photo_path", selectedPhoto.getAbsolutePath());
 
                         AdapterAnimation.animateAndNavigate(CreateApplicationPage.this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
                     }
@@ -100,9 +127,62 @@ public class CreateApplicationPage extends AppCompatActivity {
                 intent.putExtra("name", "Помилка!");
                 intent.putExtra("description", "Не додано фото");
 
+                intent.putExtra("input_name", name);
+                intent.putExtra("input_address", AddressEditText.getText().toString());
+                intent.putExtra("input_description", description);
+                intent.putExtra("input_company", companyName);
+                intent.putExtra("input_photo_path", selectedPhoto);
+
                 AdapterAnimation.animateAndNavigate(CreateApplicationPage.this, R.id.linearLayout, R.anim.slide_out_left, MessagePage.class, intent);
             }
         });
+    }
+
+    private void restoreInputData(String name, String address, String description, String company, String photoPath) {
+        TextView NameEditText = findViewById(R.id.NameEditText);
+        TextView AddressEditText = findViewById(R.id.AddressEditText);
+        TextView DescriptionEditText = findViewById(R.id.DescriptionEditText);
+        Spinner spinner = findViewById(R.id.SpinnerUtilityCompany);
+        ImageView AddPhotoButton = findViewById(R.id.AddPhotoButton);
+
+        if (name != null) {
+            NameEditText.setText(name);
+        }
+
+        if (address != null) {
+            AddressEditText.setText(address);
+        }
+
+        if (description != null) {
+            DescriptionEditText.setText(description);
+        }
+
+        if (photoPath != null) {
+            File photoFile = new File(photoPath);
+            if (photoFile.exists()) {
+                selectedPhoto = photoFile;
+                AddPhotoButton.setImageURI(Uri.fromFile(photoFile));
+            }
+        }
+
+        spinner.post(() -> {
+            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
+            if (adapter != null && company != null) {
+                int position = adapter.getPosition(company);
+                if (position >= 0) {
+                    spinner.setSelection(position);
+                }
+            }
+        });
+
+        if (photoPath != null) {
+            File imgFile = new File(photoPath);
+            if(imgFile.exists()){
+                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                ImageView myImage = findViewById(R.id.AddPhotoButton);
+                myImage.setImageBitmap(myBitmap);
+            }
+        }
     }
 
     private void loadUtilityCompanies() {
@@ -174,7 +254,6 @@ public class CreateApplicationPage extends AppCompatActivity {
         return tempFile;
     }
 
-
     public static String convertAddress(String address) {
         if (address == null || address.trim().isEmpty()) {
             return "";
@@ -229,7 +308,7 @@ public class CreateApplicationPage extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (selectedPhoto != null && selectedPhoto.exists()) {
+        if (selectedPhoto != null && selectedPhoto.exists() && deletePhoto == true) {
             selectedPhoto.delete();
         }
     }

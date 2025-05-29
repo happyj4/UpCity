@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import com.example.upcity.network.ApiService;
 import com.example.upcity.network.RetrofitClient;
 import com.example.upcity.utils.ResponseCreateApplication;
+
+import org.json.JSONObject;
+
 import java.io.File;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -42,13 +45,27 @@ public class CreateApplication {
                         callback.onError("Ответ пустой");
                     }
                 } else {
-                    callback.onError("Ошибка создания заявки: " + response.message());
+                    try {
+                        String errorJson = response.errorBody().string();
+                        JSONObject jsonObject = new JSONObject(errorJson);
+
+                        if (jsonObject.has("detail")) {
+                            String detailMessage = jsonObject.getString("detail");
+                            callback.onError(detailMessage);
+                        } else {
+                            callback.onError("Помилка, спробуйте ще раз");
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        callback.onError("Помилка, спробуйте ще раз");
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseCreateApplication> call, Throwable t) {
-                callback.onError("Ошибка сети: " + t.getMessage());
+                callback.onError("Помилка, спробуйте пізніше");
             }
         });
     }

@@ -89,8 +89,8 @@ public class LoginPage extends AppCompatActivity {
 
             @Override
             public void onFailure(String error) {
-                if (error.equals("value is not a valid email address: An email address must have an @-sign.")) {
-                    ErrorMessage.setText("Введіть коректний Email");
+                if (error.equals("Помилка")) {
+                    ErrorMessage.setText("Невірна пошта користувача");
                 } else {
                     ErrorMessage.setText(error);
                 }
