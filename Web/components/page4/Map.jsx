@@ -56,10 +56,11 @@ export function Map() {
         <div
           className={`w-[60px] h-[60px] rounded-full border-8 ${
             info.status === "В роботі"
-              ? "border-red-500"
+              ? "border-amber-300"
               : info.status === "Виконано"
               ? "border-green-500"
-              : "border-gray-600"
+              : info.status === "Відхилено"
+              ? "border-red-500" : "border-gray-600"
           } shadow-md overflow-hidden transform -translate-x-1/2 -translate-y-1/2`}
         >
           <img

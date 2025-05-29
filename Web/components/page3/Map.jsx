@@ -79,10 +79,10 @@ export function Map() {
                 <div
                   className={`w-[60px] h-[60px] rounded-full border-[8px] ${
                     app.status === "В роботі"
-                      ? "border-red-500"
+                      ? "border-amber-300"
                       : app.status === "Виконано"
                       ? "border-green-500"
-                      : "border border-gray-500"
+                      :  "border border-red-500"
                   } shadow-md overflow-hidden transform -translate-x-1/2 -translate-y-1/2 cursor-pointer`}
                   title={app.name}
                 >

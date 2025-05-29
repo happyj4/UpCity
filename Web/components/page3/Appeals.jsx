@@ -12,29 +12,34 @@ export function Appeals() {
   const [selectedStatus, setSelectedStatus] = useState("");
 
   useEffect(() => {
-    const fetchApplications = async () => {
-      try {
-        const response = await fetch("http://46.101.245.42/application", {
-          headers: {
-            Accept: "application/json",
-          },
-        });
+  const fetchApplications = async () => {
+    try {
+      const response = await fetch("http://46.101.245.42/application", {
+        headers: {
+          Accept: "application/json",
+        },
+      });
 
-        if (!response.ok) {
-          console.error("Статус:", response.status);
-          throw new Error("Помилка при отриманні даних");
-        }
-
-        const data = await response.json();
-        console.log("Звернення:", data);
-        setApplications(data);
-      } catch (error) {
-        console.error("Помилка запиту:", error);
+      if (!response.ok) {
+        console.error("Статус:", response.status);
+        throw new Error("Помилка при отриманні даних");
       }
-    };
 
-    fetchApplications();
-  }, []);
+      const data = await response.json();
+
+      // 🔍 Фільтрація заявок — прибираємо ті, що зі статусом "Не розглянуто"
+      const filteredData = data.filter(app => app.status !== "Не розглянута");
+
+      console.log("Відібрані звернення:", filteredData);
+      setApplications(filteredData);
+    } catch (error) {
+      console.error("Помилка запиту:", error);
+    }
+  };
+
+  fetchApplications();
+}, []);
+
 
   const fetchApplications = async () => {
     const params = new URLSearchParams();
@@ -161,7 +166,7 @@ export function Appeals() {
                         ? "bg-[#FBF0E5]"
                         : item.status == "Виконано"
                           ? "bg-[#EBFFEE]"
-                          : "bg-[#EDEDED]"
+                          : "bg-[#EA6464]"
                     } flex items-center px-1 gap-1 rounded-sm`}
                   >
                     <div
@@ -170,7 +175,7 @@ export function Appeals() {
                           ? "bg-[#957A5E]"
                           : item.status == "Виконано"
                             ? "bg-[#589D51]"
-                            : "bg-[#848484]"
+                            : "bg-[#612A2A]"
                       }`}
                     ></div>
                     <span
@@ -179,7 +184,7 @@ export function Appeals() {
                           ? "text-[#957A5E]"
                           : item.status == "Виконано"
                             ? "text-[#589D51]"
-                            : "text-[#848484]"
+                            : "text-[#612A2A]"
                       } font-normal text-sm`}
                     >
                       {item.status}

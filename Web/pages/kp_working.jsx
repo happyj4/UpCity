@@ -7,7 +7,7 @@ export default function () {
   return (
     <div className="w-screen h-auto bg-[#FBF9F4]">
       <HeaderKP />
-      <div className=" pt-40">
+      <div className=" w-full">
         <Inwork />
         <Footer />
       </div>
