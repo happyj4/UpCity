@@ -165,16 +165,6 @@ public class CreateApplicationPage extends AppCompatActivity {
             }
         }
 
-        spinner.post(() -> {
-            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
-            if (adapter != null && company != null) {
-                int position = adapter.getPosition(company);
-                if (position >= 0) {
-                    spinner.setSelection(position);
-                }
-            }
-        });
-
         if (photoPath != null) {
             File imgFile = new File(photoPath);
             if(imgFile.exists()){
@@ -197,6 +187,17 @@ public class CreateApplicationPage extends AppCompatActivity {
                     adapter.setDropDownViewResource(R.layout.item_spinner_utility_company);
                     Spinner spinner = findViewById(R.id.SpinnerUtilityCompany);
                     spinner.setAdapter(adapter);
+
+                    Intent OldIntent = getIntent();
+                    if (OldIntent != null && OldIntent.hasExtra("input_company")) {
+                        String company = OldIntent.getStringExtra("input_company");
+                        if (company != null) {
+                            int position = adapter.getPosition(company);
+                            if (position >= 0) {
+                                spinner.setSelection(position);
+                            }
+                        }
+                    }
                 });
             }
 

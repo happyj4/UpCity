@@ -13,6 +13,7 @@
         android:text="Підтвердіть видалення"
         android:textColor="#1E1E1E"
         android:gravity="center"
+        android:maxLines="1"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:fontFamily="@font/inter_semibold"
@@ -32,7 +33,6 @@
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:fontFamily="@font/inter_light" />
-
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/DeleteButton"
