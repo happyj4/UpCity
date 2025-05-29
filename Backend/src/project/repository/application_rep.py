@@ -303,7 +303,9 @@ def geocode_address(address: str):
     if data:
         return float(data[0]["lat"]), float(data[0]["lon"])
 
-    return None, None
+    # Якщо адреса не знайдена
+    raise HTTPException(status_code=400, detail="Адресу не знайдено. Перевірте правильність написання.")
+
 
 
 def confirm_app(app_id:int, status:str, current_user:dict, db:Session):
