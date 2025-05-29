@@ -87,6 +87,24 @@ def get_all_by_user(
 
 
 def create_app(name: str, address: str, description: str, company_name: str, photo: UploadFile, db: Session, current_user: dict):
+    
+    if not name or not name.strip():
+        raise HTTPException(status_code=400, detail="Назва не може бути порожньою")
+    if not (3 <= len(name.strip()) <= 60):
+        raise HTTPException(status_code=400, detail="Назва повинна містити від 3 до 100 символів")
+
+
+    if not address or not address.strip():
+        raise HTTPException(status_code=400, detail="Адреса не може бути порожньою")
+    if not (8 <= len(address.strip()) <= 100):
+        raise HTTPException(status_code=400, detail="Адреса повинна містити від 5 до 200 символів")
+
+
+    if not description or not description.strip():
+        raise HTTPException(status_code=400, detail="Опис не може бути порожнім")
+    if not (10 <= len(description.strip()) <= 1000):
+        raise HTTPException(status_code=400, detail="Опис повинен містити від 10 до 1000 символів")
+
     if current_user["role"] != "user":
         raise HTTPException(status_code=403, detail="Недостатньо прав")
     
