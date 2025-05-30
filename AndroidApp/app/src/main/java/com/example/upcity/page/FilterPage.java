@@ -3,6 +3,7 @@ package com.example.upcity.page;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,6 +55,10 @@ public class FilterPage extends AppCompatActivity {
         DoneButton = findViewById(R.id.DoneButton);
         RejectedButton = findViewById(R.id.RejectedButton);
         WaitingButton = findViewById(R.id.WaitingButton);
+
+        if ("AllApplicationPage".equals(activity)) {
+            WaitingButton.setVisibility(View.GONE);
+        }
 
         CloseButton.setOnClickListener(view -> {
             if ("AllApplicationPage".equals(activity)) {
