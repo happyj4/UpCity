@@ -17,7 +17,7 @@ const developers = [
   },
   {
     name: "кукуленко денис",
-    image: "/images/Denis.png",
+    image: "/images/Denys.png",
     description:
       "Фронтенд розробник сайту, відповідає за цілісну технічну реалізацію проєкту, інтеграцію з backend та підтримку сайту.",
   },
@@ -35,7 +35,7 @@ const developers = [
   },
   {
     name: "козлов сергій",
-    image: "/images/Sergey.png",
+    image: "/images/Serj.png",
     description:
       "Бекенд розробник, створює серверну логіку, API та забезпечує обробку запитів і взаємодію з базами даних.",
   },

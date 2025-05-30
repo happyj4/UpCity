@@ -12,34 +12,35 @@ export function Appeals() {
   const [selectedStatus, setSelectedStatus] = useState("");
 
   useEffect(() => {
-  const fetchApplications = async () => {
-    try {
-      const response = await fetch("http://46.101.245.42/application", {
-        headers: {
-          Accept: "application/json",
-        },
-      });
+    const fetchApplications = async () => {
+      try {
+        const response = await fetch("http://46.101.245.42/application", {
+          headers: {
+            Accept: "application/json",
+          },
+        });
 
-      if (!response.ok) {
-        console.error("Статус:", response.status);
-        throw new Error("Помилка при отриманні даних");
+        if (!response.ok) {
+          console.error("Статус:", response.status);
+          throw new Error("Помилка при отриманні даних");
+        }
+
+        const data = await response.json();
+
+        // 🔍 Фільтрація заявок — прибираємо ті, що зі статусом "Не розглянуто"
+        const filteredData = data.filter(
+          (app) => app.status !== "Не розглянута",
+        );
+
+        console.log("Відібрані звернення:", filteredData);
+        setApplications(filteredData);
+      } catch (error) {
+        console.error("Помилка запиту:", error);
       }
+    };
 
-      const data = await response.json();
-
-      // 🔍 Фільтрація заявок — прибираємо ті, що зі статусом "Не розглянуто"
-      const filteredData = data.filter(app => app.status !== "Не розглянута");
-
-      console.log("Відібрані звернення:", filteredData);
-      setApplications(filteredData);
-    } catch (error) {
-      console.error("Помилка запиту:", error);
-    }
-  };
-
-  fetchApplications();
-}, []);
-
+    fetchApplications();
+  }, []);
 
   const fetchApplications = async () => {
     const params = new URLSearchParams();
@@ -129,14 +130,8 @@ export function Appeals() {
           />
         </button>
       </div>
-      <p className="mt-4 text-[#3A3A3A] text-sm font-normal">
-        Звернення{" "}
-        <span className="text-[#896B4E] underline cursor-pointer">
-          за останній місяць
-        </span>
-      </p>
       <motion.div
-        className="w-full max-h-[80%] jus overflow-y-auto flex mt-10 bg-[#FBF9F] gap-[8%] flex-wrap justify-center"
+        className="w-full max-h-[80%] jus overflow-y-auto flex mt-10 bg-[#FBF9F] gap-[5%] flex-wrap justify-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -149,54 +144,60 @@ export function Appeals() {
                   ? `http://localhost:3000/kp#${item.application_id}`
                   : `http://localhost:3000/kpEnded#${item.application_id}`
               }
+              key={index}
             >
               <motion.div
-                key={index}
-                className="w-57 h-35 bg-white rounded-lg flex-col py-2 px-2 drop-shadow-xl mb-4 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer"
+                className="w-57 h-40 bg-white rounded-lg flex flex-col py-3 px-3 drop-shadow-xl mb-4 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer overflow-hidden"
                 variants={itemVariants}
               >
-                <p className="text-[#3A3A3A] text-xs font-light">#1-2634</p>
-                <h2 className="text-[#1E1E1E] text-2xl font-semibold mb-5">
+                <p className="text-[#3A3A3A] text-xs font-light truncate">
+                  #{item.application_id}
+                </p>
+
+                <h2 className="text-[#1E1E1E] text-lg font-semibold mb-2 truncate">
                   {item.name}
                 </h2>
-                <div className="flex w-full h-auto px-2 gap-2 mb-2">
+
+                <div className="flex w-full px-1 gap-2 mb-2">
                   <div
-                    className={`w-22 h-6 ${
-                      item.status == "В роботі"
+                    className={`w-fit h-6 ${
+                      item.status === "В роботі"
                         ? "bg-[#FBF0E5]"
-                        : item.status == "Виконано"
+                        : item.status === "Виконано"
                           ? "bg-[#EBFFEE]"
                           : "bg-[#EA6464]"
-                    } flex items-center px-1 gap-1 rounded-sm`}
+                    } flex items-center px-2 gap-1 rounded-sm`}
                   >
                     <div
-                      className={`w-2 h-2 rounded-4xl ${
-                        item.status == "В роботі"
+                      className={`w-2 h-2 rounded-full ${
+                        item.status === "В роботі"
                           ? "bg-[#957A5E]"
-                          : item.status == "Виконано"
+                          : item.status === "Виконано"
                             ? "bg-[#589D51]"
                             : "bg-[#612A2A]"
                       }`}
                     ></div>
                     <span
                       className={`${
-                        item.status == "В роботі"
+                        item.status === "В роботі"
                           ? "text-[#957A5E]"
-                          : item.status == "Виконано"
+                          : item.status === "Виконано"
                             ? "text-[#589D51]"
                             : "text-[#612A2A]"
-                      } font-normal text-sm`}
+                      } font-normal text-xs`}
                     >
                       {item.status}
                     </span>
                   </div>
-                  <div className="w-20 h-6 bg-[#EDEDED] flex items-center px-1 gap-1 rounded-sm">
-                    <span className="text-[#848484] font-normal text-sm">
+
+                  <div className="w-fit h-6 bg-[#EDEDED] flex items-center px-2 rounded-sm">
+                    <span className="text-[#848484] font-normal text-xs">
                       {item.application_date.split("T")[0]}
                     </span>
                   </div>
                 </div>
-                <span className="text-[#848484] text-xs font-light">
+
+                <span className="text-[#848484] text-xs font-light line-clamp-2">
                   КП"{item.utility_company.name}"
                 </span>
               </motion.div>
