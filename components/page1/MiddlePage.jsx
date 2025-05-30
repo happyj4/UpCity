@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Map } from "./Map";
 
 const fadeUpScaleVariant = {
   hidden: { opacity: 0, y: 20, scale: 0.95 },
@@ -35,7 +36,9 @@ export function MiddlePage() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <p className="font-normal text-base mb-2">Всього виконаних звернень</p>
+          <p className="font-normal text-base mb-2">
+            Всього виконаних звернень
+          </p>
           <p className="font-normal text-2xl">
             2047/ <span className="font-light text-lg">2691</span>
           </p>
@@ -58,21 +61,13 @@ export function MiddlePage() {
       </div>
 
       <motion.div
-        className="w-[60%] h-115 drop-shadow-2xl rounded-xl overflow-hidden"
+        className="w-[60%] h-[84%] drop-shadow-2xl rounded-xl overflow-hidden"
         variants={fadeUpScaleVariant}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345094743!2d144.95373531568056!3d-37.81627917975167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577c0f0b3f3f57a!2sFederation%20Square!5e0!3m2!1sen!2sau!4v1614649073702!5m2!1sen!2sau"
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen={true}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
+        <Map/>
       </motion.div>
 
       <div className="w-[16%] h-[50%] place-items-center flex-col ">
@@ -136,13 +131,16 @@ export function MiddlePage() {
           </div>
           <ul className="text-[#1E1E1E] text-xs font-medium">
             <li className="flex items-center gap-2 mb-1 mt-1">
-              <div className="bg-[#C2F1C8] rounded-4xl w-2 h-2"></div>Всього звернень в роботі
+              <div className="bg-[#C2F1C8] rounded-4xl w-2 h-2"></div>Всього
+              звернень в роботі
             </li>
             <li className="flex items-center gap-2 mb-1">
-              <div className="bg-[#A6CAEC] rounded-4xl w-2 h-2"></div>Всього виконаних звернень
+              <div className="bg-[#A6CAEC] rounded-4xl w-2 h-2"></div>Всього
+              виконаних звернень
             </li>
             <li className="flex items-center gap-2">
-              <div className="bg-[#F2CFEE] rounded-4xl w-2 h-2"></div>Всього прострочених звернень
+              <div className="bg-[#F2CFEE] rounded-4xl w-2 h-2"></div>Всього
+              прострочених звернень
             </li>
           </ul>
         </motion.div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
@@ -32,6 +33,7 @@ export function StartPage() {
           height={32}
           unoptimized
         />
+        <Link href="http://localhost:3000/appeal">
         <motion.button
           className="w-10 h-9.5 cursor-pointer bg-[#FFBE7D] rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-[#dca36b] hover:drop-shadow-2xl hover:scale-105 active:scale-95"
           initial={{ boxShadow: "0 0 0 rgba(0,0,0,0)" }}
@@ -45,6 +47,7 @@ export function StartPage() {
         >
           <Image src="/images/plusIcon.svg" alt="plus" width={16} height={15} />
         </motion.button>
+        </Link>
       </motion.div>
 
       <motion.div
