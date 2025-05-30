@@ -118,18 +118,13 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
                 String className = "com.example.upcity.page." + activity;
                 Class<?> clazz = Class.forName(className);
                 Intent Intent = new Intent(this, clazz);
-                Intent.putExtra("skipAnimation", true);
+                Intent.putExtra("slide_in_left", true);
                 Intent.putExtra("applicationId", applicationId);
-                startActivity(Intent);
-                overridePendingTransition(R.anim.slide_in_out, 0);
-                finish();
+                AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, clazz, Intent);
             } catch (ClassNotFoundException e) {
                 Intent Intent = new Intent(this, HomePage.class);
-                Intent.putExtra("skipAnimation", true);
                 Intent.putExtra("applicationId", applicationId);
-                startActivity(Intent);
-                overridePendingTransition(R.anim.slide_in_out, 0);
-                finish();
+                AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, Intent);
             }
         });
 
@@ -303,18 +298,13 @@ public class ViewApplicationPage extends AppCompatActivity implements OnMapReady
             String className = "com.example.upcity.page." + activity;
             Class<?> clazz = Class.forName(className);
             Intent Intent = new Intent(this, clazz);
-            Intent.putExtra("skipAnimation", true);
+            Intent.putExtra("slide_in_left", true);
             Intent.putExtra("applicationId", applicationId);
-            startActivity(Intent);
-            overridePendingTransition(R.anim.slide_in_out, 0);
-            finish();
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, clazz, Intent);
         } catch (ClassNotFoundException e) {
             Intent Intent = new Intent(this, HomePage.class);
-            Intent.putExtra("skipAnimation", true);
             Intent.putExtra("applicationId", applicationId);
-            startActivity(Intent);
-            overridePendingTransition(R.anim.slide_in_out, 0);
-            finish();
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_out_right, HomePage.class, Intent);
         }
     }
 }

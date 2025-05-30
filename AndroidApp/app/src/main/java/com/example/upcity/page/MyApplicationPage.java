@@ -31,12 +31,17 @@ public class MyApplicationPage extends AppCompatActivity {
 
         Intent intent = getIntent();
         boolean skipAnimation = intent.getBooleanExtra("skipAnimation", false);
+        boolean slide_in_left = intent.getBooleanExtra("slide_in_left", false);
         String selectedSortFilter = intent.getStringExtra("selectedSortFilter");
         String selectedDateFilter = intent.getStringExtra("selectedDateFilter");
         String selectedStatusFilter = intent.getStringExtra("selectedStatusFilter");
 
         if (!skipAnimation) {
             AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_right, null, null);
+        }
+
+        if (slide_in_left) {
+            AdapterAnimation.animateAndNavigate(this, R.id.linearLayout, R.anim.slide_in_left, null, null);
         }
 
         if (savedInstanceState == null) {
