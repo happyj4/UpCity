@@ -100,7 +100,7 @@ export function Appeals() {
   return (
     <div className="w-[35%] h-screen flex-col pt-30">
       <div className="w-full flex gap-3 items-center">
-        <div className="relative w-[85%]">
+        <div className="relative ml-[4%] w-[80%]">
           <Image
             className="absolute left-3 top-1/2 transform -translate-y-1/2"
             src="/images/Loop.png"
@@ -131,7 +131,7 @@ export function Appeals() {
         </button>
       </div>
       <motion.div
-        className="w-full max-h-[80%] jus overflow-y-auto flex mt-10 bg-[#FBF9F] gap-[5%] flex-wrap justify-center"
+        className="w-[100%] max-h-[80%] overflow-y-auto flex mt-10 bg-[#FBF9F] gap-[7%] flex-wrap justify-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -147,14 +147,14 @@ export function Appeals() {
               key={index}
             >
               <motion.div
-                className="w-57 h-40 bg-white rounded-lg flex flex-col py-3 px-3 drop-shadow-xl mb-4 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer overflow-hidden"
+                className="w-57 h-35 bg-white rounded-lg flex flex-col py-3 px-3 drop-shadow-xl mb-4 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl cursor-pointer overflow-hidden"
                 variants={itemVariants}
               >
                 <p className="text-[#3A3A3A] text-xs font-light truncate">
                   #{item.application_id}
                 </p>
 
-                <h2 className="text-[#1E1E1E] text-lg font-semibold mb-2 truncate">
+                <h2 className="text-[#1E1E1E] text-lg font-semibold mb-5 truncate">
                   {item.name}
                 </h2>
 

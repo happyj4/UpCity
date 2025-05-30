@@ -196,7 +196,7 @@ export function KpAppeals() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
       >
-        <h4 className="text-[#3A3A3A] text-xl font-light">#1-2634</h4>
+        <h4 className="text-[#3A3A3A] text-xl font-light"># {info.application_id}</h4>
         {check ? <Arrows /> : ""}
       </motion.div>
       <motion.span
