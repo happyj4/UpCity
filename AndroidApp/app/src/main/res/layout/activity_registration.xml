@@ -98,7 +98,7 @@
 
             <EditText
                 android:id="@+id/SurnameEditText"
-                android:inputType="textPassword"
+                android:inputType="text"
                 android:hint="Прізвище"
                 android:textColor="#848383"
                 android:textColorHint="#848383"
