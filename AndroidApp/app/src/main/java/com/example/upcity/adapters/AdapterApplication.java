@@ -71,6 +71,7 @@ public class AdapterApplication extends RecyclerView.Adapter<RecyclerView.ViewHo
             ApplicationViewHolder appHolder = (ApplicationViewHolder) holder;
             appHolder.applicationNumber.setText("#" + responseApplication.getApplication_id());
             appHolder.applicationName.setText(responseApplication.getName());
+            appHolder.applicationName.setSelected(true);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
             appHolder.applicationDate.setText(dateFormat.format(responseApplication.getApplication_date()));

@@ -17,7 +17,7 @@
 
         <TextView
             android:id="@+id/ApplicationNumber"
-            android:layout_width="315dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="7dp"
@@ -29,15 +29,21 @@
 
         <TextView
             android:id="@+id/ApplicationName"
-            android:layout_width="315dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="-5dp"
             android:gravity="left"
             android:text="Ями на дорогах"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColor="#3A3A3A"
-            android:fontFamily="@font/inter_semibold" />
+            android:fontFamily="@font/inter_semibold"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
 
         <LinearLayout
             android:layout_width="wrap_content"
