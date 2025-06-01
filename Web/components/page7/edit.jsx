@@ -118,7 +118,6 @@ export function Edit() {
       }
 
       const result = await response.json();
-      console.log("Успішно оновлено:", result);
       Swal.fire({
         icon: "success",
         title: "Відредаговано",
