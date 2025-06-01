@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        tools:targetApi="31"
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true">
+
+        <meta-data
+            android:name="android.app.background"
+            android:resource="@color/background" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_map_api_key" />
+
+        <activity
+            android:name=".page.StartLoading"
+            android:theme="@style/Theme.Login"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".page.LoginPage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.RegistrationPage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.HomePage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.CreateApplicationPage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.MessagePage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.AllApplicationPage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.MyApplicationPage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.PremiumPage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.EditProfilePage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.MapPage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.ViewApplicationPage"
+            android:theme="@style/Theme.All"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.FilterPage"
+            android:theme="@style/Theme.Filter"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".page.DeleteApplicationPage"
+            android:theme="@style/Theme.Filter"
+            android:exported="false">
+        </activity>
+
+    </application>
+</manifest>

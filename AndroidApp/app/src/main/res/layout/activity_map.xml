@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/menu_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.07"
+            android:background="@color/white"
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/background"
+            android:orientation="vertical"
+            android:gravity="top|left">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/background"
+                    android:orientation="vertical"
+                    android:gravity="top|left">
+
+                    <LinearLayout
+                        android:id="@+id/MaplinearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/background"
+                        android:orientation="vertical"
+                        android:gravity="top|left">
+
+                        <fragment
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:id="@+id/Map"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="110dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="-5dp"
+                    android:background="@drawable/rounded_background_edittext"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/ListButton"
+                        android:layout_width="32dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/list_button"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:alpha="0.4"
+                        android:background="@null" />
+
+                    <ImageButton
+                        android:id="@+id/MapButton"
+                        android:layout_width="32dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/map_button"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="@null" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

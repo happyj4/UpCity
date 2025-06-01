@@ -1,0 +1,383 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/menu_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.07"
+            android:background="@color/white"
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/background"
+            android:orientation="vertical"
+            android:gravity="top|left">
+
+            <LinearLayout
+                android:id="@+id/MaplinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <fragment
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:id="@+id/Map"
+                    android:layout_width="match_parent"
+                    android:layout_height="153dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/ListButton"
+                    android:layout_width="13dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/home_button"
+                    android:background="@null"
+                    android:paddingEnd="1dp"/>
+
+                <Button
+                    android:id="@+id/HomeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|start"
+                    android:layout_marginTop="-1dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="на головну"
+                    android:textColor="#848484"
+                    android:background="@android:color/transparent"
+                    android:textAllCaps="false"
+                    android:textSize="13sp"
+                    android:paddingStart="0dp"
+                    android:fontFamily="@font/inter_light"/>
+
+            </LinearLayout>
+
+            <ScrollView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/IdApplicationText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:text="#1-2634"
+                        android:textSize="16dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_light" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="Назва"
+                        android:textSize="12dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_light" />
+
+                    <TextView
+                        android:id="@+id/NameApplicationText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="Сміття"
+                        android:textSize="24dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_semibold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:text="Адреса"
+                        android:textSize="12dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_light" />
+
+                    <TextView
+                        android:id="@+id/AddressApplicationText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="вул. Римарська, 28"
+                        android:textSize="16dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_regular" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:text="КП"
+                        android:textSize="12dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_light" />
+
+                    <TextView
+                        android:id="@+id/KpApplicationText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="КП«Щасливе місто»"
+                        android:textSize="16dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_regular" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:text="Опис"
+                        android:textSize="12dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_light" />
+
+                    <TextView
+                        android:id="@+id/DescriptionApplicationText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:gravity="center_vertical"
+                        android:text="Дуже велика груда сміття біля сміткика, воно смердить"
+                        android:textSize="16dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_regular" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/background"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center|left">
+
+                        <ImageView
+                            android:id="@+id/StatusApplication"
+                            android:layout_width="81dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/status_work"
+                            android:clickable="true"
+                            android:focusable="true"/>
+
+                        <TextView
+                            android:id="@+id/DateApplicationText"
+                            android:layout_width="81dp"
+                            android:layout_height="24dp"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:text="10.10.2025"
+                            android:textSize="14dp"
+                            android:textColor="#848484"
+                            android:background="@drawable/rounded_background_date"
+                            android:fontFamily="@font/inter_regular" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center_vertical"
+                        android:text="Фото"
+                        android:textSize="12dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_light" />
+
+                    <FrameLayout
+                        android:id="@+id/ClientPhotoFrame"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="132dp"
+                        android:background="@drawable/rounded_background_photo_application"
+                        android:clipToOutline="true"
+                        android:outlineProvider="background">
+
+                        <ImageView
+                            android:id="@+id/ClientPhoto"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/empty_photo_application" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/UtilityCompanieInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center_vertical"
+                            android:text="Фото “ПІСЛЯ”"
+                            android:textSize="12dp"
+                            android:textColor="#1E1E1E"
+                            android:fontFamily="@font/inter_light" />
+
+                        <FrameLayout
+                            android:id="@+id/UtilityCompaniePhotoFrame"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="132dp"
+                            android:background="@drawable/rounded_background_photo_application"
+                            android:clipToOutline="true"
+                            android:outlineProvider="background">
+
+                            <ImageView
+                                android:id="@+id/UtilityCompaniePhoto"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/empty_photo_application"
+                                android:clickable="true"
+                                android:focusable="true"/>
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:gravity="center"
+                            android:text="ЯКІСТЬ / ДОЦІЛЬНІСТЬ ЗВЕРНЕННЯ"
+                            android:textSize="15dp"
+                            android:textColor="#1E1E1E"
+                            android:fontFamily="@font/inter_regular" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"
+                            android:paddingBottom="16dp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/Star1"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/star"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginRight="7dp"
+                                android:tint="#BCBCBC" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/Star2"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/star"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginRight="7dp"
+                                android:tint="#BCBCBC" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/Star3"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/star"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginRight="7dp"
+                                android:tint="#BCBCBC" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/Star4"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/star"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginRight="7dp"
+                                android:tint="#BCBCBC" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/Star5"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/star"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginRight="7dp"
+                                android:tint="#BCBCBC" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/DeleteApplicationButton"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:text="ВИДАЛИТИ ЗВЕРНЕННЯ"
+                        android:gravity="center"
+                        android:layout_gravity="top|center"
+                        android:background="@drawable/rounded_red_background_button"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:stateListAnimator="@null"
+                        android:fontFamily="@font/inter_semibold" />
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

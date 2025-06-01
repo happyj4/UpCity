@@ -1,0 +1,167 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/menu_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.07"
+            android:background="@color/white"
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/background"
+            android:orientation="vertical"
+            android:gravity="top|left">
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="18dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingEnd="20dp">
+
+                <ImageButton
+                    android:id="@+id/ListButton"
+                    android:layout_width="13dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/home_button"
+                    android:background="@null"
+                    android:paddingEnd="1dp"/>
+
+                <Button
+                    android:id="@+id/HomeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|start"
+                    android:layout_marginTop="-1dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="на головну"
+                    android:textColor="#848484"
+                    android:background="@android:color/transparent"
+                    android:textAllCaps="false"
+                    android:textSize="13sp"
+                    android:paddingStart="0dp"
+                    android:fontFamily="@font/inter_light"/>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="7dp"
+                        android:gravity="center_vertical"
+                        android:text="Створення звернення"
+                        android:textSize="24dp"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/inter_semibold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="0dp"
+                        android:gravity="center_vertical"
+                        android:text="Отримайте розширені можливості для ефективної взаємодії з сервісом"
+                        android:textSize="13dp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/inter_light" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="Преміум-підписка — це додаткова опція для користувачів, які бажають користуватися усіма перевагами системи без обмежень. Після активації підписки на місяць ви отримаєте:"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/inter_light" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/premium_text"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/inter_light" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center_vertical"
+                        android:text="Підключивши Преміум-підписку, ви забезпечуєте собі вищий рівень сервісу та комфортну взаємодію із системою."
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/inter_regular" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:text="Натисніть «Підключити підписку», щоб активувати розширені можливості."
+                        android:textSize="13dp"
+                        android:textColor="#3A3A3A"
+                        android:fontFamily="@font/inter_light" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/BuyPremiumButton"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:text="підключити підписку"
+                        android:gravity="center"
+                        android:layout_gravity="top|center"
+                        android:background="@drawable/rounded_background_button"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:stateListAnimator="@null"
+                        android:fontFamily="@font/inter_semibold" />
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

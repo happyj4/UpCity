@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDEDED"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:gravity="center_vertical|center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Підтвердіть видалення"
+        android:textColor="#1E1E1E"
+        android:gravity="center"
+        android:maxLines="1"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="@font/inter_semibold"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="16sp"
+        android:autoSizeMaxTextSize="32sp"
+        android:autoSizeStepGranularity="1sp"
+        android:textSize="32sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Видалення заяви призведе до її повного знищення, і ви не зможете її відновити"
+        android:textSize="13dp"
+        android:textColor="#1E1E1E"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="@font/inter_light" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/DeleteButton"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="ВИДАЛИТИ ЗАЯВУ"
+        android:gravity="center"
+        android:layout_gravity="top|center"
+        android:background="@drawable/rounded_red_background_button"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:stateListAnimator="@null"
+        android:fontFamily="@font/inter_semibold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/CancleButton"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:text="ВІДМІНИТИ"
+        android:gravity="center"
+        android:layout_gravity="top|center"
+        android:background="@drawable/rounded_gray_background_button"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:stateListAnimator="@null"
+        android:fontFamily="@font/inter_semibold" />
+
+    <TextView
+        android:id="@+id/ErrorMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:gravity="top|center"
+        android:layout_gravity="top|center"
+        android:text=""
+        android:textSize="11dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:textColor="#D54343"
+        android:fontFamily="@font/inter_light" />
+</LinearLayout>
