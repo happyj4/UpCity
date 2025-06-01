@@ -75,8 +75,8 @@ export function Map() {
               <Link
                 href={
                   app.status === "В роботі"
-                    ? `http://localhost:3000/kp#${app.application_id}`
-                    : `http://localhost:3000/kpEnded#${app.application_id}`
+                    ? `https://up-city-8xew.vercel.app/kp#${app.application_id}`
+                    : `https://up-city-8xew.vercel.app/kpEnded#${app.application_id}`
                 }
               >
                 <div
