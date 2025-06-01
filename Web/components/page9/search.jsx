@@ -18,7 +18,7 @@ export function Search() {
 
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://46.101.245.42/user", {
+        const response = await fetch("https://upcity.live/user", {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
@@ -48,9 +48,9 @@ export function Search() {
     if (selectedSubscribe)
       params.append("sort_by_subscription", selectedSubscribe);
     if (selectedBlock) params.append("sort_by_blocking", selectedBlock);
-    console.log(`смотри http://46.101.245.42/application/?${params}`);
+    console.log(`смотри https://upcity.live/application/?${params}`);
     try {
-      const response = await fetch(`http://46.101.245.42/user/?${params}`, {
+      const response = await fetch(`https://upcity.live/user/?${params}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -75,7 +75,7 @@ export function Search() {
   function deletion(id, index) {
     const token = sessionStorage.getItem("access_token");
 
-    fetch("http://46.101.245.42/user/block/", {
+    fetch("https://upcity.live/user/block/", {
       method: "POST",
       headers: {
         Accept: "application/json",
