@@ -52,7 +52,7 @@ export function Header() {
           <span>про нас</span>
         </Link>
         <Link
-          href="http://localhost:3000/appeal"
+          href="https://up-city-8xew.vercel.app/appeal"
           className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
         >
           <span>звернення громадян</span>
