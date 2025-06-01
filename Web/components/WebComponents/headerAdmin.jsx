@@ -55,19 +55,19 @@ export function Headeradmin() {
       
       <div className="gap-12 flex place-items-center text-sm not-italic uppercase cursor-pointer">
         <Link
-          href="http://localhost:3000/appeal"
+          href="https://up-city-8xew.vercel.app/appeal"
           className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
         >
           <span>звернення громадян</span>
         </Link>
         <Link
-          href="http://localhost:3000/list_kp"
+          href="https://up-city-8xew.vercel.app/list_kp"
           className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
         >
           <span>список кп</span>
         </Link>
         <Link
-          href="http://localhost:3000/list_people"
+          href="https://up-city-8xew.vercel.app/list_people"
           className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
         >
           <span>список громадян</span>
