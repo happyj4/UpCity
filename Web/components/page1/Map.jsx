@@ -27,7 +27,7 @@ export function Map() {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await fetch("/api/application", {
+        const response = await fetch("https://upcity.live/application/", {
           headers: { Accept: "application/json" },
         });
         const data = await response.json();
