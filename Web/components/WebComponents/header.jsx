@@ -28,7 +28,7 @@ export function Header() {
           : "h-25 shadow-md bg-white"
       } rounded-b-2xl flex px-8 place-items-center justify-between transform -translate-x-1/2`}
     >
-      <Link href="http://localhost:3000">
+      <Link href="https://up-city-8xew.vercel.app">
         <Image
           className="drop-shadow-2xl transition-all duration-300"
           src="/images/LogoSite.svg"
@@ -40,13 +40,13 @@ export function Header() {
       </Link>
       <div className="gap-12 flex place-items-center text-sm not-italic uppercase cursor-pointer">
         <Link
-          href="http://localhost:3000"
+          href="https://up-city-8xew.vercel.app"
           className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
         >
           <span>головна</span>
         </Link>
         <Link
-          href="http://localhost:3000/about_us"
+          href="https://up-city-8xew.vercel.app/about_us"
           className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
         >
           <span>про нас</span>
@@ -60,7 +60,7 @@ export function Header() {
       </div>
       <div className="place-items-center gap-2 flex">
 
-        <Link href="http://localhost:3000/registration">
+        <Link href="https://up-city-8xew.vercel.app/registration">
           <button className="w-35 h-12 cursor-pointer place-items-center p-1 rounded-md border font-semibold text-lg text-center border-solid border-[#848484] text-[#848484] transition-all duration-300 hover:border-[#FFBE7D] hover:text-[#FFBE7D] hover:bg-[#fff8f0] hover:shadow-md">
             Увійти
           </button>
