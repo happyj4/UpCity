@@ -20,7 +20,7 @@ export function Inwork() {
   useEffect(() => {
     const token = sessionStorage.getItem("access_token");
 
-    fetch("http://46.101.245.42/application/all_by_user", {
+    fetch("https://upcity.live/application/all_by_user", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -59,10 +59,10 @@ export function Inwork() {
     if (selectedStatus) params.append("sort_by_status", selectedStatus);
     if (selectedDate) params.append("sort_by_date", selectedDate);
     if (selectedAlphaSort) params.append("sort_by_name", selectedAlphaSort);
-    console.log(`смотри http://46.101.245.42/application/?${params}`);
+    console.log(`смотри https://upcity.live/application/?${params}`);
     try {
       const response = await fetch(
-        `http://46.101.245.42/application/all_by_user/?${params}`,
+        `https://upcity.live/application/all_by_user/?${params}`,
         {
           headers: {
             Accept: "application/json",
