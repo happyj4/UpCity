@@ -27,7 +27,7 @@ export function Map() {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await fetch("https://up-city-8xew.vercel.app/appeal", {
+        const response = await fetch("https://upcity.live/appeal", {
           headers: { Accept: "application/json" },
         });
         const data = await response.json();
