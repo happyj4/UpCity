@@ -14,7 +14,7 @@ export function Appeals() {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await fetch("http://46.101.245.42/application", {
+        const response = await fetch("https://upcity.live/application", {
           headers: {
             Accept: "application/json",
           },
