@@ -33,7 +33,7 @@ export function KpAppeals() {
     console.log(id);
 
     if (id) {
-      fetch(`http://46.101.245.42/application/${id}`, {
+      fetch(`https://upcity.live/application/${id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ export function KpAppeals() {
     const token = sessionStorage.getItem("access_token");
     try {
       const response = await fetch(
-        `http://46.101.245.42/application/${id}/confirm/?status=${encodeURIComponent("В роботі")}`,
+        `https://upcity.live/application/${id}/confirm/?status=${encodeURIComponent("В роботі")}`,
         {
           method: "PUT",
           headers: {
@@ -117,7 +117,7 @@ export function KpAppeals() {
 
     try {
       const response = await fetch(
-        `http://46.101.245.42/application/${info.application_id}/complete`,
+        `https://upcity.live/application/${info.application_id}/complete`,
         {
           method: "PUT",
           headers: {
@@ -153,7 +153,7 @@ export function KpAppeals() {
 
     try {
       const response = await fetch(
-        `http://46.101.245.42/application/${info.application_id}/complete`,
+        `https://upcity.live/application/${info.application_id}/complete`,
         {
           method: "PUT",
           headers: {
