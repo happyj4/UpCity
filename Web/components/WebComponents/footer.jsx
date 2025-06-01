@@ -20,19 +20,19 @@ export function Footer() {
         </div>
         <ul className="uppercase text-[#3A3A3A] tex-xl font-semibold ">
           <Link
-            href="http://localhost:3000"
+            href="https://up-city-8xew.vercel.app"
             className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
           >
             <li className="mb-2">головна</li>
           </Link>
           <Link
-            href="http://localhost:3000/about_us"
+            href="https://up-city-8xew.vercel.app/about_us"
             className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
           >
             <li className="mb-2">про нас</li>
           </Link>
           <Link
-            href="http://localhost:3000/appeal"
+            href="https://up-city-8xew.vercel.app/appeal"
             className="transition-all duration-300 hover:text-[#FFBE7D] hover:scale-110"
           >
             <li className="mb-2">звернення громадян</li>
