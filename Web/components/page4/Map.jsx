@@ -21,7 +21,7 @@ export function Map() {
     const token = sessionStorage.getItem("access_token");
     const id = window.location.hash?.replace("#", "") || null;
     if (id) {
-      fetch(`http://46.101.245.42/application/${id}`, {
+      fetch(`https://upcity.live/application/${id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
