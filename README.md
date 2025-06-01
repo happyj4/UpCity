@@ -1,4 +1,4 @@
-UpCity
+UpCity 2025
 
 NURE Kharkiv ПЗПІ-23-8 
 
