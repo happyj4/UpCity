@@ -81,7 +81,7 @@ export function Add() {
     const token = sessionStorage.getItem("access_token");
 
     try {
-      const response = await fetch("http://46.101.245.42/utility_company/", {
+      const response = await fetch("https://upcity.live/utility_company/", {
         method: "POST",
         headers: {
           Accept: "application/json",
