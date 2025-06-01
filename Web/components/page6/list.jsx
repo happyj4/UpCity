@@ -138,7 +138,7 @@ export function List() {
             unoptimized
           />
         </button>
-        <Link href="http://localhost:3000/add_kp">
+        <Link href="https://up-city-8xew.vercel.app/add_kp">
           <button
             className="w-[52px] h-[52px] bg-[#FFBE7D] drop-shadow-lg rounded-md flex items-center justify-center 
             transition-all duration-200 ease-in-out hover:bg-[#ffcc97] hover:scale-105 cursor-pointer"
