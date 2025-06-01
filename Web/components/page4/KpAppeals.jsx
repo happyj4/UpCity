@@ -107,7 +107,7 @@ export function KpAppeals() {
 
       Swal.fire("Успішно!", "Звернення успішно оброблено", "success").then(
         () => {
-          window.location.href = "http://localhost:3000/kp_working";
+          window.location.href = "https://up-city-8xew.vercel.app/kp_working";
         },
       );
     } catch (error) {
@@ -142,7 +142,7 @@ export function KpAppeals() {
       }
 
       Swal.fire("Успішно!", "Звернення відхилено", "success").then(() => {
-        window.location.href = "http://localhost:3000/kp_working";
+        window.location.href = "https://up-city-8xew.vercel.app/kp_working";
       });
     } catch (error) {
       Swal.fire("Упс", "Виникла помилка", "error");
@@ -172,7 +172,7 @@ export function KpAppeals() {
         <h4 className="text-[#3A3A3A] text-xl font-light">
           # {info.application_id}
         </h4>
-        <Link href={check ? "http://localhost:3000/kp_working" : "http://localhost:3000/appeal"}>
+        <Link href={check ? "https://up-city-8xew.vercel.app/kp_working" : "https://up-city-8xew.vercel.app/appeal"}>
          <Arrows /> 
          </Link>
       </motion.div>
