@@ -27,7 +27,7 @@ export function List() {
           body: new URLSearchParams({ password: passport }),
         },
       );
-
+     //
       const data = await res.json();
       alert(data.message);
     } catch (error) {
