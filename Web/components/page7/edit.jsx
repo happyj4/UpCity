@@ -21,7 +21,7 @@ export function Edit() {
     const token = sessionStorage.getItem("access_token");
 
     if (hashId) {
-      fetch(`http://46.101.245.42/utility_company/${hashId}`, {
+      fetch(`https://upcity.live/utility_company/${hashId}`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -101,7 +101,7 @@ export function Edit() {
 
     try {
       const response = await fetch(
-        `http://46.101.245.42/utility_company/${hashId}`,
+        `https://upcity.live/utility_company/${hashId}`,
         {
           method: "PUT",
           headers: {
