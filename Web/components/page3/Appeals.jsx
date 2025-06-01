@@ -47,10 +47,10 @@ export function Appeals() {
     if (selectedStatus) params.append("sort_by_status", selectedStatus);
     if (selectedDate) params.append("sort_by_date", selectedDate);
     if (selectedAlphaSort) params.append("sort_by_name", selectedAlphaSort);
-    console.log(`смотри http://46.101.245.42/application/?${params}`);
+    console.log(`смотри https://upcity.live/application/?${params}`);
     try {
       const response = await fetch(
-        `http://46.101.245.42/application/?${params}`,
+        `https://upcity.live/application/?${params}`,
         {
           headers: {
             Accept: "application/json",
