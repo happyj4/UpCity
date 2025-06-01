@@ -71,7 +71,7 @@ export function KpAppeals() {
         <h4 className="text-[#3A3A3A] text-xl font-light">
           # {info.application_id}
         </h4>
-        <Link href={check ? "http://localhost:3000/kp_working" : "http://localhost:3000/appeal"}>
+        <Link href={check ? "https://up-city-8xew.vercel.app/kp_working" : "https://up-city-8xew.vercel.app/appeal"}>
         <Arrows />
         </Link>
       </motion.div>
