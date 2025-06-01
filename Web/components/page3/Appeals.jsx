@@ -141,8 +141,8 @@ export function Appeals() {
             <Link
               href={
                 item.status === "В роботі"
-                  ? `http://localhost:3000/kp#${item.application_id}`
-                  : `http://localhost:3000/kpEnded#${item.application_id}`
+                  ? `https://up-city-8xew.vercel.app/kp#${item.application_id}`
+                  : `https://up-city-8xew.vercel.app/kpEnded#${item.application_id}`
               }
               key={index}
             >
