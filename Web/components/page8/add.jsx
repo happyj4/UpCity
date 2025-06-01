@@ -106,7 +106,7 @@ export function Add() {
           confirmButtonText: "OK",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "http://localhost:3000/list_kp";
+            window.location.href = "https://up-city-8xew.vercel.app/list_kp";
           }
         });
       } else {
