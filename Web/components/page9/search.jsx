@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 export function Search() {
   const [people, setPeople] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // 🔍 Стан для пошуку
+  const [searchTerm, setSearchTerm] = useState("");
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedAlphaSort, setSelectedAlphaSort] = useState("");
   const [selectedRatingSort, setSelectedRatingSort] = useState("");
@@ -45,7 +45,8 @@ export function Search() {
     const params = new URLSearchParams();
     if (selectedAlphaSort) params.append("sort_by_name", selectedAlphaSort);
     if (selectedRatingSort) params.append("sort_by_rating", selectedRatingSort);
-    if (selectedSubscribe)  params.append("sort_by_subscription", selectedSubscribe);
+    if (selectedSubscribe)
+      params.append("sort_by_subscription", selectedSubscribe);
     if (selectedBlock) params.append("sort_by_blocking", selectedBlock);
     console.log(`смотри http://46.101.245.42/application/?${params}`);
     try {
@@ -101,7 +102,6 @@ export function Search() {
       });
   }
 
-  // 🔍 Фільтруємо людей за іменем (регістр незалежний)
   const filteredPeople = people.filter((person) =>
     person.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
@@ -198,9 +198,14 @@ export function Search() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ delay: index * 0.05, duration: 0.4 }}
           >
-            <div className="w-30 flex justify-center items-center">
+            <div className="w-[90px] h-[90px] flex justify-center items-center overflow-hidden rounded-4xl">
               <Image
-                src={item.image ? item.image.image_url : null}
+                className="object-cover w-full h-full"
+                src={
+                  item.image
+                    ? item.image.image_url
+                    : "/images/empty_user_photo.png"
+                }
                 alt="Avatar2"
                 width={90}
                 height={90}

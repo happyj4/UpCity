@@ -164,12 +164,12 @@ export function List() {
     );
 
     if (!res.ok) {
-      // Якщо статус відповіді не успішний
+   
       throw new Error(`HTTP помилка: ${res.status}`);
     }
 
     try {
-      const data = await res.json(); // Парсинг JSON
+      const data = await res.json(); 
       console.log(data);
     } catch (e) {
       console.error("Не JSON:", e.message);

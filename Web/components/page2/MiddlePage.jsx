@@ -11,7 +11,7 @@ const developers = [
   },
   {
     name: "бут анна",
-    image: "/images/Anna.png",
+    image: "/images/Anna.jpg",
     description:
       "Розробниця бази даних, займається структурою, оптимізацією та безпекою зберігання даних для стабільної роботи платформи.",
   },
@@ -23,7 +23,7 @@ const developers = [
   },
   {
     name: "кирриченко кирил",
-    image: "/images/Kiril.png",
+    image: "/images/Kyrylo.jpg",
     description:
       "Реалізує інтерактивну частину сайту, забезпечує адаптивність і швидкодію інтерфейсу.",
   },

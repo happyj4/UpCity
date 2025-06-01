@@ -31,7 +31,10 @@ export function Map() {
           headers: { Accept: "application/json" },
         });
         const data = await response.json();
-        setApplications(data);
+        const actual = data.filter(
+      (item) => item.status !== "Не розглянута",
+    );
+        setApplications(actual);
       } catch (error) {
         console.error("Помилка завантаження заявок:", error);
       } finally {

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRef } from "react";
 import Swal from "sweetalert2";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 export function KpAppeals() {
   const [info, setInfo] = useState(null);
@@ -13,7 +14,7 @@ export function KpAppeals() {
   const [showForm, setShowForm] = useState("hidden");
   const fileInputRef = useRef(null);
   const [imageUrl, setImageUrl] = useState(null);
-  const [check, setCheck] = useState("")
+  const [check, setCheck] = useState("");
 
   useEffect(() => {
     const isKp = sessionStorage.getItem("KP");
@@ -26,7 +27,7 @@ export function KpAppeals() {
 
   useEffect(() => {
     const token = sessionStorage.getItem("access_token");
-    const hash = window.location.hash; // #28
+    const hash = window.location.hash; 
     const id = hash ? hash.replace("#", "") : null;
 
     console.log(id);
@@ -52,7 +53,7 @@ export function KpAppeals() {
     const file = event.target.files[0];
     if (file) {
       const url = URL.createObjectURL(file);
-      setImageUrl(url); // зберігаємо URL у стан
+      setImageUrl(url); 
     }
   };
 
@@ -168,9 +169,12 @@ export function KpAppeals() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
       >
-        <h4 className="text-[#3A3A3A] text-xl font-light"># {info.application_id}</h4>
-        {check ? <Arrows /> : ""}
-        
+        <h4 className="text-[#3A3A3A] text-xl font-light">
+          # {info.application_id}
+        </h4>
+        <Link href={check ? "http://localhost:3000/kp_working" : "http://localhost:3000/appeal"}>
+         <Arrows /> 
+         </Link>
       </motion.div>
       <motion.span
         className="text-[#3A3A3A] text-base font-light"
@@ -270,21 +274,23 @@ export function KpAppeals() {
 
       <span className="text-[#3A3A3A] text-base font-normal">Фото</span>
       <motion.div
+        className="w-full h-[30%] relative mt-[5%] mb-[5%]" 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.9 }}
       >
         <Image
-          className="mt-4 mb-4"
           src={info.image.image_url}
           alt="fon"
-          width={391}
-          height={132}
+          fill 
+          className="object-cover rounded-4xl" 
           unoptimized
         />
       </motion.div>
 
-      <span className={`text-[#3A3A3A] ${check ? "block": "hidden"} text-base font-normal`}>
+      <span
+        className={`text-[#3A3A3A] ${check ? "block" : "hidden"} text-base font-normal`}
+      >
         Додати фотозвіт
       </span>
       <motion.div
@@ -294,16 +300,19 @@ export function KpAppeals() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.0 }}
       >
-        <div className="relative">
+        <div className="relative mb-[5%] mt-[5%] w-full h-[142px]">
+          {" "}
+         
           <Image
-            className="mt-4"
             src={imageUrl || "/images/Fon.png"}
             alt="fon"
-            width={391}
-            height={132}
+            fill
+            className="object-cover rounded-4xl" 
             unoptimized
           />
           <div className={imageUrl ? "hidden" : "block"}>
+            {" "}
+       
             <IconPlus />
           </div>
           <input
@@ -317,7 +326,7 @@ export function KpAppeals() {
       </motion.div>
 
       <motion.button
-        className={`w-[100%] ${check? "block": "hidden"}  mb-5 h-14 bg-[#FFBE7D]/70 hover:bg-[#FFBE7D] transition-all duration-300 rounded-2xl uppercase text-white text-xl font-bold shadow-md hover:shadow-lg tracking-wide mt-10 transform hover:scale-105 active:scale-95 cursor-pointer`}
+        className={`w-[100%] ${check ? "block" : "hidden"}  mb-5 h-14 bg-[#FFBE7D]/70 hover:bg-[#FFBE7D] transition-all duration-300 rounded-2xl uppercase text-white text-xl font-bold shadow-md hover:shadow-lg tracking-wide mt-10 transform hover:scale-105 active:scale-95 cursor-pointer`}
         onClick={() => setShowForm("block")}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -326,7 +335,7 @@ export function KpAppeals() {
       </motion.button>
 
       <motion.button
-        className={`w-[100%] ${check ? "block": "hidden"} mb-15 h-14 bg-[#FBF9F4] uppercase text-[#3A3A3A] text-lg font-medium cursor-pointer transform transition-transform duration-200 hover:scale-105`}
+        className={`w-[100%] ${check ? "block" : "hidden"} mb-15 h-14 bg-[#FBF9F4] uppercase text-[#3A3A3A] text-lg font-medium cursor-pointer transform transition-transform duration-200 hover:scale-105`}
         onClick={() => canceling()}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

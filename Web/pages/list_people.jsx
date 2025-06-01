@@ -1,5 +1,5 @@
 import { Search } from "../components/page9/search.jsx";
-import { Footer } from "../components/WebComponents/footer.jsx";
+import { Footer } from "../components/WebComponents/footerAdmin.jsx";
 import { Headeradmin } from "../components/WebComponents/headerAdmin.jsx";
 
 export default function () {

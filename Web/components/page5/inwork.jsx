@@ -15,6 +15,7 @@ export function Inwork() {
   const [selectedAlphaSort, setSelectedAlphaSort] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("access_token");
@@ -42,7 +43,7 @@ export function Inwork() {
 
   useEffect(() => {
     const inWork = appeal.filter(
-      (item) => item.status === "В роботі" || "Не розгялнута",
+      (item) => item.status === "В роботі" || item.status===  "Не розглянута",
     );
     const notInWork = appeal.filter(
       (item) => item.status !== "В роботі" && item.status !== "Не розглянута",
@@ -88,7 +89,9 @@ export function Inwork() {
     if (try1) {
       setIsVisible2(false);
       setTimeout(() => {
-        const inWork = appeal.filter((item) => item.status === "В роботі");
+        const inWork = appeal.filter(
+          (item) => item.status === "В роботі" || item.status === "Не розглянута",
+        );
         setAppealsWork(inWork);
         setIsVisible1(true);
         setTry1(false);
@@ -96,7 +99,9 @@ export function Inwork() {
     } else {
       setIsVisible2(true);
       setTimeout(() => {
-        const inWork = appeal.filter((item) => item.status === "В роботі");
+        const inWork = appeal.filter(
+          (item) => item.status === "В роботі" || item.status === "Не розглянута",
+        );
         setAppealsWork(inWork.slice(0, 6));
         setIsVisible1(true);
         setTry1(true);
@@ -108,7 +113,10 @@ export function Inwork() {
     if (try2) {
       setIsVisible1(false);
       setTimeout(() => {
-        const notInWork = appeal.filter((item) => item.status !== "В роботі");
+        const notInWork = appeal.filter(
+          (item) =>
+            item.status !== "В роботі" && item.status !== "Не розглянута",
+        );
         setAppealEnded(notInWork);
         setIsVisible2(true);
         setTry2(false);
@@ -116,7 +124,10 @@ export function Inwork() {
     } else {
       setIsVisible1(true);
       setTimeout(() => {
-        const notInWork = appeal.filter((item) => item.status !== "В роботі");
+        const notInWork = appeal.filter(
+          (item) =>
+            item.status !== "В роботі" && item.status !== "Не розглянута",
+        );
         setAppealEnded(notInWork.slice(0, 12));
         setIsVisible2(true);
         setTry2(true);
@@ -139,7 +150,7 @@ export function Inwork() {
     },
   };
 
-  // Анімації для модалки
+ 
   const backdropVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.3 } },
@@ -156,12 +167,15 @@ export function Inwork() {
   };
 
   console.log(appeal);
+  console.log(appealsWork)
   return (
     <div className="w-full flex flex-col px-12 my-4">
       <div className="w-[35%] mt-40 flex gap-3 items-center pl-10">
         <div className="relative w-[90%]">
           <input
             type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full h-12 pl-12 pr-4 bg-white rounded-2xl border border-gray-200 shadow-sm focus:outline-none focus:ring-4 focus:ring-[#FFBE7D]/50 focus:border-[#FFBE7D] transition-all duration-300 hover:shadow-md text-sm text-gray-700 placeholder-gray-400"
             placeholder="Пошук..."
           />
@@ -199,54 +213,86 @@ export function Inwork() {
           <div className="w-full h-auto flex justify-between mt-10">
             <h1 className="text-[#3A3A3A] text-4xl font-semibold">В роботі</h1>
             <button
-              className="text-[#BFBBB7] mr-10 text-base font-medium uppercase cursor-pointer transition duration-300 ease-in-out hover:text-[#3A3A3A] hover:underline hover:scale-105"
+              className="text-[#BFBBB7] mr-[1%] text-base font-medium uppercase cursor-pointer transition duration-300 ease-in-out hover:text-[#3A3A3A] hover:underline hover:scale-105"
               onClick={change_status1}
             >
               {try1 ? "Переглянути всі" : "Згорнути"}
             </button>
           </div>
           <div className="w-full mt-8 flex gap-4 mb-10 flex-wrap">
-            {appealsWork.map((item) => (
-              <Link
-                href={`${
-                  item.status === "В роботі"
-                    ? `/kp#${item.application_id}`
-                    : `/kpWorking#${item.application_id}`
-                }`}
-                key={item.application_id}
-              >
-                <div className="w-[full] h-35 bg-white rounded-lg flex-col py-2 px-2 drop-shadow-xl mb-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl">
-                  <p className="text-[#3A3A3A] text-xs font-light">
-                    #{item.application_id}
-                  </p>
-                  <h2 className="text-[#1E1E1E] text-2xl font-semibold mb-5">
-                    {item.name}
-                  </h2>
-                  <div className="flex w-full h-auto px-2 gap-2 mb-2">
-                    <div
-                      className={`w-[50%] h-6 ${item.status === "В роботі" ? "bg-[#FBF0E5]" : "bg-[#EDEDED]"}  flex items-center px-1 gap-1 rounded-sm`}
+            {appealsWork.length < 1 ? (
+              <>
+                <h1 className="w-[100%] flex justify-center text-4xl mb-[5%]  font-semibold text-orange-300">
+                  Покищо тут пусто
+                </h1>
+              </>
+            ) : (
+              <>
+                {appealsWork
+                  .filter((item) =>
+                    item.name.toLowerCase().includes(searchQuery.toLowerCase()),
+                  )
+                  .map((item) => (
+                    <Link
+                      href={`${
+                        item.status === "В роботі"
+                          ? `/kp#${item.application_id}`
+                          : `/kpWorking#${item.application_id}`
+                      }`}
+                      key={item.application_id}
                     >
-                      <div
-                        className={`w-2 h-2 rounded-full ${item.status === "В роботі" ? "bg-[#957A5E]" : "bg-[#848484]"} `}
-                      ></div>
-                      <span
-                        className={` ${item.status === "В роботі" ? "text-[#957A5E]" : "text-[#848484]"} font-normal text-sm`}
-                      >
-                        {item.status === "В роботі" ? "В роботі" : "Очікує"}
-                      </span>
-                    </div>
-                    <div className="w-23 h-6 bg-[#EDEDED] flex items-center px-1 gap-1 rounded-sm">
-                      <span className="text-[#848484] font-normal text-sm">
-                        {item.application_date.slice(0, 10)}
-                      </span>
-                    </div>
-                  </div>
-                  <span className="text-[#848484] text-xs font-light">
-                    КП «{item.utility_company.name}»
-                  </span>
-                </div>
-              </Link>
-            ))}
+                      <div className="w-60 h-37 bg-white rounded-lg flex flex-col justify-between py-3 px-3 drop-shadow-xl mb-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl overflow-hidden">
+                        <p className="text-[#3A3A3A] text-xs font-light truncate">
+                          #{item.application_id}
+                        </p>
+
+                        <h2 className="text-[#1E1E1E] text-lg font-semibold mb-2 truncate">
+                          {item.name}
+                        </h2>
+
+                        <div className="flex w-full px-1 gap-2 mb-2">
+                          <div
+                            className={`w-fit h-6 ${
+                              item.status === "В роботі"
+                                ? "bg-[#FBF0E5]"
+                                : "bg-[#EDEDED]"
+                            } flex items-center px-2 gap-1 rounded-sm`}
+                          >
+                            <div
+                              className={`w-2 h-2 rounded-full ${
+                                item.status === "В роботі"
+                                  ? "bg-[#957A5E]"
+                                  : "bg-[#848484]"
+                              }`}
+                            ></div>
+                            <span
+                              className={`${
+                                item.status === "В роботі"
+                                  ? "text-[#957A5E]"
+                                  : "text-[#848484]"
+                              } font-normal text-xs`}
+                            >
+                              {item.status === "В роботі"
+                                ? "В роботі"
+                                : "Очікує"}
+                            </span>
+                          </div>
+
+                          <div className="w-fit h-6 bg-[#EDEDED] flex items-center px-2 gap-1 rounded-sm">
+                            <span className="text-[#848484] font-normal text-xs">
+                              {item.application_date.slice(0, 10)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <span className="text-[#848484] text-xs font-light line-clamp-2">
+                          КП «{item.utility_company.name}»
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+              </>
+            )}
           </div>
         </motion.div>
 
@@ -263,51 +309,67 @@ export function Inwork() {
             </h1>
           </div>
           <div className="w-[100%] h-auto mt-8 flex flex-wrap gap-4">
-            {appealEnded.map((item) => (
-              <Link
-                href={`/kpEnded#${item.application_id}`}
-                key={item.application_id}
-              >
-                <div className="w-[100%] h-35 bg-white rounded-lg flex-col py-2 px-2 drop-shadow-xl mb-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl">
-                  <p className="text-[#3A3A3A] text-xs font-light">
-                    #{item.application_id}
-                  </p>
-                  <h2 className="text-[#1E1E1E] text-2xl font-semibold mb-5">
-                    {item.name}
-                  </h2>
-                  <div className="flex w-[100%] h-auto px-2 gap-2 mb-2">
-                    <div
-                      className={`w-[50%] h-6 ${
-                        item.status === "Виконано"
-                          ? "bg-[#EBFFEE]"
-                          : "bg-[#EA6464]"
-                      } flex items-center px-1 gap-1 rounded-sm`}
+            {appealEnded.length < 1 ? (
+              <h1 className="w-full flex justify-center text-4xl mb-[5%] font-semibold text-orange-300">
+                Поки що тут пусто
+              </h1>
+            ) : (
+              <>
+                {appealEnded
+                  .filter((item) =>
+                    item.name.toLowerCase().includes(searchQuery.toLowerCase()),
+                  )
+                  .map((item) => (
+                    <Link
+                      href={`/kpEnded#${item.application_id}`}
+                      key={item.application_id}
                     >
-                      <div
-                        className={`w-2 h-2 rounded-full ${item.status === "Виконано" ? "bg-[#589D51]" : "bg-[#814242]"}`}
-                      ></div>
-                      <span
-                        className={`${
-                          item.status === "Виконано"
-                            ? "text-[#589D51]"
-                            : "text-[#814242]"
-                        } font-normal text-sm`}
-                      >
-                        {item.status}
-                      </span>
-                    </div>
-                    <div className="w-[50%] h-6 bg-[#EDEDED] flex items-center px-1 gap-1 rounded-sm">
-                      <span className="text-[#848484] font-normal text-sm">
-                        {item.application_date.slice(0, 10)}
-                      </span>
-                    </div>
-                  </div>
-                  <span className="text-[#848484] text-xs font-light">
-                    КП «{item.utility_company.name}»
-                  </span>
-                </div>
-              </Link>
-            ))}
+                      <div className="w-60 h-37 bg-white rounded-lg flex flex-col justify-between py-3 px-3 drop-shadow-xl mb-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl overflow-hidden">
+                        <p className="text-[#3A3A3A] text-xs font-light">
+                          #{item.application_id}
+                        </p>
+                        <h2 className="text-[#1E1E1E] text-xl mb-[10%] font-semibold  line-clamp-2 leading-snug">
+                          {item.name}
+                        </h2>
+                        <div className="flex w-full h-6 px-1 gap-2 mb-2">
+                          <div
+                            className={`w-[42%] h-6 ${
+                              item.status === "Виконано"
+                                ? "bg-[#EBFFEE]"
+                                : "bg-[#EA6464]"
+                            } flex items-center px-1 gap-1 rounded-sm`}
+                          >
+                            <div
+                              className={`w-2 h-2 rounded-full ${
+                                item.status === "Виконано"
+                                  ? "bg-[#589D51]"
+                                  : "bg-[#814242]"
+                              }`}
+                            ></div>
+                            <span
+                              className={`${
+                                item.status === "Виконано"
+                                  ? "text-[#589D51]"
+                                  : "text-[#814242]"
+                              } font-normal text-sm   `}
+                            >
+                              {item.status}
+                            </span>
+                          </div>
+                          <div className="w-[42%] h-6 bg-[#EDEDED] flex items-center px-1 gap-1 rounded-sm">
+                            <span className="text-[#848484] font-normal text-sm">
+                              {item.application_date.slice(0, 10)}
+                            </span>
+                          </div>
+                        </div>
+                        <span className="text-[#848484] text-xs font-light mt-auto">
+                          КП «{item.utility_company.name}»
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+              </>
+            )}
           </div>
           <div className="w-full h-auto flex justify-center mt-5 mb-40">
             <button

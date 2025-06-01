@@ -43,7 +43,7 @@ export function Headeradmin() {
           : "h-25 shadow-md bg-white"
       } rounded-b-2xl flex px-8 place-items-center justify-between transform -translate-x-1/2`}
     >
-      <Link href="http://localhost:3000">
+      
         <Image
           className="drop-shadow-2xl transition-all duration-300"
           src="/images/LogoSite.svg"
@@ -52,7 +52,7 @@ export function Headeradmin() {
           height={isScrolled ? 40 : 56}
           unoptimized
         />
-      </Link>
+      
       <div className="gap-12 flex place-items-center text-sm not-italic uppercase cursor-pointer">
         <Link
           href="http://localhost:3000/appeal"

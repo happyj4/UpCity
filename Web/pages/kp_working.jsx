@@ -1,5 +1,5 @@
 import { Inwork } from "../components/page5/inwork.jsx";
-import { Footer } from "../components/WebComponents/footer.jsx";
+import { Footer } from "../components/WebComponents/footerKp.jsx";
 import { HeaderKP} from "../components/WebComponents/headerKp.jsx";
 
 

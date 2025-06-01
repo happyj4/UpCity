@@ -50,9 +50,9 @@ export default function RegistrationPage() {
         if (data.message === "Успішний вхід ADMIN") {
           sessionStorage.setItem("admin_surname", data.admin_surname);
           sessionStorage.setItem("access_token", data.access_token);
-          sessionStorage.setItem("Admin", "admin")
+          sessionStorage.setItem("Admin", "admin");
           window.location.href = "http://localhost:3000/list_kp";
-        } else if(data.message === "Успішний вхід COMPANY") {
+        } else if (data.message === "Успішний вхід COMPANY") {
           sessionStorage.setItem("KP_surname", data.company_name);
           sessionStorage.setItem("access_token", data.access_token);
           sessionStorage.setItem("KP", "Кп");
@@ -132,7 +132,7 @@ export default function RegistrationPage() {
 
           {/* Кнопка */}
           <button
-            className="bg-[rgba(255,190,125,0.43)] cursor-pointer w-90 h-12 rounded-lg text-[#FBF9F4] text-xl font-semibold uppercase transition duration-300 hover:bg-[rgba(255,190,125,0.7)] hover:text-white hover:shadow-lg"
+            className="bg-[#FF9E3E] cursor-pointer w-90 h-12 rounded-lg text-white text-xl font-semibold uppercase transition duration-300 hover:bg-[#FF7A00] hover:text-white hover:shadow-lg"
             type="submit"
           >
             Увійти

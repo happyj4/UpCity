@@ -136,7 +136,7 @@ export function Edit() {
   };
 
   return (
-    <div className="w-full h-auto">
+    <div className="w-full h-auto bg-[#FBF9F4]">
       <h1 className="text-[#3A3A3A] text-4xl font-semibold pt-40 mb-15 pl-35">
         Редактор комунального підприємства
       </h1>
@@ -199,7 +199,7 @@ export function Edit() {
 
           <motion.button
             onClick={handleSubmit}
-            className="w-full mt-10 mb-30 cursor-pointer h-14 bg-[rgba(255,190,125,0.8)] hover:bg-orange-400 transition-all duration-300 transform hover:scale-105 uppercase rounded-lg text-white text-xl font-semibold shadow-md hover:shadow-2xl"
+            className="w-full mt-10 cursor-pointer h-14 bg-[rgba(255,190,125,0.8)] hover:bg-orange-400 transition-all duration-300 transform hover:scale-105 uppercase rounded-lg text-white text-xl font-semibold shadow-md hover:shadow-2xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={{

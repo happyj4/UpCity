@@ -47,7 +47,7 @@ export function List() {
         {
           headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${token}`, // заміни токен на актуальний, якщо потрібно
+            Authorization: `Bearer ${token}`, 
           },
         },
       );
@@ -128,7 +128,7 @@ export function List() {
         <button
           className="w-[52px] h-[52px] bg-[#FFBE7D] drop-shadow-lg rounded-md flex items-center justify-center 
     transition-all duration-200 ease-in-out hover:bg-[#ffcc97] hover:scale-105 cursor-pointer"
-          onClick={() => setIsFilterVisible(true)} // показати фільтр
+          onClick={() => setIsFilterVisible(true)} 
         >
           <Image
             src="/images/Filter.svg"

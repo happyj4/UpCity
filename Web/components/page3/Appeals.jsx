@@ -27,7 +27,7 @@ export function Appeals() {
 
         const data = await response.json();
 
-        // 🔍 Фільтрація заявок — прибираємо ті, що зі статусом "Не розглянуто"
+       
         const filteredData = data.filter(
           (app) => app.status !== "Не розглянута",
         );
@@ -76,7 +76,7 @@ export function Appeals() {
     item.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  // Варіанти анімації для контейнера (стакінг)
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -87,7 +87,7 @@ export function Appeals() {
     },
   };
 
-  // Варіанти анімації для кожного звернення
+ 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {

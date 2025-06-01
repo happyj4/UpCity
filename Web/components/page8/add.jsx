@@ -120,7 +120,7 @@ export function Add() {
 
   return (
     <motion.div
-      className="w-full h-auto pt-20"
+      className="w-full h-full bg-[#FBF9F4] pt-20"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -190,7 +190,7 @@ export function Add() {
 
           <button
             type="submit"
-            className="w-full mb-30 cursor-pointer h-14 bg-[rgba(255,190,125,0.8)] hover:bg-orange-400 transition-all duration-300 transform hover:scale-105 uppercase rounded-lg text-white text-xl font-semibold shadow-md hover:shadow-2xl"
+            className="w-full mb-[100%] cursor-pointer h-14 bg-[rgba(255,190,125,0.8)] hover:bg-orange-400 transition-all duration-300 transform hover:scale-105 uppercase rounded-lg text-white text-xl font-semibold shadow-md hover:shadow-2xl"
           >
             зберегти
           </button>
