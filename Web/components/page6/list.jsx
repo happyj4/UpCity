@@ -15,7 +15,7 @@ export function List() {
   useEffect(() => {
     const token = sessionStorage.getItem("access_token");
 
-    fetch("http://46.101.245.42/utility_company/", {
+    fetch("https://upcity.live/utility_company/", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -40,10 +40,10 @@ export function List() {
     const token = sessionStorage.getItem("access_token");
     const params = new URLSearchParams();
     if (selectedRatingSort) params.append("sort_by_rating", selectedRatingSort);
-    console.log(`смотри http://46.101.245.42/application/?${params}`);
+    console.log(`смотри https://upcity.live/application/?${params}`);
     try {
       const response = await fetch(
-        `http://46.101.245.42/utility_company/?${params}`,
+        `https://upcity.live/utility_company/?${params}`,
         {
           headers: {
             Accept: "application/json",
@@ -78,7 +78,7 @@ export function List() {
       cancelButtonText: "Скасувати",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://46.101.245.42/utility_company/${id}`, {
+        fetch(`https://upcity.live/utility_company/${id}`, {
           method: "DELETE",
           headers: {
             Accept: "*/*",
