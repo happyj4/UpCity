@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 
-export function Edit() {
+export default function Edit() {
   const [data, setData] = useState({
     name: "",
     address: "",
@@ -25,7 +25,7 @@ export function Edit() {
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: Bearer ${token},
         },
       })
         .then((res) => res.json())
@@ -101,12 +101,12 @@ export function Edit() {
 
     try {
       const response = await fetch(
-        `https://upcity.live/utility_company/${hashId}`,
+        https://upcity.live/utility_company/${hashId},
         {
           method: "PUT",
           headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: Bearer ${token},
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
@@ -118,6 +118,7 @@ export function Edit() {
       }
 
       const result = await response.json();
+      console.log("Успішно оновлено:", result);
       Swal.fire({
         icon: "success",
         title: "Відредаговано",
@@ -125,7 +126,7 @@ export function Edit() {
         confirmButtonText: "OK",
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = "https://up-city-8xew.vercel.app/list_kp";
+          window.location.href = "https://upcity-six.vercel.app/list_kp";
         }
       });
     } catch (error) {
@@ -152,7 +153,9 @@ export function Edit() {
           variants={{
             visible: {
               transition: {
-                staggerChildren: 0.1,
+
+Захар, [02.06.2025 16:07]
+staggerChildren: 0.1,
               },
             },
           }}
@@ -185,8 +188,9 @@ export function Edit() {
                   email: "email@example.com",
                 }[field]}
                 className={`w-full h-16 rounded-lg bg-[#FFFEFC] focus:bg-white focus:border-orange-400 focus:ring-2 focus:ring-orange-200 outline-none drop-shadow-md mt-2 mb-1 pl-6 transition-all duration-300 ${
-                  errors[field] ? "border border-red-600" : ""
-                }`}
+  errors[field] ? "border border-red-600" : ""
+}`}
+
               />
               {errors[field] && (
                 <div className="text-red-600 text-sm mb-3">
