@@ -34,10 +34,9 @@ export function EndPage() {
         </div>
         <div className="w-[90%] h-auto break-words mt-8 mb-20">
           <p className="text-[#3A3A3A] text-base font-light">
-            Lorem ipsum dolor sit amet consectetur. Dis mus ultrices gravida
-            lacinia vehicula pretium aliquam ultrices phasellus. Semper volutpat
-            dignissim velit blandit vitae sed ут nunc. Id neque placerat urna a
-            pharetra. Et viverra pretium a penatibus sed.
+            UpCity — це зручний мобільний інструмент для оперативного звернення до 
+            міських служб. Повідомляйте про проблеми, відстежуйте статус звернень та отримуйте 
+            сповіщення про їх вирішення — все в одному місці. Разом ми зробимо наше місто комфортнішим!
           </p>
         </div>
         <motion.div
